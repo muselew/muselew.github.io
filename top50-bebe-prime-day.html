@@ -1,0 +1,343 @@
+<title>Top 50 Bebê — Fraldas, Pomadas &amp; Paninhos 🐇</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root{
+    --paper:#FDF7EC;
+    --ink:#3E2C22;
+    --ink-soft:#6B5344;
+    --bunny:#D98BA8;
+    --peach:#F4C9A8;
+    --sage:#7C9473;
+    --terracotta:#C65D42;
+    --sky:#7FA6B0;
+    --line:#E8D9C3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0;
+    padding:2rem 1.1rem 3rem;
+    display:flex;
+    justify-content:center;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{ width:100%; max-width:800px; }
+  .hero{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    padding-bottom:1.75rem;
+    border-bottom:2px dashed var(--line);
+    margin-bottom:2rem;
+  }
+  .hero svg{ flex:none; width:132px; height:132px; }
+  h1{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:1.9rem;
+    line-height:1.08;
+    margin:0 0 .4rem;
+    color:var(--terracotta);
+    text-wrap:balance;
+  }
+  .hero p{ margin:0; color:var(--ink-soft); font-size:.92rem; max-width:40ch; }
+  .tag{
+    display:inline-block;
+    background:var(--sage);
+    color:#fff;
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:.15rem .55rem;
+    border-radius:999px;
+    margin-bottom:.5rem;
+  }
+  .section{ margin-top:2.4rem; }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:.6rem;
+    margin-bottom:.6rem;
+  }
+  .section-head h2{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-size:1.25rem;
+    font-weight:800;
+    margin:0;
+    color:var(--ink);
+  }
+  .section-head .count{
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+  }
+  .section.fraldas .section-head h2{ color:var(--bunny); }
+  .section.pomadas .section-head h2{ color:var(--terracotta); }
+  .section.paninhos .section-head h2{ color:var(--sky); }
+  .item{
+    display:grid;
+    grid-template-columns:2rem 1fr auto;
+    align-items:center;
+    gap:.85rem;
+    padding:.75rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:first-child{ padding-top:0; }
+  .rank{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:.95rem;
+    color:var(--peach);
+    -webkit-text-stroke:1px var(--bunny);
+    text-align:center;
+  }
+  .name{ font-size:.86rem; line-height:1.3; color:var(--ink); overflow-wrap:anywhere; }
+  .name a{ color:inherit; text-decoration:none; }
+  .name a:hover, .name a:focus-visible{ text-decoration:underline; text-decoration-color:var(--bunny); }
+  .prices{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .strike{ display:block; font-size:.7rem; color:var(--ink-soft); text-decoration:line-through; }
+  .now{ display:block; font-weight:700; font-size:.92rem; }
+  .unit{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .perkg{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .pct{
+    display:inline-block;
+    margin-top:.15rem;
+    font-size:.7rem;
+    font-weight:700;
+    padding:.05rem .45rem;
+    border-radius:999px;
+    color:#fff;
+    background:var(--bunny);
+  }
+  .section.pomadas .pct{ background:var(--terracotta); }
+  .section.paninhos .pct{ background:var(--sky); }
+  .item:nth-child(-n+3) .pct{ filter:brightness(0.88); }
+  footer{
+    margin-top:2.25rem;
+    padding-top:1.25rem;
+    border-top:2px dashed var(--line);
+    font-size:.78rem;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  footer svg{ width:28px; height:28px; flex:none; }
+  a:focus-visible{ outline:2px solid var(--bunny); outline-offset:2px; }
+
+  .search-wrap{ margin-bottom:1.75rem; }
+  .search-wrap input{
+    width:100%;
+    padding:.65rem 1rem;
+    border:2px solid var(--line);
+    border-radius:999px;
+    background:#fff;
+    color:var(--ink);
+    font-size:.9rem;
+    font-family:inherit;
+  }
+  .search-wrap input::placeholder{ color:var(--ink-soft); opacity:.8; }
+  .search-wrap input:focus-visible{ outline:2px solid var(--bunny); border-color:transparent; }
+  .no-results{ display:none; text-align:center; color:var(--ink-soft); font-size:.9rem; padding:2rem 0; }
+  .section-head{ cursor:pointer; user-select:none; }
+  .section-head .chevron{
+    margin-left:auto;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    transition:transform .2s ease;
+  }
+  .section.collapsed .chevron{ transform:rotate(-90deg); }
+  .section.collapsed .items{ display:none; }
+
+  @media (max-width:600px){
+    body{ padding:1.5rem .8rem 2.5rem; }
+    .hero{ gap:1rem; padding-bottom:1.4rem; margin-bottom:1.5rem; }
+    .hero svg{ width:96px; height:96px; }
+    h1{ font-size:1.5rem; }
+    .hero p{ font-size:.85rem; }
+    .section{ margin-top:1.9rem; }
+    .section-head h2{ font-size:1.1rem; }
+  }
+  @media (max-width:420px){
+    .hero{ flex-direction:column; text-align:center; gap:.75rem; }
+    .hero p{ max-width:none; }
+    .item{
+      grid-template-columns:1fr auto;
+      grid-template-areas:"name name" "rank prices";
+      row-gap:.2rem;
+    }
+    .item .name{ grid-area:name; }
+    .item .rank{ grid-area:rank; text-align:left; font-size:.8rem; }
+    .item .prices{ grid-area:prices; }
+    .name{ font-size:.84rem; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+    <feGaussianBlur in="disp" stdDeviation="1.1" result="blur"/>
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"/>
+  </filter>
+</svg>
+
+<div class="page">
+
+  <div class="hero">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <ellipse cx="72" cy="40" rx="15" ry="42" fill="#D98BA8" opacity="0.85" transform="rotate(-12 72 40)"/>
+        <ellipse cx="128" cy="40" rx="15" ry="42" fill="#D98BA8" opacity="0.85" transform="rotate(12 128 40)"/>
+        <ellipse cx="74" cy="42" rx="6.5" ry="28" fill="#F4C9A8" opacity="0.9" transform="rotate(-12 74 42)"/>
+        <ellipse cx="126" cy="42" rx="6.5" ry="28" fill="#F4C9A8" opacity="0.9" transform="rotate(12 126 42)"/>
+        <circle cx="100" cy="125" r="58" fill="#F4E3EA" opacity="0.95"/>
+        <path d="M50 132 Q65 172 100 174 Q135 172 150 132 Q135 158 100 160 Q65 158 50 132 Z" fill="#FDF7EC" opacity="0.9"/>
+        <circle cx="80" cy="115" r="6.5" fill="#3E2C22"/>
+        <circle cx="120" cy="115" r="6.5" fill="#3E2C22"/>
+        <path d="M100 124 L94 132 L106 132 Z" fill="#D98BA8"/>
+        <path d="M100 132 Q100 138 94 140" stroke="#3E2C22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <path d="M100 132 Q100 138 106 140" stroke="#3E2C22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <circle cx="62" cy="128" r="9" fill="#D98BA8" opacity="0.4"/>
+        <circle cx="138" cy="128" r="9" fill="#D98BA8" opacity="0.4"/>
+      </g>
+    </svg>
+    <div>
+      <span class="tag">Prime Day · Amazon.com.br</span>
+      <h1>Top 50 ofertas de bebê</h1>
+      <p>Fraldas, pomadas de assadura e lenços umedecidos, rankeados por % de desconto real coletado ao vivo.</p>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input type="search" placeholder="Buscar por marca, tamanho..." aria-label="Buscar produto">
+  </div>
+
+  <div class="section fraldas">
+    <div class="section-head"><h2>Fraldas</h2><span class="count">17 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FN7VP5Y?tag=muselew-20" target="_blank" rel="noopener">Huggies Máxima Proteção, Tamanho P, 48 un.</a></span><span class="prices"><span class="strike">R$ 72,65</span><span class="now">R$ 39,99</span><span class="unit">R$ 0,83/un</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B09FFVMNFB?tag=muselew-20" target="_blank" rel="noopener">Pampers Confort Sec, Tamanho G, 168 un.</a></span><span class="prices"><span class="strike">R$ 235,87</span><span class="now">R$ 136,56</span><span class="unit">R$ 0,81/un</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FT23TCN?tag=muselew-20" target="_blank" rel="noopener">Huggies Máxima Proteção, Tamanho G, 32 un.</a></span><span class="prices"><span class="strike">R$ 67,90</span><span class="now">R$ 39,99</span><span class="unit">R$ 1,25/un</span><span class="pct">-41%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FSVQZYX?tag=muselew-20" target="_blank" rel="noopener">Huggies Máxima Proteção, Tamanho M, 40 un.</a></span><span class="prices"><span class="strike">R$ 67,90</span><span class="now">R$ 39,99</span><span class="unit">R$ 1,00/un</span><span class="pct">-41%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0B786SNQN?tag=muselew-20" target="_blank" rel="noopener">Huggies Tripla Proteção, Tamanho P, 32 un.</a></span><span class="prices"><span class="strike">R$ 82,43</span><span class="now">R$ 48,23</span><span class="unit">R$ 1,51/un</span><span class="pct">-41%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B07GR5T4RF?tag=muselew-20" target="_blank" rel="noopener">Huggies Pants Supreme Care, Tamanho G, 60 un.</a></span><span class="prices"><span class="strike">R$ 113,25</span><span class="now">R$ 71,23</span><span class="unit">R$ 1,19/un</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0848FMW1W?tag=muselew-20" target="_blank" rel="noopener">Pampers Premium Care Pants, Tamanho M, 124 un.</a></span><span class="prices"><span class="strike">R$ 182,48</span><span class="now">R$ 117,47</span><span class="unit">R$ 0,95/un</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FN5MD3Z?tag=muselew-20" target="_blank" rel="noopener">Huggies Pants Proteção Acolchoada, Tamanho XXG, 24 un.</a></span><span class="prices"><span class="strike">R$ 65,29</span><span class="now">R$ 41,99</span><span class="unit">R$ 1,75/un</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D51V4FYN?tag=muselew-20" target="_blank" rel="noopener">MamyPoko Fralda-Calça Superproteção, Tamanho XG, 24 un.</a></span><span class="prices"><span class="strike">R$ 42,90</span><span class="now">R$ 27,90</span><span class="unit">R$ 1,16/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DDTYKDKX?tag=muselew-20" target="_blank" rel="noopener">Pampers Premium Care, Tamanho XXXG, 104 un.</a></span><span class="prices"><span class="strike">R$ 242,27</span><span class="now">R$ 159,89</span><span class="unit">R$ 1,54/un</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DK3M6161?tag=muselew-20" target="_blank" rel="noopener">MamyPoko Fralda-Calça Superproteção, Tamanho M, 34 un.</a></span><span class="prices"><span class="strike">R$ 42,90</span><span class="now">R$ 28,40</span><span class="unit">R$ 0,84/un</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FPSHCSQF?tag=muselew-20" target="_blank" rel="noopener">Huggies Pants Proteção Acolchoada, Tamanho XG, 144 un.</a></span><span class="prices"><span class="strike">R$ 289,00</span><span class="now">R$ 189,98</span><span class="unit">R$ 1,32/un</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DSC8C4XH?tag=muselew-20" target="_blank" rel="noopener">Huggies Premium Dermacare, Tamanho XG, 38 un.</a></span><span class="prices"><span class="strike">R$ 106,40</span><span class="now">R$ 71,15</span><span class="unit">R$ 1,87/un</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B08GZNWJ17?tag=muselew-20" target="_blank" rel="noopener">Huggies Pants Proteção Acolchoada, Tamanho M, 72 un.</a></span><span class="prices"><span class="strike">R$ 113,25</span><span class="now">R$ 75,90</span><span class="unit">R$ 1,05/un</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DDTZJP28?tag=muselew-20" target="_blank" rel="noopener">Pampers Premium Care, Tamanho XXG, 112 un.</a></span><span class="prices"><span class="strike">R$ 242,27</span><span class="now">R$ 164,88</span><span class="unit">R$ 1,47/un</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DFQJQGPL?tag=muselew-20" target="_blank" rel="noopener">Pampers Pants Ajuste Total, Tamanho XXXG, 108 un.</a></span><span class="prices"><span class="strike">R$ 229,49</span><span class="now">R$ 155,51</span><span class="unit">R$ 1,44/un</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FPSPP7N5?tag=muselew-20" target="_blank" rel="noopener">Huggies Pants Proteção Acolchoada, Tamanho M, 216 un.</a></span><span class="prices"><span class="strike">R$ 289,00</span><span class="now">R$ 199,90</span><span class="unit">R$ 0,93/un</span><span class="pct">-31%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section pomadas">
+    <div class="section-head"><h2>Pomadas de assadura</h2><span class="count">16 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B07G5938MQ?tag=muselew-20" target="_blank" rel="noopener">Dermodex Prevent Creme Preventivo de Assaduras, 30g</a></span><span class="prices"><span class="strike">R$ 27,99</span><span class="now">R$ 11,99</span><span class="pct">-57%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FH7FZR1F?tag=muselew-20" target="_blank" rel="noopener">Weleda Babycreme de Calêndula, 30ml</a></span><span class="prices"><span class="strike">R$ 39,90</span><span class="now">R$ 20,91</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B00TQCAAQW?tag=muselew-20" target="_blank" rel="noopener">Mustela Creme Preventivo Vitaminado 1&gt;2&gt;3, 108g</a></span><span class="prices"><span class="strike">R$ 93,78</span><span class="now">R$ 58,90</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B08FVVH9BC?tag=muselew-20" target="_blank" rel="noopener">Huggies Creme Preventivo Pele Protegida, kit 3x80g</a></span><span class="prices"><span class="strike">R$ 85,50</span><span class="now">R$ 54,80</span><span class="unit">R$ 18,27/un</span><span class="perkg">R$ 228,33/kg</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0B9HWK12S?tag=muselew-20" target="_blank" rel="noopener">Cetrilan Creme Para Prevenção de Assaduras, 120g</a></span><span class="prices"><span class="strike">R$ 93,02</span><span class="now">R$ 60,99</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B07MQG6SWC?tag=muselew-20" target="_blank" rel="noopener">Bepantol Baby Creme Prevenção de Assaduras, 100g</a></span><span class="prices"><span class="strike">R$ 59,99</span><span class="now">R$ 39,99</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FH7C4YCS?tag=muselew-20" target="_blank" rel="noopener">Weleda Babycreme de Calêndula, 120ml</a></span><span class="prices"><span class="strike">R$ 87,90</span><span class="now">R$ 61,03</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CHZ9XXPX?tag=muselew-20" target="_blank" rel="noopener">Hipoglós Creme Preventivo de Assaduras, 40g</a></span><span class="prices"><span class="strike">R$ 28,79</span><span class="now">R$ 19,89</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0H2G38ZNW?tag=muselew-20" target="_blank" rel="noopener">Bepantol Baby Kit 3 Cremes, 100g cada</a></span><span class="prices"><span class="strike">R$ 169,90</span><span class="now">R$ 119,61</span><span class="unit">R$ 39,87/un</span><span class="perkg">R$ 398,70/kg</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B07X41XJ87?tag=muselew-20" target="_blank" rel="noopener">Huggies Creme Preventivo Pele Protegida, 80g</a></span><span class="prices"><span class="strike">R$ 33,16</span><span class="now">R$ 23,35</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0H2G6W6L5?tag=muselew-20" target="_blank" rel="noopener">Bepantol Baby Kit 2 Cremes, 100g cada</a></span><span class="prices"><span class="strike">R$ 119,90</span><span class="now">R$ 84,96</span><span class="unit">R$ 42,48/un</span><span class="perkg">R$ 424,80/kg</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B07NPY7VDL?tag=muselew-20" target="_blank" rel="noopener">Granado Creme Assaduras Dermocalmante, 300g</a></span><span class="prices"><span class="strike">R$ 88,63</span><span class="now">R$ 65,46</span><span class="perkg">R$ 218,20/kg</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CHZCWLV6?tag=muselew-20" target="_blank" rel="noopener">Hipoglós Creme Preventivo de Assaduras, 120g</a></span><span class="prices"><span class="strike">R$ 67,99</span><span class="now">R$ 50,98</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CN78KBW2?tag=muselew-20" target="_blank" rel="noopener">Nebacetin Baby Pomada Prevenção, 60g</a></span><span class="prices"><span class="strike">R$ 35,90</span><span class="now">R$ 27,27</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B07DHSTTCN?tag=muselew-20" target="_blank" rel="noopener">Desitin Proteção Diária Creamy, 113g</a></span><span class="prices"><span class="strike">R$ 86,99</span><span class="now">R$ 68,17</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B07NPYD9KF?tag=muselew-20" target="_blank" rel="noopener">Granado Creme Assaduras Dermocalmante, 50g</a></span><span class="prices"><span class="strike">R$ 40,88</span><span class="now">R$ 31,99</span><span class="pct">-22%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section paninhos">
+    <div class="section-head"><h2>Lenços umedecidos (paninhos)</h2><span class="count">17 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B09BBDVPB1?tag=muselew-20" target="_blank" rel="noopener">MamyPoko Lenços Umedecidos Dia&amp;Noite, 200 un.</a></span><span class="prices"><span class="strike">R$ 42,80</span><span class="now">R$ 22,90</span><span class="unit">R$ 0,11/un</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B07GFFW1LN?tag=muselew-20" target="_blank" rel="noopener">Mili Toalhinha Umedecida Love&amp;Care, 100 un.</a></span><span class="prices"><span class="strike">R$ 20,04</span><span class="now">R$ 11,99</span><span class="unit">R$ 0,12/un</span><span class="pct">-40%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D2ZH3TCJ?tag=muselew-20" target="_blank" rel="noopener">Mustela Toalhas Compostáveis Com Perfume, 60 un.</a></span><span class="prices"><span class="strike">R$ 45,50</span><span class="now">R$ 28,90</span><span class="unit">R$ 0,48/un</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BSNRGX1B?tag=muselew-20" target="_blank" rel="noopener">Bepantol Baby Lenço Umedecido, Leve Mais Pague Menos, 288 un.</a></span><span class="prices"><span class="strike">R$ 91,39</span><span class="now">R$ 59,99</span><span class="unit">R$ 0,21/un</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D8JWH2TZ?tag=muselew-20" target="_blank" rel="noopener">Granado Lenço Umedecido Bebê, Calêndula, 50 un.</a></span><span class="prices"><span class="strike">R$ 16,89</span><span class="now">R$ 11,80</span><span class="unit">R$ 0,24/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FFHV3MX?tag=muselew-20" target="_blank" rel="noopener">Granado Lenço Umedecido Bebê, Lavanda, 50 un.</a></span><span class="prices"><span class="strike">R$ 16,89</span><span class="now">R$ 11,80</span><span class="unit">R$ 0,24/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FLP87M3?tag=muselew-20" target="_blank" rel="noopener">Granado Lenço Umedecido Bebê, Pele Sensível, 50 un.</a></span><span class="prices"><span class="strike">R$ 16,89</span><span class="now">R$ 11,80</span><span class="unit">R$ 0,24/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D3617S3R?tag=muselew-20" target="_blank" rel="noopener">MamyPoko Lenços Umedecidos Dia&amp;Noite, 500 un.</a></span><span class="prices"><span class="strike">R$ 70,35</span><span class="now">R$ 52,90</span><span class="unit">R$ 0,11/un</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B088P9S98P?tag=muselew-20" target="_blank" rel="noopener">MamyPoko Lenços Umedecidos Toque Suave, 200 un.</a></span><span class="prices"><span class="strike">R$ 43,90</span><span class="now">R$ 33,90</span><span class="unit">R$ 0,17/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FN1XPNW?tag=muselew-20" target="_blank" rel="noopener">Huggies Lenços Higiene Superior, 6x48 un.</a></span><span class="prices"><span class="strike">R$ 55,48</span><span class="now">R$ 44,03</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B082L13YPQ?tag=muselew-20" target="_blank" rel="noopener">Pampers Lenços Umedecidos Aroma de Aloe Vera, 192 un.</a></span><span class="prices"><span class="strike">R$ 46,70</span><span class="now">R$ 37,09</span><span class="unit">R$ 0,19/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B082L1LWM9?tag=muselew-20" target="_blank" rel="noopener">Pampers Lenços Umedecidos Aroma de Lavanda, 48 un.</a></span><span class="prices"><span class="strike">R$ 16,37</span><span class="now">R$ 12,89</span><span class="unit">R$ 0,27/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FCSNGK6G?tag=muselew-20" target="_blank" rel="noopener">Free Wipes Lenço Umedecido Toilet Pack, 4 un.</a></span><span class="prices"><span class="strike">R$ 29,90</span><span class="now">R$ 23,69</span><span class="unit">R$ 5,92/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B096KDKNNQ?tag=muselew-20" target="_blank" rel="noopener">Bepantol Baby Lenço Umedecido, Leve 4 Pague 3, 192 un.</a></span><span class="prices"><span class="strike">R$ 50,97</span><span class="now">R$ 40,53</span><span class="unit">R$ 0,21/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B08T85RHB1?tag=muselew-20" target="_blank" rel="noopener">Pampers Lenços Umedecidos Higiene Completa, 192 un.</a></span><span class="prices"><span class="strike">R$ 46,70</span><span class="now">R$ 37,19</span><span class="unit">R$ 0,19/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CLXK429D?tag=muselew-20" target="_blank" rel="noopener">Lenço Umedecido Baby Softly, 20 pacotes de 60 un.</a></span><span class="prices"><span class="strike">R$ 99,99</span><span class="now">R$ 79,99</span><span class="unit">R$ 4,00/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0781CTJF6?tag=muselew-20" target="_blank" rel="noopener">Piquitucho Toalhinhas Umedecidas Premium, 120 un.</a></span><span class="prices"><span class="strike">R$ 16,99</span><span class="now">R$ 13,99</span><span class="unit">R$ 0,12/un</span><span class="pct">-18%</span></span></div>
+    </div>
+  </div>
+
+  <p class="no-results">Nenhum produto encontrado para essa busca.</p>
+
+  <footer>
+    <svg viewBox="0 0 60 60" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <ellipse cx="22" cy="16" rx="5" ry="14" fill="#D98BA8" opacity="0.8" transform="rotate(-10 22 16)"/>
+        <ellipse cx="38" cy="16" rx="5" ry="14" fill="#D98BA8" opacity="0.8" transform="rotate(10 38 16)"/>
+        <circle cx="30" cy="38" r="18" fill="#F4E3EA" opacity="0.9"/>
+      </g>
+    </svg>
+    <span>Coletado ao vivo via busca Amazon.com.br — preços e ofertas mudam a qualquer momento, confira antes de comprar. Links com tag de afiliado.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var input = document.querySelector('.search-wrap input');
+  var sections = document.querySelectorAll('.section');
+  var noResults = document.querySelector('.no-results');
+
+  sections.forEach(function(section){
+    var head = section.querySelector('.section-head');
+    if(head){
+      head.addEventListener('click', function(){
+        section.classList.toggle('collapsed');
+      });
+    }
+  });
+
+  function filter(){
+    var term = input.value.trim().toLowerCase();
+    var anyVisible = false;
+    sections.forEach(function(section){
+      var items = section.querySelectorAll('.item');
+      var visible = 0;
+      items.forEach(function(item){
+        var name = item.querySelector('.name').textContent.toLowerCase();
+        var match = term === '' || name.indexOf(term) !== -1;
+        item.style.display = match ? '' : 'none';
+        if(match) visible++;
+      });
+      var countEl = section.querySelector('.count');
+      if(countEl) countEl.textContent = visible + (visible === 1 ? ' item' : ' itens');
+      if(term !== '' && visible > 0) section.classList.remove('collapsed');
+      section.style.display = visible === 0 ? 'none' : '';
+      if(visible > 0) anyVisible = true;
+    });
+    noResults.style.display = anyVisible ? 'none' : 'block';
+  }
+
+  if(input) input.addEventListener('input', filter);
+})();
+</script>

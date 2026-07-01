@@ -1,0 +1,359 @@
+<title>Top Ofertas Ração &amp; Petiscos Dog 🦕</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root{
+    --paper:#FDF7EC;
+    --ink:#3E2C22;
+    --ink-soft:#6B5344;
+    --dino:#6FA36B;
+    --dino-belly:#BFE0B0;
+    --peach:#F4C9A8;
+    --sage:#7C9473;
+    --terracotta:#C65D42;
+    --sky:#7FA6B0;
+    --mustard:#C9A227;
+    --line:#E8D9C3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0;
+    padding:2rem 1.1rem 3rem;
+    display:flex;
+    justify-content:center;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{ width:100%; max-width:800px; }
+  .hero{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    padding-bottom:1.75rem;
+    border-bottom:2px dashed var(--line);
+    margin-bottom:2rem;
+  }
+  .hero svg{ flex:none; width:132px; height:132px; }
+  h1{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:1.9rem;
+    line-height:1.08;
+    margin:0 0 .4rem;
+    color:var(--terracotta);
+    text-wrap:balance;
+  }
+  .hero p{ margin:0; color:var(--ink-soft); font-size:.92rem; max-width:40ch; }
+  .tag{
+    display:inline-block;
+    background:var(--sage);
+    color:#fff;
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:.15rem .55rem;
+    border-radius:999px;
+    margin-bottom:.5rem;
+  }
+  .section{ margin-top:2.4rem; }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:.6rem;
+    margin-bottom:.6rem;
+  }
+  .section-head h2{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-size:1.25rem;
+    font-weight:800;
+    margin:0;
+    color:var(--ink);
+  }
+  .section-head .count{
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+  }
+  .section.formula-natural .section-head h2{ color:var(--terracotta); }
+  .section.nd .section-head h2{ color:var(--sky); }
+  .section.royal-canin .section-head h2{ color:var(--sage); }
+  .section.guabi .section-head h2{ color:var(--mustard); }
+  .section.petiscos .section-head h2{ color:var(--dino); }
+  .item{
+    display:grid;
+    grid-template-columns:2rem 1fr auto;
+    align-items:center;
+    gap:.85rem;
+    padding:.75rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:first-child{ padding-top:0; }
+  .rank{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:.95rem;
+    color:var(--peach);
+    -webkit-text-stroke:1px var(--dino);
+    text-align:center;
+  }
+  .name{ font-size:.86rem; line-height:1.3; color:var(--ink); overflow-wrap:anywhere; }
+  .name a{ color:inherit; text-decoration:none; }
+  .name a:hover, .name a:focus-visible{ text-decoration:underline; text-decoration-color:var(--dino); }
+  .prices{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .strike{ display:block; font-size:.7rem; color:var(--ink-soft); text-decoration:line-through; }
+  .now{ display:block; font-weight:700; font-size:.92rem; }
+  .unit{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .perkg{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .pct{
+    display:inline-block;
+    margin-top:.15rem;
+    font-size:.7rem;
+    font-weight:700;
+    padding:.05rem .45rem;
+    border-radius:999px;
+    color:#fff;
+    background:var(--dino);
+  }
+  .section.formula-natural .pct{ background:var(--terracotta); }
+  .section.nd .pct{ background:var(--sky); }
+  .section.royal-canin .pct{ background:var(--sage); }
+  .section.guabi .pct{ background:var(--mustard); }
+  .item:nth-child(-n+3) .pct{ filter:brightness(0.88); }
+  footer{
+    margin-top:2.25rem;
+    padding-top:1.25rem;
+    border-top:2px dashed var(--line);
+    font-size:.78rem;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  footer svg{ width:28px; height:28px; flex:none; }
+  a:focus-visible{ outline:2px solid var(--dino); outline-offset:2px; }
+
+  .search-wrap{ margin-bottom:1.75rem; }
+  .search-wrap input{
+    width:100%;
+    padding:.65rem 1rem;
+    border:2px solid var(--line);
+    border-radius:999px;
+    background:#fff;
+    color:var(--ink);
+    font-size:.9rem;
+    font-family:inherit;
+  }
+  .search-wrap input::placeholder{ color:var(--ink-soft); opacity:.8; }
+  .search-wrap input:focus-visible{ outline:2px solid var(--dino); border-color:transparent; }
+  .no-results{ display:none; text-align:center; color:var(--ink-soft); font-size:.9rem; padding:2rem 0; }
+  .section-head{ cursor:pointer; user-select:none; }
+  .section-head .chevron{
+    margin-left:auto;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    transition:transform .2s ease;
+  }
+  .section.collapsed .chevron{ transform:rotate(-90deg); }
+  .section.collapsed .items{ display:none; }
+
+  @media (max-width:600px){
+    body{ padding:1.5rem .8rem 2.5rem; }
+    .hero{ gap:1rem; padding-bottom:1.4rem; margin-bottom:1.5rem; }
+    .hero svg{ width:96px; height:96px; }
+    h1{ font-size:1.5rem; }
+    .hero p{ font-size:.85rem; }
+    .section{ margin-top:1.9rem; }
+    .section-head h2{ font-size:1.1rem; }
+  }
+  @media (max-width:420px){
+    .hero{ flex-direction:column; text-align:center; gap:.75rem; }
+    .hero p{ max-width:none; }
+    .item{
+      grid-template-columns:1fr auto;
+      grid-template-areas:"name name" "rank prices";
+      row-gap:.2rem;
+    }
+    .item .name{ grid-area:name; }
+    .item .rank{ grid-area:rank; text-align:left; font-size:.8rem; }
+    .item .prices{ grid-area:prices; }
+    .name{ font-size:.84rem; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+    <feGaussianBlur in="disp" stdDeviation="1.1" result="blur"/>
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"/>
+  </filter>
+</svg>
+
+<div class="page">
+
+  <div class="hero">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <path d="M60 150 Q40 145 32 158 Q44 162 52 156 Z" fill="#6FA36B" opacity="0.85"/>
+        <ellipse cx="95" cy="130" rx="52" ry="34" fill="#6FA36B" opacity="0.9"/>
+        <path d="M50 118 Q42 100 56 84 Q60 100 66 112 Z" fill="#6FA36B" opacity="0.9"/>
+        <circle cx="56" cy="88" r="20" fill="#6FA36B" opacity="0.92"/>
+        <path d="M46 74 L50 62 L56 74 Z" fill="#4E8A4E" opacity="0.85"/>
+        <path d="M58 70 L62 58 L68 71 Z" fill="#4E8A4E" opacity="0.85"/>
+        <path d="M62 118 L66 106 L72 119 Z" fill="#4E8A4E" opacity="0.8"/>
+        <path d="M78 122 L82 109 L88 123 Z" fill="#4E8A4E" opacity="0.8"/>
+        <path d="M94 124 L98 111 L104 125 Z" fill="#4E8A4E" opacity="0.8"/>
+        <ellipse cx="95" cy="140" rx="34" ry="18" fill="#BFE0B0" opacity="0.85"/>
+        <circle cx="48" cy="84" r="4.5" fill="#3E2C22"/>
+        <ellipse cx="66" cy="94" rx="7" ry="5" fill="#BFE0B0" opacity="0.9"/>
+        <path d="M60 100 Q66 105 72 100" stroke="#3E2C22" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="120" cy="152" rx="8" ry="12" fill="#6FA36B" opacity="0.88"/>
+        <ellipse cx="70" cy="156" rx="8" ry="12" fill="#6FA36B" opacity="0.88"/>
+        <path d="M132 118 Q118 122 116 132" stroke="#4E8A4E" stroke-width="6" fill="none" stroke-linecap="round" opacity="0.75"/>
+      </g>
+    </svg>
+    <div>
+      <span class="tag">Ofertas · Amazon.com.br</span>
+      <h1>Top ofertas de ração &amp; petiscos dog</h1>
+      <p>Fórmula Natural, N&amp;D, Royal Canin, Guabi Natural, petiscos naturais e Churu — rankeados por % de desconto real coletado ao vivo.</p>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input type="search" placeholder="Buscar por marca, sabor, porte..." aria-label="Buscar produto">
+  </div>
+
+  <div class="section formula-natural">
+    <div class="section-head"><h2>Fórmula Natural</h2><span class="count">6 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DTLQD67Z?tag=muselew-20" target="_blank" rel="noopener">Fórmula Natural Vet Care Gastro Baixa Ração Seca Para Cães Adultos 2Kg</a></span><span class="prices"><span class="strike">R$ 209,90</span><span class="now">R$ 121,52</span><span class="perkg">R$ 60,76/kg</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B088TV88GG?tag=muselew-20" target="_blank" rel="noopener">Fórmula Natural Life Ração Seca Para Cães Adultos De Pequeno Porte Sabor Frango 2,5Kg</a></span><span class="prices"><span class="strike">R$ 97,90</span><span class="now">R$ 60,70</span><span class="perkg">R$ 24,28/kg</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B099NS4FQM?tag=muselew-20" target="_blank" rel="noopener">Fórmula Natural Fresh Meat Ração Seca Para Cães Adultos De Pequeno Porte Sabor Carne de Cordeiro 2,5Kg</a></span><span class="prices"><span class="strike">R$ 172,90</span><span class="now">R$ 112,10</span><span class="perkg">R$ 44,84/kg</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B09THMHBDK?tag=muselew-20" target="_blank" rel="noopener">Fórmula Natural Pro Ração Seca Para Cães Filhotes De Pequeno Porte Sabor Frango 2,5Kg</a></span><span class="prices"><span class="strike">R$ 86,90</span><span class="now">R$ 56,41</span><span class="perkg">R$ 22,56/kg</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B092LJVTV8?tag=muselew-20" target="_blank" rel="noopener">Fórmula Natural Ração Para Cães Filhotes De Raças Pequenas 2,5Kg</a></span><span class="prices"><span class="strike">R$ 99,90</span><span class="now">R$ 66,71</span><span class="perkg">R$ 26,68/kg</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B09THR5NMK?tag=muselew-20" target="_blank" rel="noopener">Fórmula Natural Pro Ração Seca Para Cães Filhotes De Médio Porte Sabor Frango 2,5Kg</a></span><span class="prices"><span class="strike">R$ 86,90</span><span class="now">R$ 59,31</span><span class="perkg">R$ 23,72/kg</span><span class="pct">-32%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section nd">
+    <div class="section-head"><h2>N&amp;D</h2><span class="count">6 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B08KRLMBTM?tag=muselew-20" target="_blank" rel="noopener">N&amp;D Ancestral Grain Selection Ração para Cães Adultos Raças Médias 15 kg</a></span><span class="prices"><span class="strike">R$ 460,90</span><span class="now">R$ 309,90</span><span class="perkg">R$ 20,66/kg</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B08KS28DLP?tag=muselew-20" target="_blank" rel="noopener">N&amp;D Ancestral Grain Selection Ração para Cães Adultos Raças Grandes e Gigantes 15 kg</a></span><span class="prices"><span class="strike">R$ 460,90</span><span class="now">R$ 311,92</span><span class="perkg">R$ 20,79/kg</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0849WPBG3?tag=muselew-20" target="_blank" rel="noopener">N&amp;D PRIME Nd Prime Cao Adult Cord Mini.10,1Kg</a></span><span class="prices"><span class="strike">R$ 573,50</span><span class="now">R$ 408,40</span><span class="perkg">R$ 40,44/kg</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B084NVVDDP?tag=muselew-20" target="_blank" rel="noopener">N&amp;D ANCESTRAL Nd Ancestral Can Cord Adt Maxi 10,1Kg</a></span><span class="prices"><span class="strike">R$ 464,50</span><span class="now">R$ 360,05</span><span class="perkg">R$ 35,65/kg</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B084T6PNMB?tag=muselew-20" target="_blank" rel="noopener">N&amp;D PRIME Ração Farmina N&amp;D Prime Cordeiro E Blueberry Cães Adultos Raças Pequenas - 2,5Kg</a></span><span class="prices"><span class="strike">R$ 233,50</span><span class="now">R$ 185,00</span><span class="perkg">R$ 74,00/kg</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B084P5F7R6?tag=muselew-20" target="_blank" rel="noopener">N&amp;D Prime Ração Farmina Cordeiro e Blueberry Cães Adultos Raças Médias - 10,1kg</a></span><span class="prices"><span class="strike">R$ 546,50</span><span class="now">R$ 439,82</span><span class="perkg">R$ 43,55/kg</span><span class="pct">-20%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section royal-canin">
+    <div class="section-head"><h2>Royal Canin</h2><span class="count">6 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y2C86GL?tag=muselew-20" target="_blank" rel="noopener">ROYAL CANIN Ração Shih Tzu Cães Adultos 2,5Kg para Todas Pequeno Adulto - Sabor Outro</a></span><span class="prices"><span class="strike">R$ 214,94</span><span class="now">R$ 106,90</span><span class="perkg">R$ 42,76/kg</span><span class="pct">-50%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y2CDCB9?tag=muselew-20" target="_blank" rel="noopener">ROYAL CANIN Ração Mini Cães Adultos +8 Anos 2,5Kg para Todas Todos os tamanhos de raça Adulto - Sabor Outro</a></span><span class="prices"><span class="strike">R$ 187,77</span><span class="now">R$ 99,58</span><span class="perkg">R$ 39,83/kg</span><span class="pct">-47%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y2CZFHR?tag=muselew-20" target="_blank" rel="noopener">Ração Royal Canin Cães Adulto Yorkshire Terrier 2,5kg</a></span><span class="prices"><span class="strike">R$ 214,94</span><span class="now">R$ 117,90</span><span class="perkg">R$ 47,16/kg</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y2DWZ3B?tag=muselew-20" target="_blank" rel="noopener">Ração Royal Canin Yorkshire Terrier Cães Adultos 7,5Kg Royal Canin Adulto - Sabor Outro</a></span><span class="prices"><span class="strike">R$ 524,83</span><span class="now">R$ 309,75</span><span class="perkg">R$ 41,30/kg</span><span class="pct">-41%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FC4DCWX1?tag=muselew-20" target="_blank" rel="noopener">Ração Medium Adult para Cães Adultos Royal Canin 12kg</a></span><span class="prices"><span class="strike">R$ 478,96</span><span class="now">R$ 288,56</span><span class="perkg">R$ 24,05/kg</span><span class="pct">-40%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y2CTX4L?tag=muselew-20" target="_blank" rel="noopener">ROYAL CANIN Ração Veterinary Hypoallergenic Small, Cães Adultos 2kg</a></span><span class="prices"><span class="strike">R$ 229,52</span><span class="now">R$ 142,49</span><span class="perkg">R$ 71,25/kg</span><span class="pct">-38%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section guabi">
+    <div class="section-head"><h2>Guabi Natural</h2><span class="count">6 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B07YQ3WG9J?tag=muselew-20" target="_blank" rel="noopener">Guabi Natural Ração Cães Adultos Raças Mini E Pequenas Frango E Arroz Integral 2,5Kg</a></span><span class="prices"><span class="strike">R$ 106,90</span><span class="now">R$ 73,90</span><span class="perkg">R$ 29,56/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Z5G6SJQ?tag=muselew-20" target="_blank" rel="noopener">Ração Guabi Natural Cães Sênior Raças Mini e Pequeno Frango e Arroz Integral 2,5 kg</a></span><span class="prices"><span class="strike">R$ 113,90</span><span class="now">R$ 78,90</span><span class="perkg">R$ 31,56/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y2C116K?tag=muselew-20" target="_blank" rel="noopener">GUABI NATURAL CAO FILHOTE MINI PEQUENO FRANGO E ARROZ 2,5kg</a></span><span class="prices"><span class="strike">R$ 107,00</span><span class="now">R$ 76,90</span><span class="perkg">R$ 30,76/kg</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B084BP7QM1?tag=muselew-20" target="_blank" rel="noopener">Guabi Natural Ração Cães Adultos Porte Médio Cordeiro E Aveia 2,5Kg</a></span><span class="prices"><span class="strike">R$ 116,90</span><span class="now">R$ 85,90</span><span class="perkg">R$ 34,36/kg</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y2CZ31P?tag=muselew-20" target="_blank" rel="noopener">Guabi Natural Ração Raças Pequenas Frango Arroz - 10,1Kg</a></span><span class="prices"><span class="strike">R$ 273,90</span><span class="now">R$ 203,20</span><span class="perkg">R$ 20,12/kg</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B08JTP5ZDQ?tag=muselew-20" target="_blank" rel="noopener">Guabi Natural Ração Grain Free Cães Adultos Raças Mini Pequeno Frango E Lentilha 10,1Kg</a></span><span class="prices"><span class="strike">R$ 313,90</span><span class="now">R$ 236,90</span><span class="perkg">R$ 23,46/kg</span><span class="pct">-25%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section petiscos">
+    <div class="section-head"><h2>Petiscos Naturais &amp; Churu</h2><span class="count">18 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B094W95K9W?tag=muselew-20" target="_blank" rel="noopener">NATURAL CRISP Snack Desidratado Natural Crisp Carne Com Banana 100G</a></span><span class="prices"><span class="strike">R$ 21,90</span><span class="now">R$ 8,90</span><span class="pct">-59%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B08FMVHY62?tag=muselew-20" target="_blank" rel="noopener">Churu Dog Petisco Para Cães Sabor Frango Com Queijo 4 Tubos de 14g</a></span><span class="prices"><span class="strike">R$ 24,99</span><span class="now">R$ 14,00</span><span class="pct">-44%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D92YPJX9?tag=muselew-20" target="_blank" rel="noopener">JUST Petiscos Saudáveis Pack com 6 Unidades Sabor Steak de Pato 75G</a></span><span class="prices"><span class="strike">R$ 119,90</span><span class="now">R$ 73,11</span><span class="unit">R$ 12,19/un</span><span class="pct">-39%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Y5JGF52?tag=muselew-20" target="_blank" rel="noopener">8in1 Sticks Frango 70G 8In.1 8In.1 Sabor Frango</a></span><span class="prices"><span class="strike">R$ 17,52</span><span class="now">R$ 11,05</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FNYF33LV?tag=muselew-20" target="_blank" rel="noopener">Petisco Mix Bites para Cães Origem Bovina 100% Natural PETSKO - 80gr</a></span><span class="prices"><span class="strike">R$ 17,90</span><span class="now">R$ 11,49</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FNXVHBVR?tag=muselew-20" target="_blank" rel="noopener">Mordedor Ripa da Costela Bovina para Cães 100% Natural Origem Bovina PETSKO - 2 Unidades</a></span><span class="prices"><span class="strike">R$ 17,90</span><span class="now">R$ 12,99</span><span class="unit">R$ 6,50/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B096R17T9P?tag=muselew-20" target="_blank" rel="noopener">JUST Petisco Saudável - Steak De Pato M 75G</a></span><span class="prices"><span class="strike">R$ 23,99</span><span class="now">R$ 17,50</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DBGMVXWG?tag=muselew-20" target="_blank" rel="noopener">Palitinho Bovino 4un - Mordedor Natural para Cães - Natuka (Unitário)</a></span><span class="prices"><span class="strike">R$ 26,90</span><span class="now">R$ 20,39</span><span class="unit">R$ 5,10/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D92WRYCK?tag=muselew-20" target="_blank" rel="noopener">JUST Petiscos Saudáveis Pack com 6 Unidades Sabor Peito de Frango 55G</a></span><span class="prices"><span class="strike">R$ 79,90</span><span class="now">R$ 62,19</span><span class="unit">R$ 10,37/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B096QY8S4M?tag=muselew-20" target="_blank" rel="noopener">JUST Petisco Saudável - Cubos De Frango P 55G</a></span><span class="prices"><span class="strike">R$ 16,20</span><span class="now">R$ 12,99</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D92XBQH8?tag=muselew-20" target="_blank" rel="noopener">JUST Petiscos Saudáveis Pack com 6 Unidades Cubos de Frango 55G</a></span><span class="prices"><span class="strike">R$ 69,90</span><span class="now">R$ 56,00</span><span class="unit">R$ 9,33/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0778P61WB?tag=muselew-20" target="_blank" rel="noopener">Churu Frango com Queijo 4 Tubos de 14g</a></span><span class="prices"><span class="strike">R$ 24,90</span><span class="now">R$ 20,28</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B01M0B11ZE?tag=muselew-20" target="_blank" rel="noopener">Churu Dog Petisco Para Cães Sabor Frango Com Salmão 4 Tubos de 14g</a></span><span class="prices"><span class="strike">R$ 24,99</span><span class="now">R$ 20,50</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D92Y3RMK?tag=muselew-20" target="_blank" rel="noopener">JUST Petiscos Saudáveis Pack com 6 Unidades Slices de Frango 55G</a></span><span class="prices"><span class="strike">R$ 79,90</span><span class="now">R$ 65,45</span><span class="unit">R$ 10,91/un</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D92X76JZ?tag=muselew-20" target="_blank" rel="noopener">JUST Petiscos Saudáveis Pack com 6 Unidades Sabor Steak de Frango 55G</a></span><span class="prices"><span class="strike">R$ 79,90</span><span class="now">R$ 65,99</span><span class="unit">R$ 11,00/un</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C1DQPQ7L?tag=muselew-20" target="_blank" rel="noopener">Papaya Pets Snack Training para Cães Adultos 100 g Sabor Leite</a></span><span class="prices"><span class="strike">R$ 11,49</span><span class="now">R$ 9,70</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D92XGYQ9?tag=muselew-20" target="_blank" rel="noopener">JUST Petiscos Saudáveis Slice de Frango 55G</a></span><span class="prices"><span class="strike">R$ 15,90</span><span class="now">R$ 13,52</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B07X8JC9YF?tag=muselew-20" target="_blank" rel="noopener">Pet Delícia Panelinha de Carne 320g, Alimentação Natural para Cães, Com Carne Bovina e Legumes Selecionados</a></span><span class="prices"><span class="strike">R$ 23,99</span><span class="now">R$ 20,49</span><span class="perkg">R$ 64,03/kg</span><span class="pct">-15%</span></span></div>
+    </div>
+  </div>
+
+  <p class="no-results">Nenhum produto encontrado para essa busca.</p>
+
+  <footer>
+    <svg viewBox="0 0 60 60" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <ellipse cx="30" cy="40" rx="16" ry="11" fill="#6FA36B" opacity="0.9"/>
+        <circle cx="18" cy="26" r="7" fill="#6FA36B" opacity="0.9"/>
+        <path d="M15 20 L17 15 L20 20 Z" fill="#4E8A4E" opacity="0.85"/>
+        <path d="M28 34 L31 27 L34 35 Z" fill="#4E8A4E" opacity="0.8"/>
+      </g>
+    </svg>
+    <span>Coletado ao vivo via busca Amazon.com.br — preços e ofertas mudam a qualquer momento, confira antes de comprar. Links com tag de afiliado.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var input = document.querySelector('.search-wrap input');
+  var sections = document.querySelectorAll('.section');
+  var noResults = document.querySelector('.no-results');
+
+  sections.forEach(function(section){
+    var head = section.querySelector('.section-head');
+    if(head){
+      head.addEventListener('click', function(){
+        section.classList.toggle('collapsed');
+      });
+    }
+  });
+
+  function filter(){
+    var term = input.value.trim().toLowerCase();
+    var anyVisible = false;
+    sections.forEach(function(section){
+      var items = section.querySelectorAll('.item');
+      var visible = 0;
+      items.forEach(function(item){
+        var name = item.querySelector('.name').textContent.toLowerCase();
+        var match = term === '' || name.indexOf(term) !== -1;
+        item.style.display = match ? '' : 'none';
+        if(match) visible++;
+      });
+      var countEl = section.querySelector('.count');
+      if(countEl) countEl.textContent = visible + (visible === 1 ? ' item' : ' itens');
+      if(term !== '' && visible > 0) section.classList.remove('collapsed');
+      section.style.display = visible === 0 ? 'none' : '';
+      if(visible > 0) anyVisible = true;
+    });
+    noResults.style.display = anyVisible ? 'none' : 'block';
+  }
+
+  if(input) input.addEventListener('input', filter);
+})();
+</script>

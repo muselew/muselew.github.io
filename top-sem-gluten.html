@@ -1,0 +1,426 @@
+<title>Top Ofertas Sem Glúten 🐑</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root{
+    --paper:#FDF7EC;
+    --ink:#3E2C22;
+    --ink-soft:#6B5344;
+    --sheep:#EDE6D6;
+    --sheep-dark:#5C5248;
+    --peach:#F4C9A8;
+    --sage:#7C9473;
+    --terracotta:#C65D42;
+    --sky:#7FA6B0;
+    --mustard:#C9A227;
+    --plum:#9B6B8C;
+    --line:#E8D9C3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0;
+    padding:2rem 1.1rem 3rem;
+    display:flex;
+    justify-content:center;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{ width:100%; max-width:800px; }
+  .hero{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    padding-bottom:1.75rem;
+    border-bottom:2px dashed var(--line);
+    margin-bottom:2rem;
+  }
+  .hero svg{ flex:none; width:132px; height:132px; }
+  h1{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:1.9rem;
+    line-height:1.08;
+    margin:0 0 .4rem;
+    color:var(--terracotta);
+    text-wrap:balance;
+  }
+  .hero p{ margin:0; color:var(--ink-soft); font-size:.92rem; max-width:40ch; }
+  .tag{
+    display:inline-block;
+    background:var(--sage);
+    color:#fff;
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:.15rem .55rem;
+    border-radius:999px;
+    margin-bottom:.5rem;
+  }
+  .search-wrap{ margin-bottom:1.75rem; }
+  .search-wrap input{
+    width:100%;
+    padding:.65rem 1rem;
+    border:2px solid var(--line);
+    border-radius:999px;
+    background:#fff;
+    color:var(--ink);
+    font-size:.9rem;
+    font-family:inherit;
+  }
+  .search-wrap input::placeholder{ color:var(--ink-soft); opacity:.8; }
+  .search-wrap input:focus-visible{ outline:2px solid var(--sheep-dark); border-color:transparent; }
+  .no-results{ display:none; text-align:center; color:var(--ink-soft); font-size:.9rem; padding:2rem 0; }
+  .section{ margin-top:2.4rem; }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:.6rem;
+    margin-bottom:.6rem;
+    cursor:pointer;
+    user-select:none;
+  }
+  .section-head h2{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-size:1.25rem;
+    font-weight:800;
+    margin:0;
+    color:var(--ink);
+  }
+  .section-head .count{
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+  }
+  .section-head .chevron{
+    margin-left:auto;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    transition:transform .2s ease;
+  }
+  .section.collapsed .chevron{ transform:rotate(-90deg); }
+  .section.collapsed .items{ display:none; }
+  .section.massas .section-head h2{ color:var(--terracotta); }
+  .section.paes .section-head h2{ color:var(--mustard); }
+  .section.biscoitos .section-head h2{ color:var(--sky); }
+  .section.farinhas .section-head h2{ color:var(--sage); }
+  .section.cereais .section-head h2{ color:var(--plum); }
+  .item{
+    display:grid;
+    grid-template-columns:2rem 1fr auto;
+    align-items:center;
+    gap:.85rem;
+    padding:.75rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:first-child{ padding-top:0; }
+  .rank{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:.95rem;
+    color:var(--peach);
+    -webkit-text-stroke:1px var(--sheep-dark);
+    text-align:center;
+  }
+  .name{ font-size:.86rem; line-height:1.3; color:var(--ink); overflow-wrap:anywhere; }
+  .name a{ color:inherit; text-decoration:none; }
+  .name a:hover, .name a:focus-visible{ text-decoration:underline; text-decoration-color:var(--sheep-dark); }
+  .prices{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .strike{ display:block; font-size:.7rem; color:var(--ink-soft); text-decoration:line-through; }
+  .now{ display:block; font-weight:700; font-size:.92rem; }
+  .unit{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .perkg{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .pct{
+    display:inline-block;
+    margin-top:.15rem;
+    font-size:.7rem;
+    font-weight:700;
+    padding:.05rem .45rem;
+    border-radius:999px;
+    color:#fff;
+    background:var(--sheep-dark);
+  }
+  .section.massas .pct{ background:var(--terracotta); }
+  .section.paes .pct{ background:var(--mustard); }
+  .section.biscoitos .pct{ background:var(--sky); }
+  .section.farinhas .pct{ background:var(--sage); }
+  .section.cereais .pct{ background:var(--plum); }
+  .item:nth-child(-n+3) .pct{ filter:brightness(0.88); }
+  footer{
+    margin-top:2.25rem;
+    padding-top:1.25rem;
+    border-top:2px dashed var(--line);
+    font-size:.78rem;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  footer svg{ width:28px; height:28px; flex:none; }
+  a:focus-visible{ outline:2px solid var(--sheep-dark); outline-offset:2px; }
+
+  @media (max-width:600px){
+    body{ padding:1.5rem .8rem 2.5rem; }
+    .hero{ gap:1rem; padding-bottom:1.4rem; margin-bottom:1.5rem; }
+    .hero svg{ width:96px; height:96px; }
+    h1{ font-size:1.5rem; }
+    .hero p{ font-size:.85rem; }
+    .section{ margin-top:1.9rem; }
+    .section-head h2{ font-size:1.1rem; }
+  }
+  @media (max-width:420px){
+    .hero{ flex-direction:column; text-align:center; gap:.75rem; }
+    .hero p{ max-width:none; }
+    .item{
+      grid-template-columns:1fr auto;
+      grid-template-areas:"name name" "rank prices";
+      row-gap:.2rem;
+    }
+    .item .name{ grid-area:name; }
+    .item .rank{ grid-area:rank; text-align:left; font-size:.8rem; }
+    .item .prices{ grid-area:prices; }
+    .name{ font-size:.84rem; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+    <feGaussianBlur in="disp" stdDeviation="1.1" result="blur"/>
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"/>
+  </filter>
+</svg>
+
+<div class="page">
+
+  <div class="hero">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <circle cx="70" cy="65" r="26" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="105" cy="52" r="30" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="140" cy="68" r="26" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="60" cy="95" r="24" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="145" cy="98" r="24" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="100" cy="88" r="34" fill="#EDE6D6" opacity="0.95"/>
+        <ellipse cx="58" cy="118" rx="10" ry="15" fill="#5C5248" opacity="0.85" transform="rotate(-18 58 118)"/>
+        <ellipse cx="142" cy="118" rx="10" ry="15" fill="#5C5248" opacity="0.85" transform="rotate(18 142 118)"/>
+        <ellipse cx="100" cy="122" rx="40" ry="36" fill="#5C5248" opacity="0.9"/>
+        <circle cx="86" cy="118" r="6.5" fill="#3E2C22"/>
+        <circle cx="114" cy="118" r="6.5" fill="#3E2C22"/>
+        <ellipse cx="100" cy="136" rx="7" ry="5" fill="#3E2C22" opacity="0.85"/>
+        <path d="M92 146 Q100 151 108 146" stroke="#FDF7EC" stroke-width="2.2" fill="none" stroke-linecap="round" opacity="0.85"/>
+        <circle cx="70" cy="128" r="7" fill="#C65D42" opacity="0.28"/>
+        <circle cx="130" cy="128" r="7" fill="#C65D42" opacity="0.28"/>
+      </g>
+    </svg>
+    <div>
+      <span class="tag">Ofertas · Amazon.com.br</span>
+      <h1>Top ofertas sem glúten</h1>
+      <p>Massas, pães, biscoitos, farinhas/mixes e cereais — marcas que reformulam clássicos com glúten em versão sem glúten, rankeados por % de desconto real coletado ao vivo.</p>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input type="search" placeholder="Buscar por marca, tipo de produto..." aria-label="Buscar produto">
+  </div>
+
+  <div class="section massas">
+    <div class="section-head"><h2>Massas (Macarrão)</h2><span class="count">11 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B09LRLHJS9?tag=muselew-20" target="_blank" rel="noopener">Macarrão Talharim de Lentilha Vermelha Sem Glúten Ceres 200g</a></span><span class="prices"><span class="strike">R$ 41,88</span><span class="now">R$ 26,90</span><span class="perkg">R$ 134,50/kg</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B09LRLTR71?tag=muselew-20" target="_blank" rel="noopener">Macarrão Talharim de Lentilha Verde Sem Glúten Ceres 200g</a></span><span class="prices"><span class="strike">R$ 41,88</span><span class="now">R$ 27,88</span><span class="perkg">R$ 139,40/kg</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0858CHCNC?tag=muselew-20" target="_blank" rel="noopener">Macarrão Talharim de Farinha de Grão de Bico Sabor Funghi Seco Sem Glúten Ceres Brasil 200g</a></span><span class="prices"><span class="strike">R$ 26,90</span><span class="now">R$ 19,00</span><span class="perkg">R$ 95,00/kg</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BS1SJ6K4?tag=muselew-20" target="_blank" rel="noopener">Urbano, Massa para Lasanha, Zero Glúten - 250g</a></span><span class="prices"><span class="strike">R$ 26,54</span><span class="now">R$ 19,49</span><span class="perkg">R$ 77,96/kg</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B07RC171C6?tag=muselew-20" target="_blank" rel="noopener">Lasanha sem Glúten Barilla 250g</a></span><span class="prices"><span class="strike">R$ 26,63</span><span class="now">R$ 19,90</span><span class="perkg">R$ 79,60/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BS1T1SKK?tag=muselew-20" target="_blank" rel="noopener">Urbano, Macarrão de Arroz e Feijão Preto, Parafuso, Zero Glúten - 500 g</a></span><span class="prices"><span class="strike">R$ 8,74</span><span class="now">R$ 6,90</span><span class="perkg">R$ 13,80/kg</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BS1SMKLM?tag=muselew-20" target="_blank" rel="noopener">Urbano, Macarrão de Arroz, Padre Nosso, Zero Glúten - 500 g</a></span><span class="prices"><span class="strike">R$ 6,39</span><span class="now">R$ 5,10</span><span class="perkg">R$ 10,20/kg</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D51M8VVN?tag=muselew-20" target="_blank" rel="noopener">Macarrão Sem Glúten Spaghetti Barilla 500g</a></span><span class="prices"><span class="strike">R$ 10,49</span><span class="now">R$ 8,79</span><span class="perkg">R$ 17,58/kg</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BS1TPDFL?tag=muselew-20" target="_blank" rel="noopener">Urbano, Macarrão de Arroz Integral, Espaguete, Zero Glúten - 500 g</a></span><span class="prices"><span class="strike">R$ 8,22</span><span class="now">R$ 6,90</span><span class="perkg">R$ 13,80/kg</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BS1SFSXQ?tag=muselew-20" target="_blank" rel="noopener">Urbano, Macarrão de Arroz Integral, Parafuso, Zero Glúten - 500 g</a></span><span class="prices"><span class="strike">R$ 8,26</span><span class="now">R$ 6,90</span><span class="perkg">R$ 13,80/kg</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B09MZFJ1YZ?tag=muselew-20" target="_blank" rel="noopener">Macarrão Sem Glúten Tipo Pappardelle Vegano Konjac 270g</a></span><span class="prices"><span class="strike">R$ 20,99</span><span class="now">R$ 18,90</span><span class="perkg">R$ 70,00/kg</span><span class="pct">-10%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section paes">
+    <div class="section-head"><h2>Pães &amp; Panificados</h2><span class="count">20 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CB73XLL7?tag=muselew-20" target="_blank" rel="noopener">Schar Pão de Forma Sem Glúten e Sem Lactose Maça e Canela 200g</a></span><span class="prices"><span class="strike">R$ 21,91</span><span class="now">R$ 15,20</span><span class="perkg">R$ 76,00/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B07X1YWZPT?tag=muselew-20" target="_blank" rel="noopener">Schar Bolo Sem Glúten e Sem Lactose Sabor Chocolate 200g</a></span><span class="prices"><span class="strike">R$ 28,90</span><span class="now">R$ 19,95</span><span class="perkg">R$ 99,75/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FDH7XFWW?tag=muselew-20" target="_blank" rel="noopener">Schar Pão de Forma Sem Glúten e Sem Lactose Sabor Milho 200g</a></span><span class="prices"><span class="strike">R$ 20,73</span><span class="now">R$ 14,95</span><span class="perkg">R$ 74,75/kg</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B07LCSGP3J?tag=muselew-20" target="_blank" rel="noopener">Jasmine Pão de Forma com Frutas e Castanhas Sem Glúten 350g</a></span><span class="prices"><span class="strike">R$ 21,88</span><span class="now">R$ 16,00</span><span class="perkg">R$ 45,71/kg</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XSFV6KB?tag=muselew-20" target="_blank" rel="noopener">Jasmine Pão de Forma Multigrãos Sem Glúten 350g</a></span><span class="prices"><span class="strike">R$ 21,87</span><span class="now">R$ 16,00</span><span class="perkg">R$ 45,71/kg</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XSB55M3?tag=muselew-20" target="_blank" rel="noopener">Jasmine Pão de Forma Tradicional Sem Glúten 350g</a></span><span class="prices"><span class="strike">R$ 21,87</span><span class="now">R$ 16,00</span><span class="perkg">R$ 45,71/kg</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CB75BPFF?tag=muselew-20" target="_blank" rel="noopener">Schar Pão de Forma Sem Glúten e Sem Lactose Quinoa e Linhaça 200g</a></span><span class="prices"><span class="strike">R$ 19,54</span><span class="now">R$ 15,20</span><span class="perkg">R$ 76,00/kg</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GHPXYJDL?tag=muselew-20" target="_blank" rel="noopener">Bready Superfood Pão Proteico Sem Glúten 400g (400g, Waffle)</a></span><span class="prices"><span class="strike">R$ 129,90</span><span class="now">R$ 104,40</span><span class="perkg">R$ 261,00/kg</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FHTY8GS3?tag=muselew-20" target="_blank" rel="noopener">Bready Superfood Pão Proteico Sem Glúten 400g (400g, Pizza)</a></span><span class="prices"><span class="strike">R$ 129,90</span><span class="now">R$ 104,40</span><span class="perkg">R$ 261,00/kg</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DYVPZC9D?tag=muselew-20" target="_blank" rel="noopener">Vitalin Pão de Forma Sem Glúten Gergelim e Linhaça 300g</a></span><span class="prices"><span class="strike">R$ 23,90</span><span class="now">R$ 20,05</span><span class="perkg">R$ 66,83/kg</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B07WZV6M9C?tag=muselew-20" target="_blank" rel="noopener">Schar Bolo Sem Glúten e Sem Lactose Sabor Laranja 200g</a></span><span class="prices"><span class="strike">R$ 19,99</span><span class="now">R$ 16,80</span><span class="perkg">R$ 84,00/kg</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DYVP5GXV?tag=muselew-20" target="_blank" rel="noopener">Vitalin Pão de Forma Sem Glúten Frutas e Sementes 300g</a></span><span class="prices"><span class="strike">R$ 23,90</span><span class="now">R$ 20,32</span><span class="perkg">R$ 67,73/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CZC5NK28?tag=muselew-20" target="_blank" rel="noopener">Vitalin Pão de Forma Sem Glúten Tradicional 300g</a></span><span class="prices"><span class="strike">R$ 23,90</span><span class="now">R$ 20,80</span><span class="perkg">R$ 69,33/kg</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0B57HRG4S?tag=muselew-20" target="_blank" rel="noopener">Kit 8 Pão Forma Tradicional Sem Glúten Vegano Schar 200g</a></span><span class="prices"><span class="strike">R$ 134,19</span><span class="now">R$ 119,77</span><span class="unit">R$ 14,97/un</span><span class="perkg">R$ 74,86/kg</span><span class="pct">-11%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B08GM1JY2D?tag=muselew-20" target="_blank" rel="noopener">Jasmine Pão Fatiado com Chia e Ervas Finas Sem Glúten 350g</a></span><span class="prices"><span class="strike">R$ 21,88</span><span class="now">R$ 19,69</span><span class="perkg">R$ 56,26/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B08GLRS1H7?tag=muselew-20" target="_blank" rel="noopener">Jasmine Pão Fatiado com Coco Sem Glúten 350g</a></span><span class="prices"><span class="strike">R$ 21,88</span><span class="now">R$ 19,69</span><span class="perkg">R$ 56,26/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D82CRMX1?tag=muselew-20" target="_blank" rel="noopener">Bready Superfood Pão Proteico Sem Glúten Sabor Original 400g</a></span><span class="prices"><span class="strike">R$ 129,00</span><span class="now">R$ 116,10</span><span class="perkg">R$ 290,25/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FGYCMPH2?tag=muselew-20" target="_blank" rel="noopener">Bready Superfood Pão Proteico Sem Glúten 400g (400g, Brownie)</a></span><span class="prices"><span class="strike">R$ 119,90</span><span class="now">R$ 113,90</span><span class="perkg">R$ 284,75/kg</span><span class="pct">-5%</span></span></div>
+    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GVLTS6VB?tag=muselew-20" target="_blank" rel="noopener">Bready Superfood Pão Proteico Sem Glúten 400g (360g, Cookies)</a></span><span class="prices"><span class="strike">R$ 107,90</span><span class="now">R$ 102,50</span><span class="perkg">R$ 256,25/kg</span><span class="pct">-5%</span></span></div>
+    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DDV34451?tag=muselew-20" target="_blank" rel="noopener">Bready Superfood Pão Proteico Sem Glúten Sabor Queijo 400g</a></span><span class="prices"><span class="strike">R$ 128,00</span><span class="now">R$ 121,60</span><span class="perkg">R$ 304,00/kg</span><span class="pct">-5%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section biscoitos">
+    <div class="section-head"><h2>Biscoitos &amp; Bolachas</h2><span class="count">22 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B08TSCHFMB?tag=muselew-20" target="_blank" rel="noopener">OKOSHI - Torrada de Milho com Coco - Snacks Saudáveis Vegano, Sem Glúten, Sem Lactose - 75g</a></span><span class="prices"><span class="strike">R$ 19,00</span><span class="now">R$ 7,60</span><span class="pct">-60%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D9HQ5GMD?tag=muselew-20" target="_blank" rel="noopener">Biscoito de Arroz Integral Sem Glúten 90g - Jasmine</a></span><span class="prices"><span class="strike">R$ 19,99</span><span class="now">R$ 10,68</span><span class="pct">-47%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B08LM6QFMH?tag=muselew-20" target="_blank" rel="noopener">Cookie Sem Glúten Sem Lactose Sem Leite Baunilha e Chocolate Belive</a></span><span class="prices"><span class="strike">R$ 8,49</span><span class="now">R$ 5,95</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GR7P7Y9C?tag=muselew-20" target="_blank" rel="noopener">Biscoito Chocolate Moana Sem Glúten Disney 40g</a></span><span class="prices"><span class="strike">R$ 13,90</span><span class="now">R$ 9,99</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GR84B6YN?tag=muselew-20" target="_blank" rel="noopener">Biscoito Leite Star Wars Sem Glúten Disney 40g</a></span><span class="prices"><span class="strike">R$ 13,90</span><span class="now">R$ 9,99</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CB8QWH7Z?tag=muselew-20" target="_blank" rel="noopener">Rosquinha Sem Glúten Leite 110g</a></span><span class="prices"><span class="strike">R$ 13,89</span><span class="now">R$ 10,18</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0958G1JLP?tag=muselew-20" target="_blank" rel="noopener">Caixa de Cookies Baunilha e Chocolate Sem Glúten Sem Açúcar Sem Leite Belive</a></span><span class="prices"><span class="strike">R$ 89,70</span><span class="now">R$ 67,40</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B00BQTXX1W?tag=muselew-20" target="_blank" rel="noopener">Schar Biscoito Sem Glúten Recheado Chocolate O's 165g</a></span><span class="prices"><span class="strike">R$ 37,65</span><span class="now">R$ 29,88</span><span class="perkg">R$ 181,09/kg</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CB8PV9W2?tag=muselew-20" target="_blank" rel="noopener">Rosquinha Sem Glúten Chocolate 110g</a></span><span class="prices"><span class="strike">R$ 13,89</span><span class="now">R$ 11,18</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B07YGTGSZW?tag=muselew-20" target="_blank" rel="noopener">Kalassi Snack De Arroz Queijo E Cebola Sem Glúten 100g</a></span><span class="prices"><span class="strike">R$ 26,05</span><span class="now">R$ 20,99</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0958CX6GR?tag=muselew-20" target="_blank" rel="noopener">Display de Cookie Double Chocolate Sem Açúcar Sem Glúten Sem Lactose Belive 10 unidades de 67g</a></span><span class="prices"><span class="strike">R$ 89,70</span><span class="now">R$ 73,14</span><span class="unit">R$ 7,31/un</span><span class="perkg">R$ 109,16/kg</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B08LM4D815?tag=muselew-20" target="_blank" rel="noopener">Caixa de Cookies Sem Glúten Sem Lactose Sem Leite Castanhas Belive</a></span><span class="prices"><span class="strike">R$ 84,90</span><span class="now">R$ 69,71</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B07HP4PZ5T?tag=muselew-20" target="_blank" rel="noopener">Schar Rosquinhas Sem Glúten e Sem Lactose 200g</a></span><span class="prices"><span class="strike">R$ 34,35</span><span class="now">R$ 28,60</span><span class="perkg">R$ 143,00/kg</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B08LM53D3J?tag=muselew-20" target="_blank" rel="noopener">Display Cookie Double Chocolate Sem Glúten Sem Lactose Belive 10 unidades de 80g</a></span><span class="prices"><span class="strike">R$ 84,90</span><span class="now">R$ 72,10</span><span class="unit">R$ 7,21/un</span><span class="perkg">R$ 90,12/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FC59C6PF?tag=muselew-20" target="_blank" rel="noopener">Caixa de Cookies de Avelã e Chocolate Sem Glúten Sem Açúcar Sem Lactose Belive 10x67g</a></span><span class="prices"><span class="strike">R$ 89,70</span><span class="now">R$ 76,24</span><span class="unit">R$ 7,62/un</span><span class="perkg">R$ 113,79/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B08KL68ZTJ?tag=muselew-20" target="_blank" rel="noopener">Cookies Natural Life - Sabor Baunilha com Gotas Chocolate - Sem Glúten - 180g</a></span><span class="prices"><span class="strike">R$ 20,99</span><span class="now">R$ 17,83</span><span class="perkg">R$ 99,06/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B08LLZF1SS?tag=muselew-20" target="_blank" rel="noopener">Caixa de Cookies de Baunilha com Gotas de Chocolate Sem Glúten Sem Leite Belive 10x80g</a></span><span class="prices"><span class="strike">R$ 84,90</span><span class="now">R$ 73,85</span><span class="unit">R$ 7,38/un</span><span class="perkg">R$ 92,31/kg</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B004KT7EOM?tag=muselew-20" target="_blank" rel="noopener">Schar Biscoito Sem Glúten Crackers 210g</a></span><span class="prices"><span class="strike">R$ 35,20</span><span class="now">R$ 31,67</span><span class="perkg">R$ 150,81/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Z7J26QN?tag=muselew-20" target="_blank" rel="noopener">OKOSHI - Torrada de Arroz Integral Orgânico Quinoa e Linhaça, Sem Glúten, Sem Lactose - 75g</a></span><span class="prices"><span class="strike">R$ 6,30</span><span class="now">R$ 5,67</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BVBYLZJZ?tag=muselew-20" target="_blank" rel="noopener">Biscoito Zaytas Original Sem Glúten Zaya 80g</a></span><span class="prices"><span class="strike">R$ 21,90</span><span class="now">R$ 19,90</span><span class="pct">-9%</span></span></div>
+    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B09T3WLKZ9?tag=muselew-20" target="_blank" rel="noopener">Mini Cookies Low Carb Baunilha 90g - Leve Croc - Sem Glúten</a></span><span class="prices"><span class="strike">R$ 17,99</span><span class="now">R$ 16,49</span><span class="pct">-8%</span></span></div>
+    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B0B8BQLPLG?tag=muselew-20" target="_blank" rel="noopener">Biscoito de Maizena Natural Life - Vegano - Sem Glúten - 112g</a></span><span class="prices"><span class="strike">R$ 14,99</span><span class="now">R$ 14,38</span><span class="pct">-4%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section farinhas">
+    <div class="section-head"><h2>Farinhas &amp; Mixes</h2><span class="count">23 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FZCP6999?tag=muselew-20" target="_blank" rel="noopener">Mistura para Pão Sem Glúten Tradicional</a></span><span class="prices"><span class="strike">R$ 10,90</span><span class="now">R$ 5,39</span><span class="pct">-51%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B07YL7HNF6?tag=muselew-20" target="_blank" rel="noopener">Aminna Farinha De Rosca Sem Glúten Sem Lactose 300G</a></span><span class="prices"><span class="strike">R$ 18,70</span><span class="now">R$ 11,60</span><span class="perkg">R$ 38,67/kg</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CDT3QPB5?tag=muselew-20" target="_blank" rel="noopener">Mistura para Bolo de Limão Sem Açúcar, Sem Glúten e Sem Lactose - RisoVita - 300g</a></span><span class="prices"><span class="strike">R$ 20,90</span><span class="now">R$ 14,99</span><span class="perkg">R$ 49,97/kg</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B07RNF876Y?tag=muselew-20" target="_blank" rel="noopener">Farinha de Aveia Sem Glúten Monama 220g</a></span><span class="prices"><span class="strike">R$ 14,90</span><span class="now">R$ 10,90</span><span class="perkg">R$ 49,55/kg</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B08T22CGYM?tag=muselew-20" target="_blank" rel="noopener">RisoVita Mistura Para Pão Com Mix De Grãos 300G</a></span><span class="prices"><span class="strike">R$ 15,90</span><span class="now">R$ 11,95</span><span class="perkg">R$ 39,83/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FZCVXZRJ?tag=muselew-20" target="_blank" rel="noopener">Mistura para Pão Sem Glúten Mix de Sementes</a></span><span class="prices"><span class="strike">R$ 10,90</span><span class="now">R$ 8,64</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B08YPBKFV1?tag=muselew-20" target="_blank" rel="noopener">Farinha Multiuso Sem Glúten Vitao 400g - Substituta do Trigo</a></span><span class="prices"><span class="strike">R$ 19,89</span><span class="now">R$ 15,92</span><span class="perkg">R$ 39,80/kg</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XSD7MDY?tag=muselew-20" target="_blank" rel="noopener">Aminna Farinha Fsg® Sem Glúten Sem Lactose 500G</a></span><span class="prices"><span class="strike">R$ 21,55</span><span class="now">R$ 17,50</span><span class="perkg">R$ 35,00/kg</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B084BS86NS?tag=muselew-20" target="_blank" rel="noopener">RisoVita Farinha Especial Para Bolos 500G</a></span><span class="prices"><span class="strike">R$ 14,90</span><span class="now">R$ 12,14</span><span class="perkg">R$ 24,28/kg</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B084C6997F?tag=muselew-20" target="_blank" rel="noopener">RisoVita Mistura Para Bolo Sabor Chocolate 400G</a></span><span class="prices"><span class="strike">R$ 15,90</span><span class="now">R$ 12,99</span><span class="perkg">R$ 32,48/kg</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B09WVQBCZX?tag=muselew-20" target="_blank" rel="noopener">Vitalin Farinha Multiuso Integral Sem Glúten 500G</a></span><span class="prices"><span class="strike">R$ 22,50</span><span class="now">R$ 18,61</span><span class="perkg">R$ 37,22/kg</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B08671N776?tag=muselew-20" target="_blank" rel="noopener">Zaya Farinha - A Farinha Multiuso Sem Glúten De Ingrediente Único</a></span><span class="prices"><span class="strike">R$ 14,90</span><span class="now">R$ 12,66</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XSB4V9C?tag=muselew-20" target="_blank" rel="noopener">Farinha Sem Glúten de Amêndoas Leve Croc 200g</a></span><span class="prices"><span class="strike">R$ 32,26</span><span class="now">R$ 27,42</span><span class="perkg">R$ 137,10/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CMSLD4WX?tag=muselew-20" target="_blank" rel="noopener">X Roots Farinha de Aveia Sem Glúten Saborosa 1kg</a></span><span class="prices"><span class="strike">R$ 29,90</span><span class="now">R$ 25,56</span><span class="perkg">R$ 25,56/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Q3WY7ZP?tag=muselew-20" target="_blank" rel="noopener">Cookie Mix Com Chocolates Coloridos Sem Glúten 470g - Vida Gourmet</a></span><span class="prices"><span class="strike">R$ 29,90</span><span class="now">R$ 25,39</span><span class="perkg">R$ 54,02/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D4B612RX?tag=muselew-20" target="_blank" rel="noopener">Mistura para Pão Australiano Sem Glúten - Kippys Natural</a></span><span class="prices"><span class="strike">R$ 22,65</span><span class="now">R$ 20,00</span><span class="pct">-12%</span></span></div>
+    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B084BZQRZW?tag=muselew-20" target="_blank" rel="noopener">RisoVita Farinha De Arroz Branca 1kg</a></span><span class="prices"><span class="strike">R$ 13,50</span><span class="now">R$ 11,90</span><span class="perkg">R$ 11,90/kg</span><span class="pct">-12%</span></span></div>
+    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B07WZV54HM?tag=muselew-20" target="_blank" rel="noopener">Schar Farinha Sem Glúten Mix Premium 500g</a></span><span class="prices"><span class="strike">R$ 20,19</span><span class="now">R$ 18,16</span><span class="perkg">R$ 36,32/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DFMLL3C7?tag=muselew-20" target="_blank" rel="noopener">Schar Farinha Sem Glúten Mix Prático 1kg</a></span><span class="prices"><span class="strike">R$ 24,90</span><span class="now">R$ 22,40</span><span class="perkg">R$ 22,40/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B081PB26KX?tag=muselew-20" target="_blank" rel="noopener">Mix De Farinhas Risovita Sem Glúten E Sem Lactose 500g</a></span><span class="prices"><span class="strike">R$ 14,90</span><span class="now">R$ 13,41</span><span class="perkg">R$ 26,82/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BH955NDR?tag=muselew-20" target="_blank" rel="noopener">Kit 3 Farinha FSG Sem Glúten Massas e Bolos 500g Aminna</a></span><span class="prices"><span class="strike">R$ 48,99</span><span class="now">R$ 44,00</span><span class="unit">R$ 14,67/un</span><span class="perkg">R$ 29,33/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B07Q4142GX?tag=muselew-20" target="_blank" rel="noopener">Cookie Mix Chocolate Sem Glúten 440g - Vida Gourmet</a></span><span class="prices"><span class="strike">R$ 29,90</span><span class="now">R$ 26,90</span><span class="perkg">R$ 61,14/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">23</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BS1R4B63?tag=muselew-20" target="_blank" rel="noopener">Urbano, Farinha Mix, Mix de Farinhas sem Glúten - 1 kg</a></span><span class="prices"><span class="strike">R$ 14,69</span><span class="now">R$ 13,50</span><span class="perkg">R$ 13,50/kg</span><span class="pct">-8%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section cereais">
+    <div class="section-head"><h2>Cereais &amp; Barras</h2><span class="count">25 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XLB42R2?tag=muselew-20" target="_blank" rel="noopener">Granola Low Carb Salgada Oliva e Páprica 200g - Leve Croc - Sem Glúten</a></span><span class="prices"><span class="strike">R$ 28,54</span><span class="now">R$ 15,09</span><span class="perkg">R$ 75,45/kg</span><span class="pct">-47%</span></span></div>
+    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CV4J9N9R?tag=muselew-20" target="_blank" rel="noopener">Aveia Flocos Finos 200g - Leve Croc - Sem Glúten</a></span><span class="prices"><span class="strike">R$ 19,00</span><span class="now">R$ 10,99</span><span class="perkg">R$ 54,95/kg</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B08MX6G7VH?tag=muselew-20" target="_blank" rel="noopener">Barra de Cereal biO2 Vegan Crunchy Cenoura e Cacau, Caixa com 10 unidades de 28g, Sem Glúten</a></span><span class="prices"><span class="strike">R$ 99,00</span><span class="now">R$ 57,40</span><span class="unit">R$ 5,74/un</span><span class="perkg">R$ 205,00/kg</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XLB61LW?tag=muselew-20" target="_blank" rel="noopener">Granola Sem Glúten e Sem Adição de Açúcar Quinoa e Amêndoas 200g - Leve Croc</a></span><span class="prices"><span class="strike">R$ 24,99</span><span class="now">R$ 15,00</span><span class="perkg">R$ 75,00/kg</span><span class="pct">-40%</span></span></div>
+    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XRXBLN1?tag=muselew-20" target="_blank" rel="noopener">Granola Low Carb Sem Glúten Nibs de Cacau e Goji Berry 200g - Leve Croc</a></span><span class="prices"><span class="strike">R$ 34,99</span><span class="now">R$ 24,00</span><span class="perkg">R$ 120,00/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C8ZQZXNT?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Crocante biO2 Protein Crunchy Caramelo, Caixa com 9 unidades de 50g, Sem Glúten</a></span><span class="prices"><span class="strike">R$ 135,40</span><span class="now">R$ 94,04</span><span class="unit">R$ 10,45/un</span><span class="perkg">R$ 208,98/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BZJM7NFX?tag=muselew-20" target="_blank" rel="noopener">Granola sem Glúten Quinoa e Castanha Leve Croc 1kg</a></span><span class="prices"><span class="strike">R$ 62,99</span><span class="now">R$ 45,00</span><span class="perkg">R$ 45,00/kg</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C3SG8HFV?tag=muselew-20" target="_blank" rel="noopener">Granola Especial Light com Aveia Sem Glúten 1kg - Cereal Crock</a></span><span class="prices"><span class="strike">R$ 48,45</span><span class="now">R$ 34,76</span><span class="perkg">R$ 34,76/kg</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CG5P1NJD?tag=muselew-20" target="_blank" rel="noopener">Hart's Natural Granola Australia Low Carb Keto Protein Vanilla Almond Crunch, Sem Glúten, 200g</a></span><span class="prices"><span class="strike">R$ 46,90</span><span class="now">R$ 33,99</span><span class="perkg">R$ 169,95/kg</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B08MXC3TY9?tag=muselew-20" target="_blank" rel="noopener">Cereal Matinal Orgânico biO2 Vegan Crunchy Cacau e Caramelo 200g, Sem Glúten</a></span><span class="prices"><span class="strike">R$ 30,00</span><span class="now">R$ 22,53</span><span class="perkg">R$ 112,65/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C5DV5JRC?tag=muselew-20" target="_blank" rel="noopener">Nuts Box biO2 - Barra de Castanhas e Frutas - Caixa Mista com 24 unidades de 25g, Sem Glúten</a></span><span class="prices"><span class="strike">R$ 165,60</span><span class="now">R$ 126,68</span><span class="unit">R$ 5,28/un</span><span class="perkg">R$ 211,13/kg</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D51MGYXL?tag=muselew-20" target="_blank" rel="noopener">Cereal Chocolate Balls Sem Glúten Disney 150G</a></span><span class="prices"><span class="strike">R$ 19,89</span><span class="now">R$ 15,26</span><span class="perkg">R$ 101,73/kg</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C3WFC36Y?tag=muselew-20" target="_blank" rel="noopener">Granola Sem Adição de Açúcar Linhaça e Tâmaras 1kg - Cereal Crock - Aveia Sem Glúten</a></span><span class="prices"><span class="strike">R$ 65,97</span><span class="now">R$ 51,00</span><span class="perkg">R$ 51,00/kg</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C3T45848?tag=muselew-20" target="_blank" rel="noopener">Granola Coco e Amêndoas com Aveia Sem Glúten 1kg - Cereal Crock</a></span><span class="prices"><span class="strike">R$ 48,45</span><span class="now">R$ 38,00</span><span class="perkg">R$ 38,00/kg</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DPNFZKQL?tag=muselew-20" target="_blank" rel="noopener">Cornflakes Australia Cereal Matinal, Sem Glúten, Sem Lactose, 220g</a></span><span class="prices"><span class="strike">R$ 29,00</span><span class="now">R$ 22,99</span><span class="perkg">R$ 104,50/kg</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B08MXF61M5?tag=muselew-20" target="_blank" rel="noopener">Vitao Chocolate ao Leite com Cereais Zero Açúcar 22g – Sem Glúten</a></span><span class="prices"><span class="strike">R$ 8,49</span><span class="now">R$ 6,68</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CX36ZMLZ?tag=muselew-20" target="_blank" rel="noopener">Hart's Natural ChocoPops Australia Chocolate | Cereal Matinal Sem Glúten, Sem Lactose, 200g</a></span><span class="prices"><span class="strike">R$ 29,90</span><span class="now">R$ 23,99</span><span class="perkg">R$ 119,95/kg</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GQ6SFHGW?tag=muselew-20" target="_blank" rel="noopener">Kit 2X Quinoa Pop Crispies Alpacas | Cereal Matinal | 100% Quinoa | Sem Glúten | 100g cada</a></span><span class="prices"><span class="strike">R$ 49,87</span><span class="now">R$ 39,86</span><span class="unit">R$ 19,93/un</span><span class="perkg">R$ 199,30/kg</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B095FL94X5?tag=muselew-20" target="_blank" rel="noopener">Granola Sem Glúten Trad Zero</a></span><span class="prices"><span class="strike">R$ 19,89</span><span class="now">R$ 16,15</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D6Z37M5R?tag=muselew-20" target="_blank" rel="noopener">Cereal Duo Chocolate Balls Sem Glúten Disney 150G</a></span><span class="prices"><span class="strike">R$ 19,89</span><span class="now">R$ 16,39</span><span class="perkg">R$ 109,27/kg</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D51HG3Q2?tag=muselew-20" target="_blank" rel="noopener">Cereal Argolinhas Sem Glúten Disney 150G</a></span><span class="prices"><span class="strike">R$ 19,89</span><span class="now">R$ 16,90</span><span class="perkg">R$ 112,67/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B08KMMCD3G?tag=muselew-20" target="_blank" rel="noopener">Granola Tia Sônia Sem Glúten Pote 420G</a></span><span class="prices"><span class="strike">R$ 65,90</span><span class="now">R$ 55,99</span><span class="perkg">R$ 133,31/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">23</span><span class="name"><a href="https://www.amazon.com.br/dp/B09TJT4GV7?tag=muselew-20" target="_blank" rel="noopener">Bananinha Com Chocolate Vegano Sem Lactose Sem Glúten 20 Und de 28g - Banana Mania</a></span><span class="prices"><span class="strike">R$ 63,23</span><span class="now">R$ 53,61</span><span class="unit">R$ 2,68/un</span><span class="perkg">R$ 95,73/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">24</span><span class="name"><a href="https://www.amazon.com.br/dp/B095DX7LFH?tag=muselew-20" target="_blank" rel="noopener">Vitao Granola Sem Glúten Trad Frutas</a></span><span class="prices"><span class="strike">R$ 22,90</span><span class="now">R$ 19,89</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">25</span><span class="name"><a href="https://www.amazon.com.br/dp/B08CJC3HJC?tag=muselew-20" target="_blank" rel="noopener">Hart's Natural Barra Australia Cranberry &amp; Chocolate 35g, Sem Glúten, Caixa com 20 Unidades</a></span><span class="prices"><span class="strike">R$ 114,90</span><span class="now">R$ 104,92</span><span class="unit">R$ 5,25/un</span><span class="pct">-9%</span></span></div>
+    </div>
+  </div>
+
+  <p class="no-results">Nenhum produto encontrado para essa busca.</p>
+
+  <footer>
+    <svg viewBox="0 0 60 60" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <circle cx="21" cy="20" r="9" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="32" cy="16" r="10" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="42" cy="21" r="9" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="30" cy="27" r="11" fill="#EDE6D6" opacity="0.95"/>
+        <ellipse cx="30" cy="38" rx="13" ry="12" fill="#5C5248" opacity="0.9"/>
+        <circle cx="25" cy="35" r="2.3" fill="#3E2C22"/>
+        <circle cx="35" cy="35" r="2.3" fill="#3E2C22"/>
+      </g>
+    </svg>
+    <span>Coletado ao vivo via busca Amazon.com.br — preços e ofertas mudam a qualquer momento, confira antes de comprar. Links com tag de afiliado.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var input = document.querySelector('.search-wrap input');
+  var sections = document.querySelectorAll('.section');
+  var noResults = document.querySelector('.no-results');
+
+  sections.forEach(function(section){
+    var head = section.querySelector('.section-head');
+    if(head){
+      head.addEventListener('click', function(){
+        section.classList.toggle('collapsed');
+      });
+    }
+  });
+
+  function filter(){
+    var term = input.value.trim().toLowerCase();
+    var anyVisible = false;
+    sections.forEach(function(section){
+      var items = section.querySelectorAll('.item');
+      if(items.length === 0){
+        anyVisible = true;
+        return;
+      }
+      var visible = 0;
+      items.forEach(function(item){
+        var name = item.querySelector('.name').textContent.toLowerCase();
+        var match = term === '' || name.indexOf(term) !== -1;
+        item.style.display = match ? '' : 'none';
+        if(match) visible++;
+      });
+      var countEl = section.querySelector('.count');
+      if(countEl) countEl.textContent = visible + (visible === 1 ? ' item' : ' itens');
+      if(term !== '' && visible > 0) section.classList.remove('collapsed');
+      section.style.display = visible === 0 ? 'none' : '';
+      if(visible > 0) anyVisible = true;
+    });
+    noResults.style.display = anyVisible ? 'none' : 'block';
+  }
+
+  if(input) input.addEventListener('input', filter);
+})();
+</script>
