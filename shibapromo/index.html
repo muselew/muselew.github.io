@@ -1,0 +1,373 @@
+<title>Central de Ofertas 🐾</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<style>
+  :root{
+    --paper:#FDF7EC;
+    --paper-warm:#FBF0DC;
+    --ink:#3E2C22;
+    --ink-soft:#6B5344;
+    --line:#E8D9C3;
+    --peach:#F4C9A8;
+    --sage:#7C9473;
+    --terracotta:#C65D42;
+
+    --shiba:#E38B4F;
+    --bunny:#D98BA8;
+    --dino:#6FA36B;
+    --wolf:#8A97A6;
+    --sheep-dark:#5C5248;
+  }
+  *{ box-sizing:border-box; }
+  html{ -webkit-text-size-adjust:100%; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
+    background-image:
+      radial-gradient(circle at 8% 12%, rgba(198,93,66,.06) 0, transparent 40%),
+      radial-gradient(circle at 92% 88%, rgba(124,148,115,.08) 0, transparent 45%);
+  }
+  .wrap{
+    max-width:920px;
+    margin:0 auto;
+    padding:2.5rem 1.2rem 4rem;
+  }
+
+  /* ---- Hero ---- */
+  .hero{
+    text-align:center;
+    padding-bottom:2rem;
+    margin-bottom:1rem;
+    position:relative;
+  }
+  .hero .cluster{
+    display:flex;
+    justify-content:center;
+    gap:.15rem;
+    margin-bottom:.6rem;
+  }
+  .hero .cluster svg{ width:52px; height:52px; }
+  @media (max-width:520px){
+    .hero .cluster svg{ width:40px; height:40px; }
+  }
+  .hero h1{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:2.4rem;
+    line-height:1.05;
+    margin:0 0 .5rem;
+    color:var(--terracotta);
+    text-wrap:balance;
+  }
+  .hero p{
+    margin:0 auto;
+    max-width:38ch;
+    color:var(--ink-soft);
+    font-size:1rem;
+  }
+  .hero .updated{
+    display:inline-block;
+    margin-top:1rem;
+    font-size:.72rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--sage);
+    background:#fff;
+    border:1px solid var(--line);
+    padding:.3rem .7rem;
+    border-radius:999px;
+  }
+
+  /* ---- Card grid ---- */
+  .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:1.1rem;
+    margin-top:1.8rem;
+  }
+  @media (max-width:640px){
+    .grid{ grid-template-columns:1fr; }
+  }
+
+  .card{
+    --accent:var(--terracotta);
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border:2px solid var(--line);
+    border-radius:22px;
+    padding:1.4rem 1.3rem 1.3rem;
+    text-decoration:none;
+    color:inherit;
+    overflow:hidden;
+    transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    box-shadow:0 1px 0 var(--line);
+  }
+  .card:hover, .card:focus-visible{
+    transform:translateY(-3px) rotate(-0.3deg);
+    border-color:var(--accent);
+    box-shadow:0 14px 28px -12px rgba(62,44,34,.22);
+    outline:none;
+  }
+  .card:active{ transform:translateY(-1px); }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:-40px; right:-40px;
+    width:140px; height:140px;
+    background:var(--accent);
+    opacity:.08;
+    border-radius:50%;
+  }
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:.75rem;
+    margin-bottom:.85rem;
+  }
+  .card-top svg{ width:64px; height:64px; flex:none; }
+  .badge{
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.03em;
+    color:#fff;
+    background:var(--accent);
+    padding:.22rem .55rem;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .card h2{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-size:1.22rem;
+    font-weight:800;
+    margin:0 0 .35rem;
+    color:var(--accent);
+  }
+  .card p{
+    margin:0 0 .9rem;
+    font-size:.86rem;
+    line-height:1.45;
+    color:var(--ink-soft);
+    flex:1;
+  }
+  .card .tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.35rem;
+    margin-bottom:1rem;
+  }
+  .card .tag{
+    font-size:.7rem;
+    color:var(--ink-soft);
+    background:var(--paper-warm);
+    border:1px solid var(--line);
+    padding:.15rem .5rem;
+    border-radius:999px;
+  }
+  .card .go{
+    display:flex;
+    align-items:center;
+    gap:.4rem;
+    font-weight:700;
+    font-size:.86rem;
+    color:var(--accent);
+  }
+  .card .go .arrow{
+    transition:transform .18s ease;
+  }
+  .card:hover .go .arrow{ transform:translateX(4px); }
+
+  .card.shiba{ --accent:var(--shiba); }
+  .card.bunny{ --accent:var(--bunny); }
+  .card.dino{ --accent:var(--dino); }
+  .card.wolf{ --accent:var(--wolf); }
+  .card.sheep{ --accent:var(--sheep-dark); }
+
+  footer{
+    margin-top:2.5rem;
+    padding-top:1.4rem;
+    border-top:2px dashed var(--line);
+    text-align:center;
+    font-size:.78rem;
+    color:var(--ink-soft);
+  }
+  footer p{ margin:.3rem 0; }
+  a.footer-link{ color:var(--terracotta); font-weight:700; text-decoration:none; }
+  a.footer-link:hover{ text-decoration:underline; }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+    <feGaussianBlur in="disp" stdDeviation="1.1" result="blur"/>
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"/>
+  </filter>
+</svg>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="cluster" aria-hidden="true">
+      <svg viewBox="0 0 60 60"><g filter="url(#watercolor)">
+        <circle cx="30" cy="34" r="16" fill="#E38B4F" opacity="0.85"/>
+        <ellipse cx="18" cy="18" rx="6.5" ry="10" fill="#E38B4F" opacity="0.8" transform="rotate(-16 18 18)"/>
+        <ellipse cx="42" cy="18" rx="6.5" ry="10" fill="#E38B4F" opacity="0.8" transform="rotate(16 42 18)"/>
+      </g></svg>
+      <svg viewBox="0 0 60 60"><g filter="url(#watercolor)">
+        <circle cx="30" cy="36" r="15" fill="#F4E3EA" opacity="0.95"/>
+        <ellipse cx="21" cy="16" rx="4.5" ry="12" fill="#D98BA8" opacity="0.85" transform="rotate(-10 21 16)"/>
+        <ellipse cx="39" cy="16" rx="4.5" ry="12" fill="#D98BA8" opacity="0.85" transform="rotate(10 39 16)"/>
+      </g></svg>
+      <svg viewBox="0 0 60 60"><g filter="url(#watercolor)">
+        <ellipse cx="32" cy="38" rx="17" ry="12" fill="#6FA36B" opacity="0.9"/>
+        <circle cx="17" cy="26" r="8" fill="#6FA36B" opacity="0.9"/>
+        <path d="M13 19 L16 13 L19 19 Z" fill="#4E8A4E" opacity="0.85"/>
+      </g></svg>
+      <svg viewBox="0 0 60 60"><g filter="url(#watercolor)">
+        <circle cx="30" cy="34" r="15" fill="#8A97A6" opacity="0.9"/>
+        <path d="M18 20 L14 6 L27 18 Z" fill="#8A97A6" opacity="0.85"/>
+        <path d="M42 20 L46 6 L33 18 Z" fill="#8A97A6" opacity="0.85"/>
+        <path d="M23 33 Q26 44 30 45 Q34 44 37 33 Q32 40 30 40 Q28 40 23 33 Z" fill="#FDF7EC" opacity="0.9"/>
+      </g></svg>
+      <svg viewBox="0 0 60 60"><g filter="url(#watercolor)">
+        <circle cx="21" cy="20" r="9" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="32" cy="16" r="10" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="42" cy="21" r="9" fill="#EDE6D6" opacity="0.95"/>
+        <circle cx="30" cy="27" r="11" fill="#EDE6D6" opacity="0.95"/>
+        <ellipse cx="30" cy="38" rx="13" ry="12" fill="#5C5248" opacity="0.9"/>
+        <circle cx="25" cy="35" r="2.3" fill="#3E2C22"/>
+        <circle cx="35" cy="35" r="2.3" fill="#3E2C22"/>
+      </g></svg>
+    </div>
+    <h1>Central de Ofertas</h1>
+    <p>Todo o ranking de descontos reais da Amazon, organizado por bichinho. Escolha um card pra ver os preços de hoje.</p>
+    <span class="updated">Preços coletados ao vivo · confira antes de comprar</span>
+  </div>
+
+  <div class="grid">
+
+    <a class="card shiba" href="top20-kerastase.html">
+      <div class="card-top">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><g filter="url(#watercolor)">
+          <ellipse cx="60" cy="55" rx="30" ry="38" fill="#E38B4F" opacity="0.85" transform="rotate(-18 60 55)"/>
+          <ellipse cx="140" cy="55" rx="30" ry="38" fill="#E38B4F" opacity="0.85" transform="rotate(18 140 55)"/>
+          <ellipse cx="60" cy="58" rx="14" ry="18" fill="#F4C9A8" opacity="0.9" transform="rotate(-18 60 58)"/>
+          <ellipse cx="140" cy="58" rx="14" ry="18" fill="#F4C9A8" opacity="0.9" transform="rotate(18 140 58)"/>
+          <circle cx="100" cy="115" r="62" fill="#E38B4F" opacity="0.9"/>
+          <path d="M45 120 Q60 165 100 168 Q140 165 155 120 Q140 150 100 152 Q60 150 45 120 Z" fill="#FDF7EC" opacity="0.95"/>
+          <circle cx="78" cy="105" r="7" fill="#3E2C22"/>
+          <circle cx="122" cy="105" r="7" fill="#3E2C22"/>
+          <path d="M92 122 Q100 130 108 122" stroke="#3E2C22" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <ellipse cx="100" cy="118" rx="6" ry="4.5" fill="#3E2C22"/>
+        </g></svg>
+        <span class="badge">Top 20</span>
+      </div>
+      <h2>Kérastase</h2>
+      <p>Ranking de descontos reais em cabelo — máscaras, óleos e shampoos Kérastase.</p>
+      <div class="tags"><span class="tag">Cuidados com o cabelo</span></div>
+      <span class="go">Ver ofertas <span class="arrow">→</span></span>
+    </a>
+
+    <a class="card bunny" href="top50-bebe-prime-day.html">
+      <div class="card-top">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><g filter="url(#watercolor)">
+          <ellipse cx="72" cy="40" rx="15" ry="42" fill="#D98BA8" opacity="0.85" transform="rotate(-12 72 40)"/>
+          <ellipse cx="128" cy="40" rx="15" ry="42" fill="#D98BA8" opacity="0.85" transform="rotate(12 128 40)"/>
+          <ellipse cx="74" cy="42" rx="6.5" ry="28" fill="#F4C9A8" opacity="0.9" transform="rotate(-12 74 42)"/>
+          <ellipse cx="126" cy="42" rx="6.5" ry="28" fill="#F4C9A8" opacity="0.9" transform="rotate(12 126 42)"/>
+          <circle cx="100" cy="125" r="58" fill="#F4E3EA" opacity="0.95"/>
+          <path d="M50 132 Q65 172 100 174 Q135 172 150 132 Q135 158 100 160 Q65 158 50 132 Z" fill="#FDF7EC" opacity="0.9"/>
+          <circle cx="80" cy="115" r="6.5" fill="#3E2C22"/>
+          <circle cx="120" cy="115" r="6.5" fill="#3E2C22"/>
+          <path d="M100 124 L94 132 L106 132 Z" fill="#D98BA8"/>
+        </g></svg>
+        <span class="badge">Top 50</span>
+      </div>
+      <h2>Bebê</h2>
+      <p>Fraldas, pomadas de assadura e lenços umedecidos — as três categorias mais buscadas por quem tem bebê em casa.</p>
+      <div class="tags"><span class="tag">Fraldas</span><span class="tag">Pomadas</span><span class="tag">Lenços</span></div>
+      <span class="go">Ver ofertas <span class="arrow">→</span></span>
+    </a>
+
+    <a class="card dino" href="top-racao-petiscos-dog.html">
+      <div class="card-top">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><g filter="url(#watercolor)">
+          <path d="M60 150 Q40 145 32 158 Q44 162 52 156 Z" fill="#6FA36B" opacity="0.85"/>
+          <ellipse cx="95" cy="130" rx="52" ry="34" fill="#6FA36B" opacity="0.9"/>
+          <path d="M50 118 Q42 100 56 84 Q60 100 66 112 Z" fill="#6FA36B" opacity="0.9"/>
+          <circle cx="56" cy="88" r="20" fill="#6FA36B" opacity="0.92"/>
+          <path d="M46 74 L50 62 L56 74 Z" fill="#4E8A4E" opacity="0.85"/>
+          <path d="M58 70 L62 58 L68 71 Z" fill="#4E8A4E" opacity="0.85"/>
+          <ellipse cx="95" cy="140" rx="34" ry="18" fill="#BFE0B0" opacity="0.85"/>
+          <circle cx="48" cy="84" r="4.5" fill="#3E2C22"/>
+        </g></svg>
+        <span class="badge">42 itens</span>
+      </div>
+      <h2>Ração &amp; Petiscos Dog</h2>
+      <p>Fórmula Natural, N&amp;D, Royal Canin e Guabi Natural, além de petiscos naturais e Churu.</p>
+      <div class="tags"><span class="tag">Ração</span><span class="tag">Petiscos</span><span class="tag">Churu</span></div>
+      <span class="go">Ver ofertas <span class="arrow">→</span></span>
+    </a>
+
+    <a class="card wolf" href="top-whey-suplementos.html">
+      <div class="card-top">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><g filter="url(#watercolor)">
+          <ellipse cx="100" cy="132" rx="72" ry="54" fill="#4A5560" opacity="0.32"/>
+          <path d="M56 68 L44 14 L78 60 Z" fill="#8A97A6" opacity="0.9" transform="rotate(-6 60 42)"/>
+          <path d="M144 68 L156 14 L122 60 Z" fill="#8A97A6" opacity="0.9" transform="rotate(6 140 42)"/>
+          <path d="M59 60 L52 26 L69 55 Z" fill="#4A5560" opacity="0.8" transform="rotate(-6 60 42)"/>
+          <path d="M141 60 L148 26 L131 55 Z" fill="#4A5560" opacity="0.8" transform="rotate(6 140 42)"/>
+          <circle cx="100" cy="112" r="58" fill="#8A97A6" opacity="0.92"/>
+          <path d="M58 118 L46 128 L60 133 Z" fill="#8A97A6" opacity="0.85"/>
+          <path d="M142 118 L154 128 L140 133 Z" fill="#8A97A6" opacity="0.85"/>
+          <path d="M72 116 Q80 158 100 163 Q120 158 128 116 Q116 150 100 152 Q84 150 72 116 Z" fill="#FDF7EC" opacity="0.95"/>
+          <path d="M72 96 L86 100" stroke="#4A5560" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
+          <path d="M128 96 L114 100" stroke="#4A5560" stroke-width="4" fill="none" stroke-linecap="round" opacity="0.8"/>
+          <circle cx="82" cy="108" r="6.5" fill="#3E2C22"/>
+          <circle cx="118" cy="108" r="6.5" fill="#3E2C22"/>
+        </g></svg>
+        <span class="badge">144 itens</span>
+      </div>
+      <h2>Whey &amp; Suplementos</h2>
+      <p>Whey de caixinha, pote premium, barrinhas, energéticos, termogênicos e colágeno — Top 25 por categoria.</p>
+      <div class="tags"><span class="tag">Whey</span><span class="tag">Energéticos</span><span class="tag">Colágeno</span></div>
+      <span class="go">Ver ofertas <span class="arrow">→</span></span>
+    </a>
+
+    <a class="card sheep" href="top-sem-gluten.html">
+      <div class="card-top">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><g filter="url(#watercolor)">
+          <circle cx="70" cy="65" r="26" fill="#EDE6D6" opacity="0.95"/>
+          <circle cx="105" cy="52" r="30" fill="#EDE6D6" opacity="0.95"/>
+          <circle cx="140" cy="68" r="26" fill="#EDE6D6" opacity="0.95"/>
+          <circle cx="60" cy="95" r="24" fill="#EDE6D6" opacity="0.95"/>
+          <circle cx="145" cy="98" r="24" fill="#EDE6D6" opacity="0.95"/>
+          <circle cx="100" cy="88" r="34" fill="#EDE6D6" opacity="0.95"/>
+          <ellipse cx="58" cy="118" rx="10" ry="15" fill="#5C5248" opacity="0.85" transform="rotate(-18 58 118)"/>
+          <ellipse cx="142" cy="118" rx="10" ry="15" fill="#5C5248" opacity="0.85" transform="rotate(18 142 118)"/>
+          <ellipse cx="100" cy="122" rx="40" ry="36" fill="#5C5248" opacity="0.9"/>
+          <circle cx="86" cy="118" r="6.5" fill="#3E2C22"/>
+          <circle cx="114" cy="118" r="6.5" fill="#3E2C22"/>
+        </g></svg>
+        <span class="badge">101 itens</span>
+      </div>
+      <h2>Sem Glúten</h2>
+      <p>Massas, pães, biscoitos, farinhas/mixes e cereais — marcas com linha sem glúten (Barilla, Schar) e marcas 100% dedicadas (Urbano, RisoVita).</p>
+      <div class="tags"><span class="tag">Massas</span><span class="tag">Pães</span><span class="tag">Biscoitos</span></div>
+      <span class="go">Ver ofertas <span class="arrow">→</span></span>
+    </a>
+
+  </div>
+
+  <footer>
+    <p>Preços e ofertas mudam a qualquer momento — confira o valor final antes de comprar.</p>
+    <p>Links de produto usam <a class="footer-link" href="https://www.amazon.com.br/" target="_blank" rel="noopener">tag de afiliado</a> Amazon.com.br.</p>
+  </footer>
+
+</div>

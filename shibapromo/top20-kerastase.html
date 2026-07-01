@@ -1,0 +1,374 @@
+<title>Top 20 Kérastase — Prime Day 🐕</title>
+<style>
+  :root{
+    --paper:#FDF7EC;
+    --ink:#3E2C22;
+    --ink-soft:#6B5344;
+    --shiba:#E38B4F;
+    --peach:#F4C9A8;
+    --sage:#7C9473;
+    --terracotta:#C65D42;
+    --line:#E8D9C3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0;
+    padding:2.5rem 1.25rem 4rem;
+    display:flex;
+    justify-content:center;
+  }
+  .page{
+    width:100%;
+    max-width:760px;
+  }
+  .hero{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    padding-bottom:1.75rem;
+    border-bottom:2px dashed var(--line);
+    margin-bottom:2rem;
+  }
+  .hero svg{ flex:none; width:132px; height:132px; }
+  h1{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:2rem;
+    line-height:1.05;
+    margin:0 0 .4rem;
+    color:var(--terracotta);
+    text-wrap:balance;
+  }
+  .hero p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:.95rem;
+    max-width:38ch;
+  }
+  .tag{
+    display:inline-block;
+    background:var(--sage);
+    color:#fff;
+    font-size:.7rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:.15rem .55rem;
+    border-radius:999px;
+    margin-bottom:.5rem;
+  }
+  .list{
+    display:flex;
+    flex-direction:column;
+  }
+  .item{
+    display:grid;
+    grid-template-columns:2.2rem 1fr auto;
+    align-items:center;
+    gap:.9rem;
+    padding:.85rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:first-child{
+    padding-top:0;
+  }
+  .rank{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:1.05rem;
+    color:var(--peach);
+    -webkit-text-stroke:1px var(--shiba);
+    text-align:center;
+  }
+  .name{
+    font-size:.88rem;
+    line-height:1.3;
+    color:var(--ink);
+  }
+  .name a{
+    color:inherit;
+    text-decoration:none;
+  }
+  .name a:hover, .name a:focus-visible{
+    text-decoration:underline;
+    text-decoration-color:var(--shiba);
+  }
+  .prices{
+    text-align:right;
+    white-space:nowrap;
+    font-variant-numeric:tabular-nums;
+  }
+  .strike{
+    display:block;
+    font-size:.72rem;
+    color:var(--ink-soft);
+    text-decoration:line-through;
+  }
+  .now{
+    display:block;
+    font-weight:700;
+    font-size:.95rem;
+  }
+  .unit{
+    display:block;
+    font-size:.68rem;
+    color:var(--ink-soft);
+    font-weight:400;
+  }
+  .perkg{
+    display:block;
+    font-size:.68rem;
+    color:var(--ink-soft);
+    font-weight:400;
+  }
+  .pct{
+    display:inline-block;
+    margin-top:.15rem;
+    font-size:.72rem;
+    font-weight:700;
+    padding:.05rem .45rem;
+    border-radius:999px;
+    color:#fff;
+    background:var(--shiba);
+  }
+  .item:nth-child(-n+3) .pct{
+    background:var(--terracotta);
+  }
+  footer{
+    margin-top:2.25rem;
+    padding-top:1.25rem;
+    border-top:2px dashed var(--line);
+    font-size:.78rem;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  footer svg{ width:28px; height:28px; flex:none; }
+  a:focus-visible, .name a:focus-visible{
+    outline:2px solid var(--shiba);
+    outline-offset:2px;
+  }
+  .search-wrap{ margin-bottom:1.75rem; }
+  .search-wrap input{
+    width:100%;
+    padding:.65rem 1rem;
+    border:2px solid var(--line);
+    border-radius:999px;
+    background:#fff;
+    color:var(--ink);
+    font-size:.9rem;
+    font-family:inherit;
+  }
+  .search-wrap input::placeholder{ color:var(--ink-soft); opacity:.8; }
+  .search-wrap input:focus-visible{ outline:2px solid var(--shiba); border-color:transparent; }
+  .no-results{ display:none; text-align:center; color:var(--ink-soft); font-size:.9rem; padding:2rem 0; }
+  @media (max-width:520px){
+    .hero{ flex-direction:column; text-align:center; }
+    .hero p{ max-width:none; }
+    .item{ grid-template-columns:1.6rem 1fr auto; gap:.6rem; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+    <feGaussianBlur in="disp" stdDeviation="1.1" result="blur"/>
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"/>
+  </filter>
+</svg>
+
+<div class="page">
+
+  <div class="hero">
+    <svg viewBox="0 0 200 200" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <ellipse cx="60" cy="55" rx="30" ry="38" fill="#E38B4F" opacity="0.85" transform="rotate(-18 60 55)"/>
+        <ellipse cx="140" cy="55" rx="30" ry="38" fill="#E38B4F" opacity="0.85" transform="rotate(18 140 55)"/>
+        <ellipse cx="60" cy="58" rx="14" ry="18" fill="#F4C9A8" opacity="0.9" transform="rotate(-18 60 58)"/>
+        <ellipse cx="140" cy="58" rx="14" ry="18" fill="#F4C9A8" opacity="0.9" transform="rotate(18 140 58)"/>
+        <circle cx="100" cy="115" r="62" fill="#E38B4F" opacity="0.9"/>
+        <path d="M45 120 Q60 165 100 168 Q140 165 155 120 Q140 150 100 152 Q60 150 45 120 Z" fill="#FDF7EC" opacity="0.95"/>
+        <circle cx="78" cy="105" r="7" fill="#3E2C22"/>
+        <circle cx="122" cy="105" r="7" fill="#3E2C22"/>
+        <path d="M92 122 Q100 130 108 122" stroke="#3E2C22" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <ellipse cx="100" cy="118" rx="6" ry="4.5" fill="#3E2C22"/>
+        <circle cx="55" cy="118" r="8" fill="#C65D42" opacity="0.35"/>
+        <circle cx="145" cy="118" r="8" fill="#C65D42" opacity="0.35"/>
+      </g>
+    </svg>
+    <div>
+      <span class="tag">Prime Day · Amazon.com.br</span>
+      <h1>Top 20 descontos Kérastase</h1>
+      <p>Ranking por % de desconto real (preço de/por), coletado ao vivo na busca da Amazon hoje.</p>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input type="search" placeholder="Buscar por linha, tipo de produto..." aria-label="Buscar produto">
+  </div>
+
+  <div class="list">
+
+    <div class="item">
+      <span class="rank">1</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07BWSJN13?tag=muselew-20" target="_blank" rel="noopener">Thérapiste Máscara de Tratamento Resistance, cabelos danificados, 200ml</a></span>
+      <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 212,79</span><span class="pct">-37%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">2</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D2LV7DHF?tag=muselew-20" target="_blank" rel="noopener">Elixir Ultime L'Huile Originale, óleo capilar nutrição profunda, 75ml</a></span>
+      <span class="prices"><span class="strike">R$ 459,00</span><span class="now">R$ 294,86</span><span class="pct">-36%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">3</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B078RVCYWK?tag=muselew-20" target="_blank" rel="noopener">Densifique Masque Densité, hidratação e densidade, 200g</a></span>
+      <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 233,91</span><span class="pct">-31%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">4</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DWCGX8L2?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Glaze Milk Anti-Frizz, spray, 45ml</a></span>
+      <span class="prices"><span class="strike">R$ 139,00</span><span class="now">R$ 99,00</span><span class="pct">-29%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">5</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G7HJFJVH?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Frizz-Glaze Cream, creme modelador antifrizz, 240ml</a></span>
+      <span class="prices"><span class="strike">R$ 399,90</span><span class="now">R$ 292,32</span><span class="pct">-27%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">6</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G7J7JXKV?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Bain Crème Hydra-Glaze, shampoo antifrizz, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 192,00</span><span class="pct">-26%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">7</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DQV1FQ49?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Glaze Drops, óleo com rosa silvestre, 45ml</a></span>
+      <span class="prices"><span class="strike">R$ 399,00</span><span class="now">R$ 299,00</span><span class="pct">-25%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">8</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0C6FM2ZQF?tag=muselew-20" target="_blank" rel="noopener">Genesis Bain Hydra-Fortifiant, shampoo antiqueda, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 155,79</span><span class="pct">-24%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">9</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZK3R5S?tag=muselew-20" target="_blank" rel="noopener">Nutritive Masquintense, máscara ultra concentrada, 200ml</a></span>
+      <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 256,41</span><span class="pct">-24%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">10</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DQTZ2PDD?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Hydra-Glaze, shampoo iluminador, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 249,00</span><span class="now">R$ 192,58</span><span class="pct">-23%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">11</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07H8N7ZCW?tag=muselew-20" target="_blank" rel="noopener">Elixir Ultime Le Bain, shampoo nutrição profunda, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 158,31</span><span class="pct">-23%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">12</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CW2B5Q9N?tag=muselew-20" target="_blank" rel="noopener">Kit Thérapiste Bain + Máscara, 250g</a></span>
+      <span class="prices"><span class="strike">R$ 544,00</span><span class="now">R$ 418,09</span><span class="pct">-23%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">13</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZJYKZ6?tag=muselew-20" target="_blank" rel="noopener">Nutritive Bain Satin, shampoo hidratante, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 156,93</span><span class="pct">-23%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">14</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B083JKX9MX?tag=muselew-20" target="_blank" rel="noopener">Genesis Fondant Renforçateur, condicionador antiqueda, 200ml</a></span>
+      <span class="prices"><span class="strike">R$ 249,00</span><span class="now">R$ 194,50</span><span class="pct">-22%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">15</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZJWGPQ?tag=muselew-20" target="_blank" rel="noopener">Nutritive Sérum Capilar Noturno 8H Magic Night, 90ml</a></span>
+      <span class="prices"><span class="strike">R$ 399,00</span><span class="now">R$ 314,91</span><span class="pct">-21%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">16</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G7HBDWRP?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Frizz-Glaze Cream, creme modelador antifrizz, 240ml</a></span>
+      <span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 340,10</span><span class="pct">-21%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">17</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZKXTQW?tag=muselew-20" target="_blank" rel="noopener">Nutritive Bain Satin Riche, shampoo nutritivo, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 164,90</span><span class="pct">-20%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">18</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0C6FML247?tag=muselew-20" target="_blank" rel="noopener">Shampoo Chronologiste Bain Régénérant, regeneração, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 245,00</span><span class="now">R$ 195,71</span><span class="pct">-20%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">19</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09RGMBKCY?tag=muselew-20" target="_blank" rel="noopener">Shampoo Chroma Absolu Bain Chroma Respect, proteção de cor, 250ml</a></span>
+      <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 166,05</span><span class="pct">-19%</span></span>
+    </div>
+
+    <div class="item">
+      <span class="rank">20</span>
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07SN4BQTB?tag=muselew-20" target="_blank" rel="noopener">Discipline Masque Oléo-Relax, máscara antifrizz, 200ml</a></span>
+      <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 279,67</span><span class="pct">-18%</span></span>
+    </div>
+
+  </div>
+
+  <p class="no-results">Nenhum produto encontrado para essa busca.</p>
+
+  <footer>
+    <svg viewBox="0 0 60 60" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <circle cx="30" cy="30" r="22" fill="#E38B4F" opacity="0.8"/>
+        <circle cx="16" cy="18" r="6" fill="#E38B4F" opacity="0.7"/>
+        <circle cx="44" cy="18" r="6" fill="#E38B4F" opacity="0.7"/>
+      </g>
+    </svg>
+    <span>Coletado ao vivo via Amazon.com.br/s?k=kerastase — preços e ofertas mudam a qualquer momento, confira antes de comprar.</span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var input = document.querySelector('.search-wrap input');
+  var items = document.querySelectorAll('.list .item');
+  var noResults = document.querySelector('.no-results');
+
+  function filter(){
+    var term = input.value.trim().toLowerCase();
+    var visible = 0;
+    items.forEach(function(item){
+      var name = item.querySelector('.name').textContent.toLowerCase();
+      var match = term === '' || name.indexOf(term) !== -1;
+      item.style.display = match ? '' : 'none';
+      if(match) visible++;
+    });
+    noResults.style.display = visible === 0 ? 'block' : 'none';
+  }
+
+  if(input) input.addEventListener('input', filter);
+})();
+</script>
