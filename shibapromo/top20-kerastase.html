@@ -173,6 +173,70 @@
     .hero p{ max-width:none; }
     .item{ grid-template-columns:1.6rem 1fr auto; gap:.6rem; }
   }
+
+  .page.show-images .item{ grid-template-columns:2.2rem 104px 1fr auto; }
+  .thumb{
+    display:none;
+    width:104px;
+    height:104px;
+    object-fit:contain;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:.25rem;
+  }
+  .page.show-images .thumb{ display:block; }
+
+  .img-toggle{
+    display:flex;
+    align-items:center;
+    gap:.45rem;
+    flex:none;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-weight:600;
+    cursor:pointer;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .img-toggle input{
+    position:absolute;
+    opacity:0;
+    width:1px;
+    height:1px;
+  }
+  .img-toggle .switch{
+    position:relative;
+    width:38px;
+    height:22px;
+    background:var(--line);
+    border-radius:999px;
+    flex:none;
+    transition:background .18s ease;
+  }
+  .img-toggle .switch::after{
+    content:"";
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    background:#fff;
+    border-radius:50%;
+    box-shadow:0 1px 2px rgba(62,44,34,.25);
+    transition:transform .18s ease;
+  }
+  .img-toggle input:checked + .switch{ background:var(--shiba); }
+  .img-toggle input:checked + .switch::after{ transform:translateX(16px); }
+  .img-toggle input:focus-visible + .switch{ outline:2px solid var(--shiba); outline-offset:2px; }
+  .img-toggle .icon{ font-size:.95rem; line-height:1; }
+  @media (max-width:520px){
+    .img-toggle span.label{ display:none; }
+  }
+  @media (max-width:520px){
+    .page.show-images .item{ grid-template-columns:1.6rem 60px 1fr auto; gap:.5rem; }
+    .page.show-images .thumb{ width:60px; height:60px; }
+  }
+  .search-wrap{ display:flex; align-items:center; gap:.75rem; }
+  .search-wrap input{ flex:1; }
 </style>
 
 <svg width="0" height="0" style="position:absolute">
@@ -184,7 +248,7 @@
   </filter>
 </svg>
 
-<div class="page">
+<div class="page show-images">
 
   <div class="hero">
     <a href="index.html" class="mascot-link" aria-label="Voltar para a página inicial"><svg viewBox="0 0 200 200" aria-hidden="true">
@@ -212,126 +276,152 @@
 
   <div class="search-wrap">
     <input type="search" placeholder="Buscar por linha, tipo de produto..." aria-label="Buscar produto">
+    <label class="img-toggle">
+      <input type="checkbox" id="toggle-images" checked>
+      <span class="switch" aria-hidden="true"></span>
+      <span class="icon" aria-hidden="true">🖼️</span>
+      <span class="label">Imagens</span>
+    </label>
   </div>
 
   <div class="list">
 
     <div class="item">
       <span class="rank">1</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/41wPATsY7bL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B07BWSJN13?tag=muselew-20" target="_blank" rel="noopener">Thérapiste Máscara de Tratamento Resistance, cabelos danificados, 200ml</a></span>
       <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 212,79</span><span class="pct">-37%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">2</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61nHG4vAw6L._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0D2LV7DHF?tag=muselew-20" target="_blank" rel="noopener">Elixir Ultime L'Huile Originale, óleo capilar nutrição profunda, 75ml</a></span>
       <span class="prices"><span class="strike">R$ 459,00</span><span class="now">R$ 294,86</span><span class="pct">-36%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">3</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61GWXGjfwxL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B00WGBB5YG?tag=muselew-20" target="_blank" rel="noopener">Sérum Capilar Reparador Para Cabelos Danificados e Pontas Duplas, Proteção Térmica</a></span>
       <span class="prices"><span class="strike">R$ 329,00</span><span class="now">R$ 210,04</span><span class="pct">-36%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">4</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/619xjG6ntkL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B078RVCYWK?tag=muselew-20" target="_blank" rel="noopener">Densifique Masque Densité, hidratação e densidade, 200g</a></span>
       <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 233,91</span><span class="pct">-31%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">5</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/41sJXywOnEL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZK86T3?tag=muselew-20" target="_blank" rel="noopener">Nutritive Masquintense Riche, máscara para cabelos muito secos e sensibilizados</a></span>
       <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 242,90</span><span class="pct">-28%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">6</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61oBrnMtTwL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0C6FPGYYB?tag=muselew-20" target="_blank" rel="noopener">Chronologiste Masque Intense Régénérant, regeneração para todos os tipos de cabelo</a></span>
       <span class="prices"><span class="strike">R$ 479,00</span><span class="now">R$ 342,72</span><span class="pct">-28%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">7</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51KAJaARYTL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0G7HJFJVH?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Frizz-Glaze Cream, creme modelador antifrizz, 240ml</a></span>
       <span class="prices"><span class="strike">R$ 399,90</span><span class="now">R$ 292,32</span><span class="pct">-27%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">8</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/519QQQ6PdWL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0G7J7JXKV?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Bain Crème Hydra-Glaze, shampoo antifrizz, 250ml</a></span>
       <span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 192,00</span><span class="pct">-26%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">9</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/619r+wYSpfL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0DQV1FQ49?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Glaze Drops, óleo com rosa silvestre, 45ml</a></span>
       <span class="prices"><span class="strike">R$ 399,00</span><span class="now">R$ 299,00</span><span class="pct">-25%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">10</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71UXBFmTRRL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0CW2B5Q9N?tag=muselew-20" target="_blank" rel="noopener">Kit Thérapiste Bain + Máscara, 250g</a></span>
       <span class="prices"><span class="strike">R$ 544,00</span><span class="now">R$ 413,98</span><span class="pct">-24%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">11</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/715ykEdSs1L._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B07H8N7ZCW?tag=muselew-20" target="_blank" rel="noopener">Elixir Ultime Le Bain, shampoo nutrição profunda, 250ml</a></span>
       <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 158,31</span><span class="pct">-23%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">12</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/5173Y91y5jL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZJYKZ6?tag=muselew-20" target="_blank" rel="noopener">Nutritive Bain Satin, shampoo hidratante, 250ml</a></span>
       <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 156,93</span><span class="pct">-23%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">13</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61QdfOdgIdL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B083JKX9MX?tag=muselew-20" target="_blank" rel="noopener">Genesis Fondant Renforçateur, condicionador antiqueda, 200ml</a></span>
       <span class="prices"><span class="strike">R$ 249,00</span><span class="now">R$ 194,50</span><span class="pct">-22%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">14</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61VyR1o6oOL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZJWGPQ?tag=muselew-20" target="_blank" rel="noopener">Nutritive Sérum Capilar Noturno 8H Magic Night, 90ml</a></span>
       <span class="prices"><span class="strike">R$ 399,00</span><span class="now">R$ 314,91</span><span class="pct">-21%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">15</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51xUlrViq1L._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0G7HBDWRP?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Frizz-Glaze Cream, creme modelador antifrizz, 240ml</a></span>
       <span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 340,10</span><span class="pct">-21%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">16</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61TzYSwnS1L._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZLS9HH?tag=muselew-20" target="_blank" rel="noopener">Nutritive Lait Vital Condicionador, cabelos secos e finos</a></span>
       <span class="prices"><span class="strike">R$ 249,00</span><span class="now">R$ 197,54</span><span class="pct">-21%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">17</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61OQTzUEo1L._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZK3R5S?tag=muselew-20" target="_blank" rel="noopener">Nutritive Masquintense, máscara ultra concentrada, 200ml</a></span>
       <span class="prices"><span class="strike">R$ 339,00</span><span class="now">R$ 269,90</span><span class="pct">-20%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">18</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51HS8MueShL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0C6FML247?tag=muselew-20" target="_blank" rel="noopener">Shampoo Chronologiste Bain Régénérant, regeneração, 250ml</a></span>
       <span class="prices"><span class="strike">R$ 245,00</span><span class="now">R$ 195,71</span><span class="pct">-20%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">19</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61x2h5mqieL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0BZZKXTQW?tag=muselew-20" target="_blank" rel="noopener">Nutritive Bain Satin Riche, shampoo nutritivo, 250ml</a></span>
       <span class="prices"><span class="strike">R$ 205,00</span><span class="now">R$ 164,90</span><span class="pct">-20%</span></span>
     </div>
 
     <div class="item">
       <span class="rank">20</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71F4bQbSVnL._AC_SX342_.jpg" alt="" loading="lazy">
       <span class="name"><a href="https://www.amazon.com.br/dp/B0DQTZ2PDD?tag=muselew-20" target="_blank" rel="noopener">Gloss Absolu Hydra-Glaze, shampoo iluminador, 250ml</a></span>
       <span class="prices"><span class="strike">R$ 249,00</span><span class="now">R$ 199,00</span><span class="pct">-20%</span></span>
     </div>
@@ -358,6 +448,35 @@
   var input = document.querySelector('.search-wrap input');
   var items = document.querySelectorAll('.list .item');
   var noResults = document.querySelector('.no-results');
+  var page = document.querySelector('.page');
+  var imgToggle = document.getElementById('toggle-images');
+
+  var COOKIE_NAME = 'ofertasShowImages';
+
+  function getCookie(name){
+    var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name, value){
+    var maxAge = 60 * 60 * 24 * 365;
+    document.cookie = name + '=' + encodeURIComponent(value) + '; max-age=' + maxAge + '; path=/; SameSite=Lax';
+  }
+
+  (function initImageToggle(){
+    var saved = getCookie(COOKIE_NAME);
+    var showImages = saved === null ? true : saved === '1';
+    page.classList.toggle('show-images', showImages);
+    if(imgToggle) imgToggle.checked = showImages;
+  })();
+
+  if(imgToggle){
+    imgToggle.addEventListener('change', function(){
+      page.classList.toggle('show-images', imgToggle.checked);
+      setCookie(COOKIE_NAME, imgToggle.checked ? '1' : '0');
+    });
+  }
+
 
   function filter(){
     var term = input.value.trim().toLowerCase();

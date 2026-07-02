@@ -187,6 +187,74 @@
     .item .prices{ grid-area:prices; }
     .name{ font-size:.84rem; }
   }
+
+  .page.show-images .item{ grid-template-columns:2rem 104px 1fr auto; }
+  .thumb{
+    display:none;
+    width:104px;
+    height:104px;
+    object-fit:contain;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:.25rem;
+  }
+  .page.show-images .thumb{ display:block; }
+
+  .img-toggle{
+    display:flex;
+    align-items:center;
+    gap:.45rem;
+    flex:none;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-weight:600;
+    cursor:pointer;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .img-toggle input{
+    position:absolute;
+    opacity:0;
+    width:1px;
+    height:1px;
+  }
+  .img-toggle .switch{
+    position:relative;
+    width:38px;
+    height:22px;
+    background:var(--line);
+    border-radius:999px;
+    flex:none;
+    transition:background .18s ease;
+  }
+  .img-toggle .switch::after{
+    content:"";
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    background:#fff;
+    border-radius:50%;
+    box-shadow:0 1px 2px rgba(62,44,34,.25);
+    transition:transform .18s ease;
+  }
+  .img-toggle input:checked + .switch{ background:var(--wolf); }
+  .img-toggle input:checked + .switch::after{ transform:translateX(16px); }
+  .img-toggle input:focus-visible + .switch{ outline:2px solid var(--wolf); outline-offset:2px; }
+  .img-toggle .icon{ font-size:.95rem; line-height:1; }
+  @media (max-width:520px){
+    .img-toggle span.label{ display:none; }
+  }
+  @media (max-width:420px){
+    .page.show-images .item{
+      grid-template-columns:88px 1fr auto;
+      grid-template-areas:"thumb name name" "thumb rank prices";
+      column-gap:.6rem;
+    }
+    .page.show-images .item .thumb{ grid-area:thumb; align-self:start; width:88px; height:88px; }
+  }
+  .search-wrap{ display:flex; align-items:center; gap:.75rem; }
+  .search-wrap input{ flex:1; }
 </style>
 
 <svg width="0" height="0" style="position:absolute">
@@ -198,7 +266,7 @@
   </filter>
 </svg>
 
-<div class="page">
+<div class="page show-images">
 
   <div class="hero">
     <a href="index.html" class="mascot-link" aria-label="Voltar para a página inicial"><svg viewBox="0 0 200 200" aria-hidden="true">
@@ -229,37 +297,93 @@
 
   <div class="search-wrap">
     <input type="search" placeholder="Buscar por marca, sabor, tipo..." aria-label="Buscar produto">
+    <label class="img-toggle">
+      <input type="checkbox" id="toggle-images" checked>
+      <span class="switch" aria-hidden="true"></span>
+      <span class="icon" aria-hidden="true">🖼️</span>
+      <span class="label">Imagens</span>
+    </label>
   </div>
 
   <div class="section caixinha">
     <div class="section-head"><h2>Whey de Caixinha</h2><span class="count">25 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D3M6613S?tag=muselew-20" target="_blank" rel="noopener">Bebida Proteica Mais Mu Mulkshake, Chocolate, 12g de Proteína, Zero Lactose</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 71,24</span><span class="pct">-37%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DFMWCHHP?tag=muselew-20" target="_blank" rel="noopener">Bebida Proteica Mais Mu Mulkshake, Cappuccino, 12g de Proteína, Zero Lactose</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 71,24</span><span class="pct">-37%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0F9BB1MZJ?tag=muselew-20" target="_blank" rel="noopener">Bebida Proteica Mais Mu Mulkshake, Morango, 12g de Proteína, Zero Lactose</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 76,37</span><span class="pct">-33%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DDV8NGTG?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Café Expresso, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 224,29</span><span class="now">R$ 172,12</span><span class="unit">R$ 7,17/un</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B09M2B14V7?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Chocolate, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 98,29</span><span class="now">R$ 75,90</span><span class="unit">R$ 6,33/un</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D4RHRR3V?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Morango, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 98,29</span><span class="now">R$ 75,90</span><span class="unit">R$ 6,33/un</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C3WDTWZK?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Coco com Batata-Doce, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 98,29</span><span class="now">R$ 75,90</span><span class="unit">R$ 6,33/un</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DDVG4BBS?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Capuccino, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 224,29</span><span class="now">R$ 172,12</span><span class="unit">R$ 7,17/un</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D239PCKH?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Baunilha, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CXF9FZ94?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Chocolate, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FSP1H9CF?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Chocolate, 23g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 228,79</span><span class="now">R$ 177,42</span><span class="unit">R$ 7,39/un</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GVLC47TP?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Cheesecake Frutas Vermelhas, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CXB4HYV8?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Coco com Batata-Doce, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CXBCWPPL?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Banana, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 189,99</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-21%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DXXMRZX6?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Milho Verde, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 119,90</span><span class="now">R$ 95,99</span><span class="unit">R$ 5,33/un</span><span class="pct">-20%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CMB46W4K?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Baunilha, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DXXHV6XN?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Cappuccino, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DXXCR12J?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Chocolate, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DXXC6S6N?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Abacate, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CLS7B3CZ?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Chocolate, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 71,30</span><span class="unit">R$ 5,94/un</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CX5LYMC1?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Baunilha, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 71,30</span><span class="unit">R$ 5,94/un</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CX5KP74M?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Coco com Batata Doce, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 71,30</span><span class="unit">R$ 5,94/un</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">23</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DJ3J1QVN?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Doce de Leite Havanna, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 173,94</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-14%</span></span></div>
-    <div class="item"><span class="rank">24</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CX9WV39T?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Morango, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 174,40</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-14%</span></span></div>
-    <div class="item"><span class="rank">25</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FH2TGRWR?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Baunilha, 15g de Proteína, 250ml, Kit 6 Unidades</a></span><span class="prices"><span class="strike">R$ 109,00</span><span class="now">R$ 98,10</span><span class="unit">R$ 16,35/un</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">1</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61AlHHNDAgL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D3M6613S?tag=muselew-20" target="_blank" rel="noopener">Bebida Proteica Mais Mu Mulkshake, Chocolate, 12g de Proteína, Zero Lactose</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 71,24</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/616S-GppakL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DFMWCHHP?tag=muselew-20" target="_blank" rel="noopener">Bebida Proteica Mais Mu Mulkshake, Cappuccino, 12g de Proteína, Zero Lactose</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 71,24</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61ZoyIC9uqL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0F9BB1MZJ?tag=muselew-20" target="_blank" rel="noopener">Bebida Proteica Mais Mu Mulkshake, Morango, 12g de Proteína, Zero Lactose</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 76,37</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71JXeXBrqPL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DDV8NGTG?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Café Expresso, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 224,29</span><span class="now">R$ 172,12</span><span class="unit">R$ 7,17/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/711Hqva6ioL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09M2B14V7?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Chocolate, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 98,29</span><span class="now">R$ 75,90</span><span class="unit">R$ 6,33/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71xiKodmqnL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D4RHRR3V?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Morango, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 98,29</span><span class="now">R$ 75,90</span><span class="unit">R$ 6,33/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71uhiMj0xQL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0C3WDTWZK?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Coco com Batata-Doce, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 98,29</span><span class="now">R$ 75,90</span><span class="unit">R$ 6,33/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71w1gm2i27L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DDVG4BBS?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Capuccino, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 224,29</span><span class="now">R$ 172,12</span><span class="unit">R$ 7,17/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71+SK6HRK6L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D239PCKH?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Baunilha, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71nGuB8WSbL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CXF9FZ94?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Chocolate, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71LXa5K-wqL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FSP1H9CF?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Chocolate, 23g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 228,79</span><span class="now">R$ 177,42</span><span class="unit">R$ 7,39/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61bjADN8rTL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0GVLC47TP?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Cheesecake Frutas Vermelhas, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71+uDhILBKL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CXB4HYV8?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Coco com Batata-Doce, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 192,19</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71W5hXyAGQL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CXBCWPPL?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Banana, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 189,99</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71UpsAfaG2L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DXXMRZX6?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Milho Verde, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 119,90</span><span class="now">R$ 95,99</span><span class="unit">R$ 5,33/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71S617zBWdL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CMB46W4K?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Baunilha, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71E1abjI2YL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DXXHV6XN?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Cappuccino, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71AZLJjVaNL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DXXCR12J?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Chocolate, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71IRzJdqj8L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DXXC6S6N?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Abacate, 15g de Proteína, 250ml, 18 Unidades</a></span><span class="prices"><span class="strike">R$ 124,02</span><span class="now">R$ 99,90</span><span class="unit">R$ 5,55/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71wyGsPVr3L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CLS7B3CZ?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Chocolate, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 71,30</span><span class="unit">R$ 5,94/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/7136V6GFxrL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CX5LYMC1?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Baunilha, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 71,30</span><span class="unit">R$ 5,94/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71x6cjchSNL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CX5KP74M?tag=muselew-20" target="_blank" rel="noopener">Parmalat Fit Bebida Proteica Coco com Batata Doce, 15g de Proteína, 250ml, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 71,30</span><span class="unit">R$ 5,94/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/711+tcIXUDL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DJ3J1QVN?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Doce de Leite Havanna, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 173,94</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71s3Q0Xx9GL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CX9WV39T?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Morango, 15g de Proteína, 250ml, 24 Unidades</a></span><span class="prices"><span class="strike">R$ 174,40</span><span class="now">R$ 149,90</span><span class="unit">R$ 6,25/un</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">25</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71lOIqev5TL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FH2TGRWR?tag=muselew-20" target="_blank" rel="noopener">YoPRO Bebida Láctea UHT Baunilha, 15g de Proteína, 250ml, Kit 6 Unidades</a></span><span class="prices"><span class="strike">R$ 109,00</span><span class="now">R$ 98,10</span><span class="unit">R$ 16,35/un</span><span class="pct">-10%</span></span></div>
     </div>
   </div>
 
@@ -267,30 +391,78 @@
     <div class="section-head"><h2>Whey Pote +500g (Premium)</h2><span class="count">24 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B093J7J9MG?tag=muselew-20" target="_blank" rel="noopener">Optimum Isolate Whey Protein, Chocolate, 2kg, Bodybuilders</a></span><span class="prices"><span class="strike">R$ 139,90</span><span class="now">R$ 58,39</span><span class="perkg">R$ 29,20/kg</span><span class="pct">-58%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FHHP4V7G?tag=muselew-20" target="_blank" rel="noopener">Whey Beef Protein, Morango/Kiwi, 900g</a></span><span class="prices"><span class="strike">R$ 199,68</span><span class="now">R$ 116,01</span><span class="perkg">R$ 128,90/kg</span><span class="pct">-42%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B07WHR4JCY?tag=muselew-20" target="_blank" rel="noopener">Whey Protein 100% Isolada, Baunilha, 2kg, Bodybuilders</a></span><span class="prices"><span class="strike">R$ 300,99</span><span class="now">R$ 175,26</span><span class="perkg">R$ 87,63/kg</span><span class="pct">-42%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B089PFQ8NC?tag=muselew-20" target="_blank" rel="noopener">Isolate Prime Whey, Morango, 900g, Bodyaction</a></span><span class="prices"><span class="strike">R$ 237,66</span><span class="now">R$ 138,50</span><span class="perkg">R$ 153,89/kg</span><span class="pct">-42%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FHHQL7QQ?tag=muselew-20" target="_blank" rel="noopener">Whey Beef Protein, Laranja com Acerola, 900g</a></span><span class="prices"><span class="strike">R$ 199,68</span><span class="now">R$ 123,40</span><span class="perkg">R$ 137,11/kg</span><span class="pct">-38%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BCXJHSY6?tag=muselew-20" target="_blank" rel="noopener">100% Whey Flavour, Cookies e Cream, 900g, Athletica Nutrition</a></span><span class="prices"><span class="strike">R$ 239,50</span><span class="now">R$ 159,00</span><span class="perkg">R$ 176,67/kg</span><span class="pct">-34%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DXLKRDSY?tag=muselew-20" target="_blank" rel="noopener">Vitafor Whey Protein WPC, Baunilha, 900g</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 132,90</span><span class="perkg">R$ 147,67/kg</span><span class="pct">-33%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B07L5T82TD?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Isolado Isolate Definition, Chocolate, 900g, Bodyaction</a></span><span class="prices"><span class="strike">R$ 129,90</span><span class="now">R$ 86,63</span><span class="perkg">R$ 96,26/kg</span><span class="pct">-33%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FPBTW23Z?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Npro, Baunilha, Refil 900g, Nutrata</a></span><span class="prices"><span class="strike">R$ 154,77</span><span class="now">R$ 105,41</span><span class="perkg">R$ 117,12/kg</span><span class="pct">-32%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B09BXN1QHD?tag=muselew-20" target="_blank" rel="noopener">Whey 100% HD, Baunilha, Refil 900g, Black Skull</a></span><span class="prices"><span class="strike">R$ 122,48</span><span class="now">R$ 82,80</span><span class="perkg">R$ 92,00/kg</span><span class="pct">-32%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B000GIURIQ?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Whey Gold Standard, Strawberry, 2,27kg</a></span><span class="prices"><span class="strike">R$ 660,62</span><span class="now">R$ 471,63</span><span class="perkg">R$ 207,77/kg</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BV3HSYLG?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Concentrado, Chocolate Belga, 1kg, Soldiers Nutrition</a></span><span class="prices"><span class="strike">R$ 189,90</span><span class="now">R$ 134,90</span><span class="perkg">R$ 134,90/kg</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FNGN9Q72?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Concentrado, Brigadeiro de Pistache, 900g</a></span><span class="prices"><span class="strike">R$ 269,46</span><span class="now">R$ 191,70</span><span class="perkg">R$ 213,00/kg</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D1YMVG66?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Isolado, Doce de Leite, Refil 1,8kg</a></span><span class="prices"><span class="strike">R$ 716,00</span><span class="now">R$ 536,90</span><span class="perkg">R$ 298,28/kg</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CW1YPLD3?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Isolado, Baunilha, 900g</a></span><span class="prices"><span class="strike">R$ 483,95</span><span class="now">R$ 368,85</span><span class="perkg">R$ 409,83/kg</span><span class="pct">-24%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BG6GYVFW?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Concentrado, Butter Cookies, 900g</a></span><span class="prices"><span class="strike">R$ 239,90</span><span class="now">R$ 186,89</span><span class="perkg">R$ 207,66/kg</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B07NGSST3K?tag=muselew-20" target="_blank" rel="noopener">Dux Nutrition Whey Protein Concentrado, Coco, 900g</a></span><span class="prices"><span class="strike">R$ 238,00</span><span class="now">R$ 186,00</span><span class="perkg">R$ 206,67/kg</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B085RXLD8L?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Whey Protein 100% Gold Standard, Baunilha, 907g</a></span><span class="prices"><span class="strike">R$ 359,00</span><span class="now">R$ 285,00</span><span class="perkg">R$ 314,22/kg</span><span class="pct">-21%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B07MJ78WT5?tag=muselew-20" target="_blank" rel="noopener">Dux Nutrition Whey Protein Concentrado, Morango, 900g</a></span><span class="prices"><span class="strike">R$ 237,40</span><span class="now">R$ 195,07</span><span class="perkg">R$ 216,74/kg</span><span class="pct">-18%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B08BZSRZGS?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Fresh Whey Protein, Chocolate e Avelã, 900g</a></span><span class="prices"><span class="strike">R$ 319,50</span><span class="now">R$ 264,43</span><span class="perkg">R$ 293,81/kg</span><span class="pct">-17%</span></span></div>
-    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B000QSRO1Y?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition 100% Whey Gold Standard, Strawberry, 5Lbs</a></span><span class="prices"><span class="strike">R$ 879,00</span><span class="now">R$ 739,90</span><span class="pct">-16%</span></span></div>
-    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B087PPR6ZN?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Isolado, Chocolate, Refil 1,8kg</a></span><span class="prices"><span class="strike">R$ 716,00</span><span class="now">R$ 599,90</span><span class="perkg">R$ 333,28/kg</span><span class="pct">-16%</span></span></div>
-    <div class="item"><span class="rank">23</span><span class="name"><a href="https://www.amazon.com.br/dp/B076BGZVFJ?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Whey Gold Standard, Cookies and Cream, 2Lbs (907g)</a></span><span class="prices"><span class="strike">R$ 379,16</span><span class="now">R$ 322,20</span><span class="perkg">R$ 355,24/kg</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">24</span><span class="name"><a href="https://www.amazon.com.br/dp/B09TTWHF7H?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Gourmet 100% Whey Protein, Chocolate, 900g</a></span><span class="prices"><span class="strike">R$ 269,00</span><span class="now">R$ 231,09</span><span class="perkg">R$ 256,77/kg</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">1</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61eVnkxSTLL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B093J7J9MG?tag=muselew-20" target="_blank" rel="noopener">Optimum Isolate Whey Protein, Chocolate, 2kg, Bodybuilders</a></span><span class="prices"><span class="strike">R$ 139,90</span><span class="now">R$ 58,39</span><span class="perkg">R$ 29,20/kg</span><span class="pct">-58%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61bWV4gHaIL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FHHP4V7G?tag=muselew-20" target="_blank" rel="noopener">Whey Beef Protein, Morango/Kiwi, 900g</a></span><span class="prices"><span class="strike">R$ 199,68</span><span class="now">R$ 116,01</span><span class="perkg">R$ 128,90/kg</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61nk6xISNLL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07WHR4JCY?tag=muselew-20" target="_blank" rel="noopener">Whey Protein 100% Isolada, Baunilha, 2kg, Bodybuilders</a></span><span class="prices"><span class="strike">R$ 300,99</span><span class="now">R$ 175,26</span><span class="perkg">R$ 87,63/kg</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/717tYfcrJrL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B089PFQ8NC?tag=muselew-20" target="_blank" rel="noopener">Isolate Prime Whey, Morango, 900g, Bodyaction</a></span><span class="prices"><span class="strike">R$ 237,66</span><span class="now">R$ 138,50</span><span class="perkg">R$ 153,89/kg</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61dVoDpA07L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FHHQL7QQ?tag=muselew-20" target="_blank" rel="noopener">Whey Beef Protein, Laranja com Acerola, 900g</a></span><span class="prices"><span class="strike">R$ 199,68</span><span class="now">R$ 123,40</span><span class="perkg">R$ 137,11/kg</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61Rff9FqG8L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BCXJHSY6?tag=muselew-20" target="_blank" rel="noopener">100% Whey Flavour, Cookies e Cream, 900g, Athletica Nutrition</a></span><span class="prices"><span class="strike">R$ 239,50</span><span class="now">R$ 159,00</span><span class="perkg">R$ 176,67/kg</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51RR02dzFhL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DXLKRDSY?tag=muselew-20" target="_blank" rel="noopener">Vitafor Whey Protein WPC, Baunilha, 900g</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 132,90</span><span class="perkg">R$ 147,67/kg</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/718vep2a1dL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07L5T82TD?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Isolado Isolate Definition, Chocolate, 900g, Bodyaction</a></span><span class="prices"><span class="strike">R$ 129,90</span><span class="now">R$ 86,63</span><span class="perkg">R$ 96,26/kg</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51riX7E4SbL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FPBTW23Z?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Npro, Baunilha, Refil 900g, Nutrata</a></span><span class="prices"><span class="strike">R$ 154,77</span><span class="now">R$ 105,41</span><span class="perkg">R$ 117,12/kg</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61n7nURSz7L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09BXN1QHD?tag=muselew-20" target="_blank" rel="noopener">Whey 100% HD, Baunilha, Refil 900g, Black Skull</a></span><span class="prices"><span class="strike">R$ 122,48</span><span class="now">R$ 82,80</span><span class="perkg">R$ 92,00/kg</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71VsW7ZvpGL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B000GIURIQ?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Whey Gold Standard, Strawberry, 2,27kg</a></span><span class="prices"><span class="strike">R$ 660,62</span><span class="now">R$ 471,63</span><span class="perkg">R$ 207,77/kg</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61wB5KZ+BrL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BV3HSYLG?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Concentrado, Chocolate Belga, 1kg, Soldiers Nutrition</a></span><span class="prices"><span class="strike">R$ 189,90</span><span class="now">R$ 134,90</span><span class="perkg">R$ 134,90/kg</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51SR3DBnkPL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FNGN9Q72?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Concentrado, Brigadeiro de Pistache, 900g</a></span><span class="prices"><span class="strike">R$ 269,46</span><span class="now">R$ 191,70</span><span class="perkg">R$ 213,00/kg</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71-puVtFWPL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D1YMVG66?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Isolado, Doce de Leite, Refil 1,8kg</a></span><span class="prices"><span class="strike">R$ 716,00</span><span class="now">R$ 536,90</span><span class="perkg">R$ 298,28/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61GOCB5UbDL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CW1YPLD3?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Isolado, Baunilha, 900g</a></span><span class="prices"><span class="strike">R$ 483,95</span><span class="now">R$ 368,85</span><span class="perkg">R$ 409,83/kg</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71xvQhtwWPL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BG6GYVFW?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Whey Protein Concentrado, Butter Cookies, 900g</a></span><span class="prices"><span class="strike">R$ 239,90</span><span class="now">R$ 186,89</span><span class="perkg">R$ 207,66/kg</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/717B3bS0s0L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07NGSST3K?tag=muselew-20" target="_blank" rel="noopener">Dux Nutrition Whey Protein Concentrado, Coco, 900g</a></span><span class="prices"><span class="strike">R$ 238,00</span><span class="now">R$ 186,00</span><span class="perkg">R$ 206,67/kg</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61WlP6QOxdL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B085RXLD8L?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Whey Protein 100% Gold Standard, Baunilha, 907g</a></span><span class="prices"><span class="strike">R$ 359,00</span><span class="now">R$ 285,00</span><span class="perkg">R$ 314,22/kg</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51lOuKbCawL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07MJ78WT5?tag=muselew-20" target="_blank" rel="noopener">Dux Nutrition Whey Protein Concentrado, Morango, 900g</a></span><span class="prices"><span class="strike">R$ 237,40</span><span class="now">R$ 195,07</span><span class="perkg">R$ 216,74/kg</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71nIIOdJK9L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08BZSRZGS?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Fresh Whey Protein, Chocolate e Avelã, 900g</a></span><span class="prices"><span class="strike">R$ 319,50</span><span class="now">R$ 264,43</span><span class="perkg">R$ 293,81/kg</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/718AdHO2qcL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B000QSRO1Y?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition 100% Whey Gold Standard, Strawberry, 5Lbs</a></span><span class="prices"><span class="strike">R$ 879,00</span><span class="now">R$ 739,90</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51CRBsaKFxL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B087PPR6ZN?tag=muselew-20" target="_blank" rel="noopener">Whey Protein Isolado, Chocolate, Refil 1,8kg</a></span><span class="prices"><span class="strike">R$ 716,00</span><span class="now">R$ 599,90</span><span class="perkg">R$ 333,28/kg</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61ELXboC3NL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B076BGZVFJ?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Whey Gold Standard, Cookies and Cream, 2Lbs (907g)</a></span><span class="prices"><span class="strike">R$ 379,16</span><span class="now">R$ 322,20</span><span class="perkg">R$ 355,24/kg</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61r6hPI6riL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09TTWHF7H?tag=muselew-20" target="_blank" rel="noopener">Optimum Nutrition Gourmet 100% Whey Protein, Chocolate, 900g</a></span><span class="prices"><span class="strike">R$ 269,00</span><span class="now">R$ 231,09</span><span class="perkg">R$ 256,77/kg</span><span class="pct">-14%</span></span></div>
     </div>
   </div>
 
@@ -298,31 +470,81 @@
     <div class="section-head"><h2>Barrinhas de Whey</h2><span class="count">25 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CP2X8YWM?tag=muselew-20" target="_blank" rel="noopener">Barra YoPRO Morango com Chocolate Branco, Nutrata, Display 12 Barras de 40g</a></span><span class="prices"><span class="strike">R$ 135,90</span><span class="now">R$ 74,07</span><span class="unit">R$ 6,17/un</span><span class="pct">-45%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CP2QD7S9?tag=muselew-20" target="_blank" rel="noopener">Barra YoPRO Chocolate, Nutrata, Display 12 Barras de 55g</a></span><span class="prices"><span class="strike">R$ 135,90</span><span class="now">R$ 76,40</span><span class="unit">R$ 6,37/un</span><span class="pct">-44%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CWVJKT63?tag=muselew-20" target="_blank" rel="noopener">Chocowheyfer Mais Mu, Wafer Proteico Chocolate e Coco, 6g de Proteína, Zero Açúcar</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 52,15</span><span class="pct">-38%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BBK1R34Z?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Cookies, Display 12 Unidades, 300g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 52,49</span><span class="unit">R$ 4,37/un</span><span class="perkg">R$ 174,97/kg</span><span class="pct">-37%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GJGLNDYX?tag=muselew-20" target="_blank" rel="noopener">Bold Barra de Proteína, Caixa Mista, 12 Unidades de 40g, 14g de Proteína</a></span><span class="prices"><span class="strike">R$ 139,00</span><span class="now">R$ 89,00</span><span class="unit">R$ 7,42/un</span><span class="perkg">R$ 185,42/kg</span><span class="pct">-36%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B08DRHBKPW?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Baunilha, Display 12 Unidades, 300g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 54,00</span><span class="unit">R$ 4,50/un</span><span class="perkg">R$ 180,00/kg</span><span class="pct">-36%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DCQMKWKY?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Caixa Mista, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 54,90</span><span class="unit">R$ 4,58/un</span><span class="pct">-35%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B08DRHPQ6T?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Chocolate, Display 12 Unidades, 300g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 55,43</span><span class="unit">R$ 4,62/un</span><span class="perkg">R$ 184,77/kg</span><span class="pct">-34%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D481M76R?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Cookies &amp; Cream, 12 Unidades de 60g, 21g de Proteína</a></span><span class="prices"><span class="strike">R$ 179,00</span><span class="now">R$ 117,90</span><span class="unit">R$ 9,83/un</span><span class="perkg">R$ 163,75/kg</span><span class="pct">-34%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BLT66MD4?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Bites Proteico, Chocolate com Avelã, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 76,07</span><span class="unit">R$ 6,34/un</span><span class="pct">-33%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CWVGL83C?tag=muselew-20" target="_blank" rel="noopener">Chocowheyfer Mais Mu, Wafer Proteico Chocolate e Avelã, 6g de Proteína, Zero Açúcar</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 57,09</span><span class="pct">-32%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C3NYPYWT?tag=muselew-20" target="_blank" rel="noopener">+Mu Barra Proteína Mukebar, Sabor Duo, 15g Proteína, Display 12 Unidades, 720g</a></span><span class="prices"><span class="strike">R$ 179,88</span><span class="now">R$ 123,00</span><span class="unit">R$ 10,25/un</span><span class="perkg">R$ 170,83/kg</span><span class="pct">-32%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DJDP72D6?tag=muselew-20" target="_blank" rel="noopener">Bold Snacks Barra de Proteína, Caixa Mix, 12 Unidades, Zero Adição de Açúcar</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 103,55</span><span class="unit">R$ 8,63/un</span><span class="pct">-31%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GSSC4KKR?tag=muselew-20" target="_blank" rel="noopener">Bold Wafer Proteico, Chocolate Branco, 40g, 10g de Proteína</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 103,90</span><span class="pct">-30%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GSSDWRZJ?tag=muselew-20" target="_blank" rel="noopener">Bold Wafer Proteico, Chocolate ao Leite, 40g, 10g de Proteína</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 105,05</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FTHQ54XB?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Pistache, Display 12 Unidades, 25g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 59,32</span><span class="unit">R$ 4,94/un</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GZWP4VKT?tag=muselew-20" target="_blank" rel="noopener">Bold Wafer Proteico, Caixa Mista, 10g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 109,00</span><span class="unit">R$ 9,08/un</span><span class="pct">-27%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0G48N5P5N?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Speculoos, 10g de Proteína</a></span><span class="prices"><span class="strike">R$ 129,00</span><span class="now">R$ 93,90</span><span class="pct">-27%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FMYW2VDX?tag=muselew-20" target="_blank" rel="noopener">Bold Bombom Crocante, 40g, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 129,00</span><span class="now">R$ 94,99</span><span class="unit">R$ 7,92/un</span><span class="pct">-26%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D47ZB18N?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold Snacks, Trufa de Chocolate, 20g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 169,00</span><span class="now">R$ 126,90</span><span class="unit">R$ 10,58/un</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FDWZJWHL?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold Crunch, Brigadeiro, 60g, 18g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 168,90</span><span class="now">R$ 126,90</span><span class="unit">R$ 10,58/un</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DVCHQHBN?tag=muselew-20" target="_blank" rel="noopener">Kit +Mu Chocowheyfer Proteico, Chocolate 300g + Cookies 300g, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 167,76</span><span class="now">R$ 125,39</span><span class="unit">R$ 10,45/un</span><span class="perkg">R$ 417,97/kg</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">23</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D482DMBW?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Caixa Mista, 12 Unidades de 60g, 21g de Proteína</a></span><span class="prices"><span class="strike">R$ 169,00</span><span class="now">R$ 129,00</span><span class="unit">R$ 10,75/un</span><span class="perkg">R$ 179,17/kg</span><span class="pct">-24%</span></span></div>
-    <div class="item"><span class="rank">24</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FDX8VZMS?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold Crunch, Caixa Mista, 60g, 18g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 169,90</span><span class="now">R$ 129,00</span><span class="unit">R$ 10,75/un</span><span class="pct">-24%</span></span></div>
-    <div class="item"><span class="rank">25</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FMYV7YCT?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Pistache, 40g, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 129,00</span><span class="now">R$ 98,10</span><span class="unit">R$ 8,17/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">1</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61aSOqsUOyL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CP2X8YWM?tag=muselew-20" target="_blank" rel="noopener">Barra YoPRO Morango com Chocolate Branco, Nutrata, Display 12 Barras de 40g</a></span><span class="prices"><span class="strike">R$ 135,90</span><span class="now">R$ 74,07</span><span class="unit">R$ 6,17/un</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61h7-PAPQRL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CP2QD7S9?tag=muselew-20" target="_blank" rel="noopener">Barra YoPRO Chocolate, Nutrata, Display 12 Barras de 55g</a></span><span class="prices"><span class="strike">R$ 135,90</span><span class="now">R$ 76,40</span><span class="unit">R$ 6,37/un</span><span class="pct">-44%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81TakslfIVL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CWVJKT63?tag=muselew-20" target="_blank" rel="noopener">Chocowheyfer Mais Mu, Wafer Proteico Chocolate e Coco, 6g de Proteína, Zero Açúcar</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 52,15</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81RTU0q+TDL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BBK1R34Z?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Cookies, Display 12 Unidades, 300g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 52,49</span><span class="unit">R$ 4,37/un</span><span class="perkg">R$ 174,97/kg</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61cVXbI0OOL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0GJGLNDYX?tag=muselew-20" target="_blank" rel="noopener">Bold Barra de Proteína, Caixa Mista, 12 Unidades de 40g, 14g de Proteína</a></span><span class="prices"><span class="strike">R$ 139,00</span><span class="now">R$ 89,00</span><span class="unit">R$ 7,42/un</span><span class="perkg">R$ 185,42/kg</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81VOwSFjv5L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08DRHBKPW?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Baunilha, Display 12 Unidades, 300g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 54,00</span><span class="unit">R$ 4,50/un</span><span class="perkg">R$ 180,00/kg</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/8136qA19pTL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DCQMKWKY?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Caixa Mista, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 54,90</span><span class="unit">R$ 4,58/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81ZhPUmOhKL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08DRHPQ6T?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Chocolate, Display 12 Unidades, 300g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 55,43</span><span class="unit">R$ 4,62/un</span><span class="perkg">R$ 184,77/kg</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61Uuz1ecydL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D481M76R?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Cookies &amp; Cream, 12 Unidades de 60g, 21g de Proteína</a></span><span class="prices"><span class="strike">R$ 179,00</span><span class="now">R$ 117,90</span><span class="unit">R$ 9,83/un</span><span class="perkg">R$ 163,75/kg</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/610fcsUCn7L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BLT66MD4?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Bites Proteico, Chocolate com Avelã, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 113,88</span><span class="now">R$ 76,07</span><span class="unit">R$ 6,34/un</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81QbsY-aZwL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CWVGL83C?tag=muselew-20" target="_blank" rel="noopener">Chocowheyfer Mais Mu, Wafer Proteico Chocolate e Avelã, 6g de Proteína, Zero Açúcar</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 57,09</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81oNkOgVDfL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0C3NYPYWT?tag=muselew-20" target="_blank" rel="noopener">+Mu Barra Proteína Mukebar, Sabor Duo, 15g Proteína, Display 12 Unidades, 720g</a></span><span class="prices"><span class="strike">R$ 179,88</span><span class="now">R$ 123,00</span><span class="unit">R$ 10,25/un</span><span class="perkg">R$ 170,83/kg</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81CO99-Gh1L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DJDP72D6?tag=muselew-20" target="_blank" rel="noopener">Bold Snacks Barra de Proteína, Caixa Mix, 12 Unidades, Zero Adição de Açúcar</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 103,55</span><span class="unit">R$ 8,63/un</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/7197-bWbpsL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0GSSC4KKR?tag=muselew-20" target="_blank" rel="noopener">Bold Wafer Proteico, Chocolate Branco, 40g, 10g de Proteína</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 103,90</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71+FOxSMarL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0GSSDWRZJ?tag=muselew-20" target="_blank" rel="noopener">Bold Wafer Proteico, Chocolate ao Leite, 40g, 10g de Proteína</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 105,05</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81ZXm4odJnL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FTHQ54XB?tag=muselew-20" target="_blank" rel="noopener">+Mu Chocowheyfer Proteico, Pistache, Display 12 Unidades, 25g</a></span><span class="prices"><span class="strike">R$ 83,88</span><span class="now">R$ 59,32</span><span class="unit">R$ 4,94/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61-rPFhPFnL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0GZWP4VKT?tag=muselew-20" target="_blank" rel="noopener">Bold Wafer Proteico, Caixa Mista, 10g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 149,00</span><span class="now">R$ 109,00</span><span class="unit">R$ 9,08/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61Vxi52r0YL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G48N5P5N?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Speculoos, 10g de Proteína</a></span><span class="prices"><span class="strike">R$ 129,00</span><span class="now">R$ 93,90</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61LRzKfALJL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FMYW2VDX?tag=muselew-20" target="_blank" rel="noopener">Bold Bombom Crocante, 40g, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 129,00</span><span class="now">R$ 94,99</span><span class="unit">R$ 7,92/un</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61sch9fN9nL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D47ZB18N?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold Snacks, Trufa de Chocolate, 20g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 169,00</span><span class="now">R$ 126,90</span><span class="unit">R$ 10,58/un</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/817cK9uIp+L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FDWZJWHL?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold Crunch, Brigadeiro, 60g, 18g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 168,90</span><span class="now">R$ 126,90</span><span class="unit">R$ 10,58/un</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61gNFAgjLmL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DVCHQHBN?tag=muselew-20" target="_blank" rel="noopener">Kit +Mu Chocowheyfer Proteico, Chocolate 300g + Cookies 300g, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 167,76</span><span class="now">R$ 125,39</span><span class="unit">R$ 10,45/un</span><span class="perkg">R$ 417,97/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61cMNuCB3dL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D482DMBW?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Caixa Mista, 12 Unidades de 60g, 21g de Proteína</a></span><span class="prices"><span class="strike">R$ 169,00</span><span class="now">R$ 129,00</span><span class="unit">R$ 10,75/un</span><span class="perkg">R$ 179,17/kg</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71WQBxBsZ6L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FDX8VZMS?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold Crunch, Caixa Mista, 60g, 18g de Proteína, 12 Unidades</a></span><span class="prices"><span class="strike">R$ 169,90</span><span class="now">R$ 129,00</span><span class="unit">R$ 10,75/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">25</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61KRO5TrLhL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FMYV7YCT?tag=muselew-20" target="_blank" rel="noopener">Barra de Proteína Bold, Pistache, 40g, Display 12 Unidades</a></span><span class="prices"><span class="strike">R$ 129,00</span><span class="now">R$ 98,10</span><span class="unit">R$ 8,17/un</span><span class="pct">-24%</span></span></div>
     </div>
   </div>
 
@@ -330,24 +552,60 @@
     <div class="section-head"><h2>Energéticos</h2><span class="count">18 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B07XWX898Q?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Sugar Free, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 28,83</span><span class="unit">R$ 7,21/un</span><span class="pct">-31%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CXK9MPZ3?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Cereja e Frutas Silvestres, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,15</span><span class="unit">R$ 7,29/un</span><span class="pct">-31%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DBRSTBCJ?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Amora e Frutas Vermelhas, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 251,76</span><span class="now">R$ 173,05</span><span class="unit">R$ 7,21/un</span><span class="pct">-31%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B08L933VTR?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Melancia, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,21</span><span class="unit">R$ 7,30/un</span><span class="pct">-30%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CV1D9D41?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Morango e Pêssego, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,22</span><span class="unit">R$ 7,30/un</span><span class="pct">-30%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DWB39C6R?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Pomelo, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,52</span><span class="unit">R$ 7,38/un</span><span class="pct">-30%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DWBKRGQS?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Maracujá e Melão, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,17</span><span class="unit">R$ 7,29/un</span><span class="pct">-30%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B004HOEU4M?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Original, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0G6Q94KCN?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Maçã, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DVCHM8RZ?tag=muselew-20" target="_blank" rel="noopener">Kit Red Bull Energético, Pack 8Un Regular + 4Un Original + 4Un Tropical</a></span><span class="prices"><span class="strike">R$ 83,92</span><span class="now">R$ 60,80</span><span class="unit">R$ 3,80/un</span><span class="pct">-28%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0G3RXHZT8?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Maçã Edition, Sem Açúcar, 250ml</a></span><span class="prices"><span class="strike">R$ 10,49</span><span class="now">R$ 7,69</span><span class="pct">-27%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DVCG4RWB?tag=muselew-20" target="_blank" rel="noopener">Kit Red Bull Energético, Pack 4Un Original + 4Un Melancia</a></span><span class="prices"><span class="strike">R$ 83,92</span><span class="now">R$ 60,97</span><span class="unit">R$ 7,62/un</span><span class="pct">-27%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0F9LLL3RK?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Ice Edition, Blueberry e Baunilha, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 251,76</span><span class="now">R$ 186,96</span><span class="unit">R$ 7,79/un</span><span class="pct">-26%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B07QZDJRGH?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Tropical, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 30,90</span><span class="unit">R$ 7,72/un</span><span class="pct">-26%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BYTLY4K1?tag=muselew-20" target="_blank" rel="noopener">Monster Absolutely Zero, Lata 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 62,94</span><span class="now">R$ 47,94</span><span class="unit">R$ 7,99/un</span><span class="pct">-24%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0F63PQS88?tag=muselew-20" target="_blank" rel="noopener">Monster Mango Loco Ultra Fiesta, Zero Açúcar, 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 62,94</span><span class="now">R$ 48,39</span><span class="unit">R$ 8,06/un</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CQD3TY4T?tag=muselew-20" target="_blank" rel="noopener">Monster Ultra Watermelon, Lata 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 62,94</span><span class="now">R$ 48,39</span><span class="unit">R$ 8,06/un</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DSGJH9L7?tag=muselew-20" target="_blank" rel="noopener">Monster Ultra Peachy Keen, Zero Açúcar, 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 67,90</span><span class="now">R$ 62,94</span><span class="unit">R$ 10,49/un</span><span class="pct">-7%</span></span></div>
+    <div class="item"><span class="rank">1</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71MbncD1PLL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07XWX898Q?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Sugar Free, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 28,83</span><span class="unit">R$ 7,21/un</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71hmz1QddSL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CXK9MPZ3?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Cereja e Frutas Silvestres, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,15</span><span class="unit">R$ 7,29/un</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71iPWL9RktL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DBRSTBCJ?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Amora e Frutas Vermelhas, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 251,76</span><span class="now">R$ 173,05</span><span class="unit">R$ 7,21/un</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71XEQ8CVAxL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08L933VTR?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Melancia, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,21</span><span class="unit">R$ 7,30/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/712qoMaIDFL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CV1D9D41?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Morango e Pêssego, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,22</span><span class="unit">R$ 7,30/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71EwLJcTibL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DWB39C6R?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Pomelo, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,52</span><span class="unit">R$ 7,38/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71rwdIhW1dL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DWBKRGQS?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Maracujá e Melão, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,17</span><span class="unit">R$ 7,29/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71ILkKMv8tL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B004HOEU4M?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Original, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71RvkzWVImL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G6Q94KCN?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Maçã, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61GDpO7kwNL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DVCHM8RZ?tag=muselew-20" target="_blank" rel="noopener">Kit Red Bull Energético, Pack 8Un Regular + 4Un Original + 4Un Tropical</a></span><span class="prices"><span class="strike">R$ 83,92</span><span class="now">R$ 60,80</span><span class="unit">R$ 3,80/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51oLLY2ufvL._AC_SY445_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G3RXHZT8?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Maçã Edition, Sem Açúcar, 250ml</a></span><span class="prices"><span class="strike">R$ 10,49</span><span class="now">R$ 7,69</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61ynPQep+qL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DVCG4RWB?tag=muselew-20" target="_blank" rel="noopener">Kit Red Bull Energético, Pack 4Un Original + 4Un Melancia</a></span><span class="prices"><span class="strike">R$ 83,92</span><span class="now">R$ 60,97</span><span class="unit">R$ 7,62/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71H0kSSX-vL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0F9LLL3RK?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Ice Edition, Blueberry e Baunilha, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 251,76</span><span class="now">R$ 186,96</span><span class="unit">R$ 7,79/un</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71Q36GXZi9L._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07QZDJRGH?tag=muselew-20" target="_blank" rel="noopener">Red Bull Energético, Tropical, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 30,90</span><span class="unit">R$ 7,72/un</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61nygMB+VTL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BYTLY4K1?tag=muselew-20" target="_blank" rel="noopener">Monster Absolutely Zero, Lata 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 62,94</span><span class="now">R$ 47,94</span><span class="unit">R$ 7,99/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/710CLn5QeyL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0F63PQS88?tag=muselew-20" target="_blank" rel="noopener">Monster Mango Loco Ultra Fiesta, Zero Açúcar, 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 62,94</span><span class="now">R$ 48,39</span><span class="unit">R$ 8,06/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/91UlNafSFmL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CQD3TY4T?tag=muselew-20" target="_blank" rel="noopener">Monster Ultra Watermelon, Lata 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 62,94</span><span class="now">R$ 48,39</span><span class="unit">R$ 8,06/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51I3YX53qxL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DSGJH9L7?tag=muselew-20" target="_blank" rel="noopener">Monster Ultra Peachy Keen, Zero Açúcar, 473ml, 6 Unidades</a></span><span class="prices"><span class="strike">R$ 67,90</span><span class="now">R$ 62,94</span><span class="unit">R$ 10,49/un</span><span class="pct">-7%</span></span></div>
     </div>
   </div>
 
@@ -355,31 +613,81 @@
     <div class="section-head"><h2>Termogênicos</h2><span class="count">25 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D88JCX8V?tag=muselew-20" target="_blank" rel="noopener">Dimethylex Termogênico, Under Labz, 60 Cápsulas (30 Doses)</a></span><span class="prices"><span class="strike">R$ 99,00</span><span class="now">R$ 44,00</span><span class="pct">-56%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BCXF4CDM?tag=muselew-20" target="_blank" rel="noopener">Hórus, Amora, 150g, Max Titanium</a></span><span class="prices"><span class="strike">R$ 96,34</span><span class="now">R$ 42,19</span><span class="perkg">R$ 281,27/kg</span><span class="pct">-56%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B077GYJD6S?tag=muselew-20" target="_blank" rel="noopener">Sanavita Termogênico Thermo Energy, Frutas Roxas, 300g</a></span><span class="prices"><span class="strike">R$ 104,90</span><span class="now">R$ 52,38</span><span class="perkg">R$ 174,60/kg</span><span class="pct">-50%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CL9Z96GL?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Night Train, Frutas Vermelhas, 300g</a></span><span class="prices"><span class="strike">R$ 114,09</span><span class="now">R$ 62,00</span><span class="perkg">R$ 206,67/kg</span><span class="pct">-46%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C5KL77JN?tag=muselew-20" target="_blank" rel="noopener">FTW Thermo Crazy, Diabo Verde, Cafeína, Taurina e L-Carnitina</a></span><span class="prices"><span class="strike">R$ 60,00</span><span class="now">R$ 33,44</span><span class="pct">-44%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GL51TYL9?tag=muselew-20" target="_blank" rel="noopener">Dimethylex Stim Free Termogênico, Under Labz, Sem Cafeína, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 78,90</span><span class="now">R$ 47,70</span><span class="pct">-40%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B09MKVGLB6?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Shot Thermo, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 97,90</span><span class="now">R$ 59,83</span><span class="pct">-39%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0G2DX1RTR?tag=muselew-20" target="_blank" rel="noopener">Fullife Nutrition Thermo Cutter Slim, Diuretic, Tangerina</a></span><span class="prices"><span class="strike">R$ 81,12</span><span class="now">R$ 49,90</span><span class="pct">-38%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FKHM25NF?tag=muselew-20" target="_blank" rel="noopener">Évora XT Darkness, Orange Storm, 300g</a></span><span class="prices"><span class="strike">R$ 122,90</span><span class="now">R$ 79,90</span><span class="perkg">R$ 266,33/kg</span><span class="pct">-35%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B09B1B9QBP?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Horus, Frutas Vermelhas, 300g</a></span><span class="prices"><span class="strike">R$ 112,63</span><span class="now">R$ 75,04</span><span class="perkg">R$ 250,13/kg</span><span class="pct">-33%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BDSDQN3K?tag=muselew-20" target="_blank" rel="noopener">Termo Plus 650mg, VitaFor, 90 Cápsulas</a></span><span class="prices"><span class="strike">R$ 89,00</span><span class="now">R$ 64,65</span><span class="pct">-27%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BSB16R2J?tag=muselew-20" target="_blank" rel="noopener">Thermoro, Laranja Moro, Cafeína, L-Carnitina, Cromo, 60 Comprimidos, Bodyaction</a></span><span class="prices"><span class="strike">R$ 53,34</span><span class="now">R$ 39,90</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B07CTCW2TP?tag=muselew-20" target="_blank" rel="noopener">Thermo Flame, Black Skull, 120 Tablets</a></span><span class="prices"><span class="strike">R$ 41,76</span><span class="now">R$ 31,78</span><span class="pct">-24%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B07L5W5CXQ?tag=muselew-20" target="_blank" rel="noopener">Thermo Abdomen, 120 Comprimidos, Bodyaction</a></span><span class="prices"><span class="strike">R$ 67,43</span><span class="now">R$ 52,15</span><span class="pct">-23%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B078XGHBJH?tag=muselew-20" target="_blank" rel="noopener">Termogênico Kimera Thermo, 60 Comprimidos, Iridium Labs</a></span><span class="prices"><span class="strike">R$ 59,99</span><span class="now">R$ 46,99</span><span class="pct">-22%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B09MKTTG3J?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Shot Dry, 150g</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 71,91</span><span class="perkg">R$ 479,40/kg</span><span class="pct">-20%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DG71HWCH?tag=muselew-20" target="_blank" rel="noopener">Revivame Eleve Life, Cápsula Natural Para Emagrecer, 30 Dias</a></span><span class="prices"><span class="strike">R$ 232,38</span><span class="now">R$ 185,90</span><span class="pct">-20%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0G4WB4PGB?tag=muselew-20" target="_blank" rel="noopener">Lipo Burn HD Thermogenic, Athletica Nutrition, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 49,90</span><span class="now">R$ 40,41</span><span class="pct">-19%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B07R75CL7Y?tag=muselew-20" target="_blank" rel="noopener">Night Abdomen, 60 Cápsulas, Bodyaction</a></span><span class="prices"><span class="strike">R$ 45,99</span><span class="now">R$ 37,86</span><span class="pct">-18%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B08KWQ6D5T?tag=muselew-20" target="_blank" rel="noopener">Max Titanium 2Hot, Limão, 200g</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 73,99</span><span class="perkg">R$ 369,95/kg</span><span class="pct">-18%</span></span></div>
-    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B0779L2L45?tag=muselew-20" target="_blank" rel="noopener">Fire Black, Max Titanium, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 38,90</span><span class="now">R$ 33,06</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FX5VCLBR?tag=muselew-20" target="_blank" rel="noopener">Termogênico Ultra Burn Lipo HD, Morosil, Cafeína, Cromo e Vitaminas</a></span><span class="prices"><span class="strike">R$ 54,89</span><span class="now">R$ 46,45</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">23</span><span class="name"><a href="https://www.amazon.com.br/dp/B083QLC6TT?tag=muselew-20" target="_blank" rel="noopener">Thermogenic Millenium, Probiótica, 120 Cápsulas</a></span><span class="prices"><span class="strike">R$ 57,79</span><span class="now">R$ 49,11</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">24</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DTV6JSNK?tag=muselew-20" target="_blank" rel="noopener">Thermo Muscle Pré-Treino, 90 Cápsulas, 200mg Cafeína, L-Arginina, Taurina, Beta-Alanina</a></span><span class="prices"><span class="strike">R$ 68,90</span><span class="now">R$ 58,90</span><span class="pct">-15%</span></span></div>
-    <div class="item"><span class="rank">25</span><span class="name"><a href="https://www.amazon.com.br/dp/B08XLMRDHV?tag=muselew-20" target="_blank" rel="noopener">IN-Liporedux+ Termogênico, Imperium Nutrition, 90 Cápsulas</a></span><span class="prices"><span class="strike">R$ 39,90</span><span class="now">R$ 34,99</span><span class="pct">-12%</span></span></div>
+    <div class="item"><span class="rank">1</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61vU2Sa526L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D88JCX8V?tag=muselew-20" target="_blank" rel="noopener">Dimethylex Termogênico, Under Labz, 60 Cápsulas (30 Doses)</a></span><span class="prices"><span class="strike">R$ 99,00</span><span class="now">R$ 44,00</span><span class="pct">-56%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51TdMPvBpML._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BCXF4CDM?tag=muselew-20" target="_blank" rel="noopener">Hórus, Amora, 150g, Max Titanium</a></span><span class="prices"><span class="strike">R$ 96,34</span><span class="now">R$ 42,19</span><span class="perkg">R$ 281,27/kg</span><span class="pct">-56%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61+1T+RfvML._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B077GYJD6S?tag=muselew-20" target="_blank" rel="noopener">Sanavita Termogênico Thermo Energy, Frutas Roxas, 300g</a></span><span class="prices"><span class="strike">R$ 104,90</span><span class="now">R$ 52,38</span><span class="perkg">R$ 174,60/kg</span><span class="pct">-50%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51zuOD2STbL._AC_SX342_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CL9Z96GL?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Night Train, Frutas Vermelhas, 300g</a></span><span class="prices"><span class="strike">R$ 114,09</span><span class="now">R$ 62,00</span><span class="perkg">R$ 206,67/kg</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71yOwv5Pk0L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0C5KL77JN?tag=muselew-20" target="_blank" rel="noopener">FTW Thermo Crazy, Diabo Verde, Cafeína, Taurina e L-Carnitina</a></span><span class="prices"><span class="strike">R$ 60,00</span><span class="now">R$ 33,44</span><span class="pct">-44%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61ke0j5RSZL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0GL51TYL9?tag=muselew-20" target="_blank" rel="noopener">Dimethylex Stim Free Termogênico, Under Labz, Sem Cafeína, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 78,90</span><span class="now">R$ 47,70</span><span class="pct">-40%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61W10J-XeWL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09MKVGLB6?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Shot Thermo, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 97,90</span><span class="now">R$ 59,83</span><span class="pct">-39%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61n37CbOqrL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G2DX1RTR?tag=muselew-20" target="_blank" rel="noopener">Fullife Nutrition Thermo Cutter Slim, Diuretic, Tangerina</a></span><span class="prices"><span class="strike">R$ 81,12</span><span class="now">R$ 49,90</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61i7PeEJuxL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FKHM25NF?tag=muselew-20" target="_blank" rel="noopener">Évora XT Darkness, Orange Storm, 300g</a></span><span class="prices"><span class="strike">R$ 122,90</span><span class="now">R$ 79,90</span><span class="perkg">R$ 266,33/kg</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51lB9LLEMML._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09B1B9QBP?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Horus, Frutas Vermelhas, 300g</a></span><span class="prices"><span class="strike">R$ 112,63</span><span class="now">R$ 75,04</span><span class="perkg">R$ 250,13/kg</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51Y1tzetddL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BDSDQN3K?tag=muselew-20" target="_blank" rel="noopener">Termo Plus 650mg, VitaFor, 90 Cápsulas</a></span><span class="prices"><span class="strike">R$ 89,00</span><span class="now">R$ 64,65</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71syXHcUW6L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BSB16R2J?tag=muselew-20" target="_blank" rel="noopener">Thermoro, Laranja Moro, Cafeína, L-Carnitina, Cromo, 60 Comprimidos, Bodyaction</a></span><span class="prices"><span class="strike">R$ 53,34</span><span class="now">R$ 39,90</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51YA3qw80nL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07CTCW2TP?tag=muselew-20" target="_blank" rel="noopener">Thermo Flame, Black Skull, 120 Tablets</a></span><span class="prices"><span class="strike">R$ 41,76</span><span class="now">R$ 31,78</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71sM9oQ1ZKL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07L5W5CXQ?tag=muselew-20" target="_blank" rel="noopener">Thermo Abdomen, 120 Comprimidos, Bodyaction</a></span><span class="prices"><span class="strike">R$ 67,43</span><span class="now">R$ 52,15</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71hZT5BCVKL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B078XGHBJH?tag=muselew-20" target="_blank" rel="noopener">Termogênico Kimera Thermo, 60 Comprimidos, Iridium Labs</a></span><span class="prices"><span class="strike">R$ 59,99</span><span class="now">R$ 46,99</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61aTX5MmnpL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09MKTTG3J?tag=muselew-20" target="_blank" rel="noopener">Max Titanium Shot Dry, 150g</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 71,91</span><span class="perkg">R$ 479,40/kg</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51bN1CnqZ9L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DG71HWCH?tag=muselew-20" target="_blank" rel="noopener">Revivame Eleve Life, Cápsula Natural Para Emagrecer, 30 Dias</a></span><span class="prices"><span class="strike">R$ 232,38</span><span class="now">R$ 185,90</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61ux2orB8FL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0G4WB4PGB?tag=muselew-20" target="_blank" rel="noopener">Lipo Burn HD Thermogenic, Athletica Nutrition, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 49,90</span><span class="now">R$ 40,41</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71J3oNmph5L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B07R75CL7Y?tag=muselew-20" target="_blank" rel="noopener">Night Abdomen, 60 Cápsulas, Bodyaction</a></span><span class="prices"><span class="strike">R$ 45,99</span><span class="now">R$ 37,86</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61iGcKZnvAL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08KWQ6D5T?tag=muselew-20" target="_blank" rel="noopener">Max Titanium 2Hot, Limão, 200g</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 73,99</span><span class="perkg">R$ 369,95/kg</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51PinPf9dKL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0779L2L45?tag=muselew-20" target="_blank" rel="noopener">Fire Black, Max Titanium, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 38,90</span><span class="now">R$ 33,06</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71VKzfQHBqL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FX5VCLBR?tag=muselew-20" target="_blank" rel="noopener">Termogênico Ultra Burn Lipo HD, Morosil, Cafeína, Cromo e Vitaminas</a></span><span class="prices"><span class="strike">R$ 54,89</span><span class="now">R$ 46,45</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71Fn3PMibNL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B083QLC6TT?tag=muselew-20" target="_blank" rel="noopener">Thermogenic Millenium, Probiótica, 120 Cápsulas</a></span><span class="prices"><span class="strike">R$ 57,79</span><span class="now">R$ 49,11</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51ndakyRpsL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DTV6JSNK?tag=muselew-20" target="_blank" rel="noopener">Thermo Muscle Pré-Treino, 90 Cápsulas, 200mg Cafeína, L-Arginina, Taurina, Beta-Alanina</a></span><span class="prices"><span class="strike">R$ 68,90</span><span class="now">R$ 58,90</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">25</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61F6yYf1C5L._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08XLMRDHV?tag=muselew-20" target="_blank" rel="noopener">IN-Liporedux+ Termogênico, Imperium Nutrition, 90 Cápsulas</a></span><span class="prices"><span class="strike">R$ 39,90</span><span class="now">R$ 34,99</span><span class="pct">-12%</span></span></div>
     </div>
   </div>
 
@@ -387,31 +695,81 @@
     <div class="section-head"><h2>Colágeno</h2><span class="count">25 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-    <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BB4WPY7M?tag=muselew-20" target="_blank" rel="noopener">Sanavita Colágeno Hidrolisado Verisol, Pele e Cabelos, Frutas Tropicais, 150g</a></span><span class="prices"><span class="strike">R$ 134,90</span><span class="now">R$ 66,68</span><span class="perkg">R$ 444,53/kg</span><span class="pct">-51%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BP31HZ63?tag=muselew-20" target="_blank" rel="noopener">Colágeno Verisol com Ácido Hialurônico, Frutas Vermelhas, 200g, Bodyaction</a></span><span class="prices"><span class="strike">R$ 90,37</span><span class="now">R$ 46,81</span><span class="perkg">R$ 234,05/kg</span><span class="pct">-48%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CMVBVFW2?tag=muselew-20" target="_blank" rel="noopener">Lavitan Super Fórmula Colágeno Hidrolisado Verisol, 300g</a></span><span class="prices"><span class="strike">R$ 96,90</span><span class="now">R$ 51,27</span><span class="perkg">R$ 170,90/kg</span><span class="pct">-47%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B08DQFKVR3?tag=muselew-20" target="_blank" rel="noopener">Moviflex Colágeno Tipo 2 Não Hidrolisado, 40mg, 60 Cápsulas, Lauton Nutrition</a></span><span class="prices"><span class="strike">R$ 64,97</span><span class="now">R$ 34,99</span><span class="pct">-46%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B08DQ5CMQB?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado 1000mg + Vitamina C + Biotina, 60 Tabs, Lauton Nutrition</a></span><span class="prices"><span class="strike">R$ 43,90</span><span class="now">R$ 26,49</span><span class="pct">-40%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B088X3RJGS?tag=muselew-20" target="_blank" rel="noopener">Colagentek, Cranberry, 300g, VitaFor</a></span><span class="prices"><span class="strike">R$ 112,00</span><span class="now">R$ 72,19</span><span class="perkg">R$ 240,63/kg</span><span class="pct">-36%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BY39S6VV?tag=muselew-20" target="_blank" rel="noopener">Sanavita Colágeno com Ácido Hialurônico Duo Balance, Abacaxi com Hortelã</a></span><span class="prices"><span class="strike">R$ 152,90</span><span class="now">R$ 99,90</span><span class="pct">-35%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B08FTJN8L7?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado Verisol Premium, 120 Cápsulas, Nutrends</a></span><span class="prices"><span class="strike">R$ 77,50</span><span class="now">R$ 51,48</span><span class="pct">-34%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GGTX16X8?tag=muselew-20" target="_blank" rel="noopener">Collagen II +Ativos, Colágeno Tipo II (40mg) + Cúrcuma + MSM</a></span><span class="prices"><span class="strike">R$ 78,90</span><span class="now">R$ 53,91</span><span class="pct">-32%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C8BFK943?tag=muselew-20" target="_blank" rel="noopener">Colagentek Protein, Morango, 460g, Vitafor</a></span><span class="prices"><span class="strike">R$ 215,00</span><span class="now">R$ 147,65</span><span class="perkg">R$ 320,98/kg</span><span class="pct">-31%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B09JYLDB9L?tag=muselew-20" target="_blank" rel="noopener">Colagentek, Abacaxi, 300g, Vitafor</a></span><span class="prices"><span class="strike">R$ 112,00</span><span class="now">R$ 76,99</span><span class="perkg">R$ 256,63/kg</span><span class="pct">-31%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0843J8S4S?tag=muselew-20" target="_blank" rel="noopener">Cartliv, Colágeno Tipo 2, Tecnologia Espanhola, 60 Cápsulas, Equaliv</a></span><span class="prices"><span class="strike">R$ 99,90</span><span class="now">R$ 68,99</span><span class="pct">-31%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CZS3RMCR?tag=muselew-20" target="_blank" rel="noopener">Puravida Collagen Protein, Neutro, 450g</a></span><span class="prices"><span class="strike">R$ 221,97</span><span class="now">R$ 155,38</span><span class="perkg">R$ 345,29/kg</span><span class="pct">-30%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B0B8QKXS1V?tag=muselew-20" target="_blank" rel="noopener">Regener Flex, Colágeno Tipo 2, 40mg, Ácido Hialurônico, MSM, Cálcio, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 49,98</span><span class="now">R$ 35,49</span><span class="pct">-29%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FNSGQ3YW?tag=muselew-20" target="_blank" rel="noopener">Puravida Colágeno Protein Kopenhagen, Língua de Gato Chocolate, 23g de Proteína, 450g</a></span><span class="prices"><span class="strike">R$ 244,97</span><span class="now">R$ 177,00</span><span class="perkg">R$ 393,33/kg</span><span class="pct">-28%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DPL5J96Q?tag=muselew-20" target="_blank" rel="noopener">Creatin Beauty Collagen Skin, 3g de Creatina, Peptídeos de Colágeno Verisol</a></span><span class="prices"><span class="strike">R$ 89,40</span><span class="now">R$ 65,55</span><span class="pct">-27%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0D33RJDWW?tag=muselew-20" target="_blank" rel="noopener">Articulah Ultra Complex, Colágeno Tipo 2 + Magnésio Quelato + Curcumina</a></span><span class="prices"><span class="strike">R$ 51,99</span><span class="now">R$ 37,99</span><span class="pct">-27%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DT1HCXTZ?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado em Pó, Tipo I, Natural, 500g, 4well</a></span><span class="prices"><span class="strike">R$ 79,00</span><span class="now">R$ 59,25</span><span class="perkg">R$ 118,50/kg</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DVHYM3YH?tag=muselew-20" target="_blank" rel="noopener">Colágeno Protein Hidrolisado Cpure, Alta Concentração, Natural, 450g</a></span><span class="prices"><span class="strike">R$ 99,90</span><span class="now">R$ 74,95</span><span class="perkg">R$ 166,56/kg</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CRZCFDKC?tag=muselew-20" target="_blank" rel="noopener">Puravida Collagen Pro Beauty Blend Verisol, 540g</a></span><span class="prices"><span class="strike">R$ 244,97</span><span class="now">R$ 182,90</span><span class="perkg">R$ 338,70/kg</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">21</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CLHBS3BQ?tag=muselew-20" target="_blank" rel="noopener">Renova Be Colágeno Verisol com Ácido Hialurônico, Tangerina, 216g</a></span><span class="prices"><span class="strike">R$ 163,57</span><span class="now">R$ 122,00</span><span class="perkg">R$ 564,81/kg</span><span class="pct">-25%</span></span></div>
-    <div class="item"><span class="rank">22</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DC14P145?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado 1050mg com Ácido Hialurônico e Vitamina C</a></span><span class="prices"><span class="strike">R$ 59,97</span><span class="now">R$ 47,87</span><span class="pct">-20%</span></span></div>
-    <div class="item"><span class="rank">23</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CYQWJ1L1?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Body Collagen Protein, Abacaxi com Hortelã, 470g</a></span><span class="prices"><span class="strike">R$ 238,50</span><span class="now">R$ 207,99</span><span class="perkg">R$ 442,53/kg</span><span class="pct">-13%</span></span></div>
-    <div class="item"><span class="rank">24</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CYRK9T7J?tag=muselew-20" target="_blank" rel="noopener">Multi Collagen, Abacaxi com Hortelã, 475g</a></span><span class="prices"><span class="strike">R$ 270,00</span><span class="now">R$ 237,39</span><span class="perkg">R$ 499,77/kg</span><span class="pct">-12%</span></span></div>
-    <div class="item"><span class="rank">25</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CYR7CCWK?tag=muselew-20" target="_blank" rel="noopener">Multi Collagen, Frutas Vermelhas, 475g</a></span><span class="prices"><span class="strike">R$ 257,90</span><span class="now">R$ 232,10</span><span class="perkg">R$ 488,63/kg</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">1</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61Rdy6qbChL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BB4WPY7M?tag=muselew-20" target="_blank" rel="noopener">Sanavita Colágeno Hidrolisado Verisol, Pele e Cabelos, Frutas Tropicais, 150g</a></span><span class="prices"><span class="strike">R$ 134,90</span><span class="now">R$ 66,68</span><span class="perkg">R$ 444,53/kg</span><span class="pct">-51%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/713hf48oHEL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BP31HZ63?tag=muselew-20" target="_blank" rel="noopener">Colágeno Verisol com Ácido Hialurônico, Frutas Vermelhas, 200g, Bodyaction</a></span><span class="prices"><span class="strike">R$ 90,37</span><span class="now">R$ 46,81</span><span class="perkg">R$ 234,05/kg</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51FrVg7jesL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CMVBVFW2?tag=muselew-20" target="_blank" rel="noopener">Lavitan Super Fórmula Colágeno Hidrolisado Verisol, 300g</a></span><span class="prices"><span class="strike">R$ 96,90</span><span class="now">R$ 51,27</span><span class="perkg">R$ 170,90/kg</span><span class="pct">-47%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61o3Robb6PL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08DQFKVR3?tag=muselew-20" target="_blank" rel="noopener">Moviflex Colágeno Tipo 2 Não Hidrolisado, 40mg, 60 Cápsulas, Lauton Nutrition</a></span><span class="prices"><span class="strike">R$ 64,97</span><span class="now">R$ 34,99</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51S6mYY9krL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08DQ5CMQB?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado 1000mg + Vitamina C + Biotina, 60 Tabs, Lauton Nutrition</a></span><span class="prices"><span class="strike">R$ 43,90</span><span class="now">R$ 26,49</span><span class="pct">-40%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51hRGGUnjuL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B088X3RJGS?tag=muselew-20" target="_blank" rel="noopener">Colagentek, Cranberry, 300g, VitaFor</a></span><span class="prices"><span class="strike">R$ 112,00</span><span class="now">R$ 72,19</span><span class="perkg">R$ 240,63/kg</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61t1EPtDMhL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0BY39S6VV?tag=muselew-20" target="_blank" rel="noopener">Sanavita Colágeno com Ácido Hialurônico Duo Balance, Abacaxi com Hortelã</a></span><span class="prices"><span class="strike">R$ 152,90</span><span class="now">R$ 99,90</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61FZ5kXtZoL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B08FTJN8L7?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado Verisol Premium, 120 Cápsulas, Nutrends</a></span><span class="prices"><span class="strike">R$ 77,50</span><span class="now">R$ 51,48</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61KFuvhQuML._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0GGTX16X8?tag=muselew-20" target="_blank" rel="noopener">Collagen II +Ativos, Colágeno Tipo II (40mg) + Cúrcuma + MSM</a></span><span class="prices"><span class="strike">R$ 78,90</span><span class="now">R$ 53,91</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61JpJV1kpmL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0C8BFK943?tag=muselew-20" target="_blank" rel="noopener">Colagentek Protein, Morango, 460g, Vitafor</a></span><span class="prices"><span class="strike">R$ 215,00</span><span class="now">R$ 147,65</span><span class="perkg">R$ 320,98/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51u2N5KkNJL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B09JYLDB9L?tag=muselew-20" target="_blank" rel="noopener">Colagentek, Abacaxi, 300g, Vitafor</a></span><span class="prices"><span class="strike">R$ 112,00</span><span class="now">R$ 76,99</span><span class="perkg">R$ 256,63/kg</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71A6egjtnxL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0843J8S4S?tag=muselew-20" target="_blank" rel="noopener">Cartliv, Colágeno Tipo 2, Tecnologia Espanhola, 60 Cápsulas, Equaliv</a></span><span class="prices"><span class="strike">R$ 99,90</span><span class="now">R$ 68,99</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71PNJIqhaJL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CZS3RMCR?tag=muselew-20" target="_blank" rel="noopener">Puravida Collagen Protein, Neutro, 450g</a></span><span class="prices"><span class="strike">R$ 221,97</span><span class="now">R$ 155,38</span><span class="perkg">R$ 345,29/kg</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71FUqeTHngL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0B8QKXS1V?tag=muselew-20" target="_blank" rel="noopener">Regener Flex, Colágeno Tipo 2, 40mg, Ácido Hialurônico, MSM, Cálcio, 60 Cápsulas</a></span><span class="prices"><span class="strike">R$ 49,98</span><span class="now">R$ 35,49</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71-he+AZxHL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0FNSGQ3YW?tag=muselew-20" target="_blank" rel="noopener">Puravida Colágeno Protein Kopenhagen, Língua de Gato Chocolate, 23g de Proteína, 450g</a></span><span class="prices"><span class="strike">R$ 244,97</span><span class="now">R$ 177,00</span><span class="perkg">R$ 393,33/kg</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/71svK0GF5lL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DPL5J96Q?tag=muselew-20" target="_blank" rel="noopener">Creatin Beauty Collagen Skin, 3g de Creatina, Peptídeos de Colágeno Verisol</a></span><span class="prices"><span class="strike">R$ 89,40</span><span class="now">R$ 65,55</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81RwSEkDmWL._AC_SX355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0D33RJDWW?tag=muselew-20" target="_blank" rel="noopener">Articulah Ultra Complex, Colágeno Tipo 2 + Magnésio Quelato + Curcumina</a></span><span class="prices"><span class="strike">R$ 51,99</span><span class="now">R$ 37,99</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61jpakbOULL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DT1HCXTZ?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado em Pó, Tipo I, Natural, 500g, 4well</a></span><span class="prices"><span class="strike">R$ 79,00</span><span class="now">R$ 59,25</span><span class="perkg">R$ 118,50/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51hVExdagRL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DVHYM3YH?tag=muselew-20" target="_blank" rel="noopener">Colágeno Protein Hidrolisado Cpure, Alta Concentração, Natural, 450g</a></span><span class="prices"><span class="strike">R$ 99,90</span><span class="now">R$ 74,95</span><span class="perkg">R$ 166,56/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61erp9AXxkL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CRZCFDKC?tag=muselew-20" target="_blank" rel="noopener">Puravida Collagen Pro Beauty Blend Verisol, 540g</a></span><span class="prices"><span class="strike">R$ 244,97</span><span class="now">R$ 182,90</span><span class="perkg">R$ 338,70/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/51BIws9f3EL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CLHBS3BQ?tag=muselew-20" target="_blank" rel="noopener">Renova Be Colágeno Verisol com Ácido Hialurônico, Tangerina, 216g</a></span><span class="prices"><span class="strike">R$ 163,57</span><span class="now">R$ 122,00</span><span class="perkg">R$ 564,81/kg</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/81kdyVgTAmL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0DC14P145?tag=muselew-20" target="_blank" rel="noopener">Colágeno Hidrolisado 1050mg com Ácido Hialurônico e Vitamina C</a></span><span class="prices"><span class="strike">R$ 59,97</span><span class="now">R$ 47,87</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61k-24Li0JL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CYQWJ1L1?tag=muselew-20" target="_blank" rel="noopener">Dux Human Health Body Collagen Protein, Abacaxi com Hortelã, 470g</a></span><span class="prices"><span class="strike">R$ 238,50</span><span class="now">R$ 207,99</span><span class="perkg">R$ 442,53/kg</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61cZMZGU9BL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CYRK9T7J?tag=muselew-20" target="_blank" rel="noopener">Multi Collagen, Abacaxi com Hortelã, 475g</a></span><span class="prices"><span class="strike">R$ 270,00</span><span class="now">R$ 237,39</span><span class="perkg">R$ 499,77/kg</span><span class="pct">-12%</span></span></div>
+    <div class="item"><span class="rank">25</span>
+      <img class="thumb" src="https://m.media-amazon.com/images/I/61RVd9tzZUL._AC_SY355_.jpg" alt="" loading="lazy">
+      <span class="name"><a href="https://www.amazon.com.br/dp/B0CYR7CCWK?tag=muselew-20" target="_blank" rel="noopener">Multi Collagen, Frutas Vermelhas, 475g</a></span><span class="prices"><span class="strike">R$ 257,90</span><span class="now">R$ 232,10</span><span class="perkg">R$ 488,63/kg</span><span class="pct">-10%</span></span></div>
     </div>
   </div>
 
@@ -444,6 +802,35 @@
   var input = document.querySelector('.search-wrap input');
   var sections = document.querySelectorAll('.section');
   var noResults = document.querySelector('.no-results');
+  var page = document.querySelector('.page');
+  var imgToggle = document.getElementById('toggle-images');
+
+  var COOKIE_NAME = 'ofertasShowImages';
+
+  function getCookie(name){
+    var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name, value){
+    var maxAge = 60 * 60 * 24 * 365;
+    document.cookie = name + '=' + encodeURIComponent(value) + '; max-age=' + maxAge + '; path=/; SameSite=Lax';
+  }
+
+  (function initImageToggle(){
+    var saved = getCookie(COOKIE_NAME);
+    var showImages = saved === null ? true : saved === '1';
+    page.classList.toggle('show-images', showImages);
+    if(imgToggle) imgToggle.checked = showImages;
+  })();
+
+  if(imgToggle){
+    imgToggle.addEventListener('change', function(){
+      page.classList.toggle('show-images', imgToggle.checked);
+      setCookie(COOKIE_NAME, imgToggle.checked ? '1' : '0');
+    });
+  }
+
 
   sections.forEach(function(section){
     var head = section.querySelector('.section-head');

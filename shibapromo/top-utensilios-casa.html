@@ -87,6 +87,9 @@
     padding:.75rem 0;
     border-bottom:1px solid var(--line);
   }
+  .page.show-images .item{
+    grid-template-columns:2rem 104px 1fr auto;
+  }
   .item:first-child{ padding-top:0; }
   .rank{
     font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
@@ -96,6 +99,17 @@
     -webkit-text-stroke:1px var(--sparrow);
     text-align:center;
   }
+  .thumb{
+    display:none;
+    width:104px;
+    height:104px;
+    object-fit:contain;
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:.25rem;
+  }
+  .page.show-images .thumb{ display:block; }
   .name{ font-size:.86rem; line-height:1.3; color:var(--ink); overflow-wrap:anywhere; }
   .name a{ color:inherit; text-decoration:none; }
   .name a:hover, .name a:focus-visible{ text-decoration:underline; text-decoration-color:var(--sparrow); }
@@ -131,8 +145,14 @@
   footer svg{ width:28px; height:28px; flex:none; }
   a:focus-visible{ outline:2px solid var(--sparrow); outline-offset:2px; }
 
-  .search-wrap{ margin-bottom:1.75rem; }
+  .search-wrap{
+    margin-bottom:1.75rem;
+    display:flex;
+    align-items:center;
+    gap:.75rem;
+  }
   .search-wrap input{
+    flex:1;
     width:100%;
     padding:.65rem 1rem;
     border:2px solid var(--line);
@@ -144,6 +164,51 @@
   }
   .search-wrap input::placeholder{ color:var(--ink-soft); opacity:.8; }
   .search-wrap input:focus-visible{ outline:2px solid var(--sparrow); border-color:transparent; }
+
+  .img-toggle{
+    display:flex;
+    align-items:center;
+    gap:.45rem;
+    flex:none;
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-weight:600;
+    cursor:pointer;
+    user-select:none;
+    white-space:nowrap;
+  }
+  .img-toggle input{
+    position:absolute;
+    opacity:0;
+    width:1px;
+    height:1px;
+  }
+  .img-toggle .switch{
+    position:relative;
+    width:38px;
+    height:22px;
+    background:var(--line);
+    border-radius:999px;
+    flex:none;
+    transition:background .18s ease;
+  }
+  .img-toggle .switch::after{
+    content:"";
+    position:absolute;
+    top:2px; left:2px;
+    width:18px; height:18px;
+    background:#fff;
+    border-radius:50%;
+    box-shadow:0 1px 2px rgba(62,44,34,.25);
+    transition:transform .18s ease;
+  }
+  .img-toggle input:checked + .switch{ background:var(--sparrow); }
+  .img-toggle input:checked + .switch::after{ transform:translateX(16px); }
+  .img-toggle input:focus-visible + .switch{ outline:2px solid var(--sparrow); outline-offset:2px; }
+  .img-toggle .icon{ font-size:.95rem; line-height:1; }
+  @media (max-width:520px){
+    .img-toggle span.label{ display:none; }
+  }
   .no-results{ display:none; text-align:center; color:var(--ink-soft); font-size:.9rem; padding:2rem 0; }
   .section-head{ cursor:pointer; user-select:none; }
   .section-head .chevron{
@@ -176,6 +241,12 @@
     .item .rank{ grid-area:rank; text-align:left; font-size:.8rem; }
     .item .prices{ grid-area:prices; }
     .name{ font-size:.84rem; }
+    .page.show-images .item{
+      grid-template-columns:88px 1fr auto;
+      grid-template-areas:"thumb name name" "thumb rank prices";
+      column-gap:.6rem;
+    }
+    .page.show-images .item .thumb{ grid-area:thumb; align-self:start; width:88px; height:88px; }
   }
 </style>
 
@@ -188,7 +259,7 @@
   </filter>
 </svg>
 
-<div class="page">
+<div class="page show-images">
 
   <div class="hero">
     <a href="index.html" class="mascot-link" aria-label="Voltar para a página inicial"><svg viewBox="0 0 200 200" aria-hidden="true">
@@ -213,32 +284,38 @@
 
   <div class="search-wrap">
     <input type="search" placeholder="Buscar por marca, produto..." aria-label="Buscar produto">
+    <label class="img-toggle">
+      <input type="checkbox" id="toggle-images" checked>
+      <span class="switch" aria-hidden="true"></span>
+      <span class="icon" aria-hidden="true">🖼️</span>
+      <span class="label">Imagens</span>
+    </label>
   </div>
 
   <div class="section panelas">
     <div class="section-head"><h2>Panelas &amp; Frigideiras</h2><span class="count">20 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-        <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B09Y7GM4KY?tag=muselew-20" target="_blank" rel="noopener">Frigideira Funda Tramontina Loreto em Alumínio com Revestimento Interno e Externo em Antiaderente Starflon Max Vermelho 24 cm 2,2 L</a></span><span class="prices"><span class="strike">R$ 119,32</span><span class="now">R$ 50,91</span><span class="pct">-57%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C28RNRDX?tag=muselew-20" target="_blank" rel="noopener">Panela de Pressão Pressure 6,8L Ceramic Life Antiaderente com Fundo de Indução Brinox - Vanilla</a></span><span class="prices"><span class="strike">R$ 546,35</span><span class="now">R$ 256,40</span><span class="pct">-53%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GP71QW2C?tag=muselew-20" target="_blank" rel="noopener">OSTER Panela de Pressão 4,5 Litros Bravada - Corpo com Revestimento Cerâmico Antiaderente e Acabamento Marmorizado na Cor Cream, Base com Fundo Triplo Compatível com Indução</a></span><span class="prices"><span class="strike">R$ 529,00</span><span class="now">R$ 253,16</span><span class="pct">-52%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B076JJMP9S?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas de Alumínio com Revestimento Interno de Antiaderente 5 Peças Tramontina Mônaco Preto</a></span><span class="prices"><span class="strike">R$ 1290,00</span><span class="now">R$ 674,40</span><span class="pct">-48%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B09Y7H32DJ?tag=muselew-20" target="_blank" rel="noopener">Caldeirão Tramontina Paris em Alumínio com Revestimento Interno e Externo em Antiaderente Starflon Max Vermelho com Tampa de Vidro 18 cm 3,1 L</a></span><span class="prices"><span class="strike">R$ 183,50</span><span class="now">R$ 96,32</span><span class="pct">-48%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CYNRVP14?tag=muselew-20" target="_blank" rel="noopener">Brinox - Panela de Pressão Ceramic Life Super com Fundo de Indução 4,2L - Cinza</a></span><span class="prices"><span class="strike">R$ 335,53</span><span class="now">R$ 175,65</span><span class="pct">-48%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C4G4RZK9?tag=muselew-20" target="_blank" rel="noopener">Frigideira Philco PPH240AFR Revestimento Redstone 1,7L</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 107,35</span><span class="pct">-46%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B0C2Z9LSH9?tag=muselew-20" target="_blank" rel="noopener">Panela Philco PPH160APR Redstone com Tampa de Vidro 1,4L -</a></span><span class="prices"><span class="strike">R$ 239,00</span><span class="now">R$ 129,90</span><span class="pct">-46%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GSN7V9V2?tag=muselew-20" target="_blank" rel="noopener">Frigideira Antiaderente 24,5 cm, Alumínio de Alta Espessura, Preta, Cabo Ergonômico, Redonda, para Ovos, Carnes e Panquecas</a></span><span class="prices"><span class="strike">R$ 54,90</span><span class="now">R$ 29,90</span><span class="pct">-46%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DDZJ18T2?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas Antiaderente Ceramic Life 5 Peças com Fundo de Indução Smart Plus - Granito</a></span><span class="prices"><span class="strike">R$ 604,62</span><span class="now">R$ 330,99</span><span class="pct">-45%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CYHHY6NB?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas 5 Peças Ceramic Life Easy - Cinza</a></span><span class="prices"><span class="strike">R$ 587,69</span><span class="now">R$ 322,90</span><span class="pct">-45%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DGMDJPPK?tag=muselew-20" target="_blank" rel="noopener">Panela de Pressão Clock Original com Fechamento Interno 4,5 Litros</a></span><span class="prices"><span class="strike">R$ 177,99</span><span class="now">R$ 97,49</span><span class="pct">-45%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B07L8SH6NK?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Panela de Pressão Digital, Master Cooker - 5L, 220V, Preto, 900W - PE-38</a></span><span class="prices"><span class="strike">R$ 669,90</span><span class="now">R$ 369,00</span><span class="pct">-45%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B09TCD67Q3?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas Tramontina Allegra em Aço Inox com Fundo Triplo 5 Peças</a></span><span class="prices"><span class="strike">R$ 640,90</span><span class="now">R$ 360,05</span><span class="pct">-44%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B07BMZS1BN?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas Antiaderente Ceramic Life 6 Peças Smart Plus - Vanilla</a></span><span class="prices"><span class="strike">R$ 699,90</span><span class="now">R$ 396,99</span><span class="pct">-43%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BBSDS4BT?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas Tramontina Antiaderente Paris 10 Pç Vermelho</a></span><span class="prices"><span class="strike">R$ 705,31</span><span class="now">R$ 404,60</span><span class="pct">-43%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BZM49B68?tag=muselew-20" target="_blank" rel="noopener">Brinox - Panela de Pressão Pressure 2 Alças 5,4L Ceramic Life Antiaderente com Fundo de Indução - Preto</a></span><span class="prices"><span class="strike">R$ 421,62</span><span class="now">R$ 239,00</span><span class="pct">-43%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CZMK9X9B?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas 10 Peças Bianco Antiaderente com Tampa de Vidro</a></span><span class="prices"><span class="strike">R$ 299,99</span><span class="now">R$ 172,99</span><span class="pct">-42%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B07C4RWG85?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas 8 Peças Ceramic Life Smart Plus - Preto</a></span><span class="prices"><span class="strike">R$ 799,90</span><span class="now">R$ 474,90</span><span class="pct">-41%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B08YFLVSBP?tag=muselew-20" target="_blank" rel="noopener">Brinox - Panela de Pressão 4,2L Antiaderente Ceramic Life com Fundo de Indução Pressure - Vanilla</a></span><span class="prices"><span class="strike">R$ 312,47</span><span class="now">R$ 185,00</span><span class="pct">-41%</span></span></div>
+        <div class="item"><span class="rank">1</span><img class="thumb" src="https://m.media-amazon.com/images/I/81-I2CkTkvL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09Y7GM4KY?tag=muselew-20" target="_blank" rel="noopener">Frigideira Funda Tramontina Loreto em Alumínio com Revestimento Interno e Externo em Antiaderente Starflon Max Vermelho 24 cm 2,2 L</a></span><span class="prices"><span class="strike">R$ 119,32</span><span class="now">R$ 50,91</span><span class="pct">-57%</span></span></div>
+    <div class="item"><span class="rank">2</span><img class="thumb" src="https://m.media-amazon.com/images/I/51u-U61gTAL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0C28RNRDX?tag=muselew-20" target="_blank" rel="noopener">Panela de Pressão Pressure 6,8L Ceramic Life Antiaderente com Fundo de Indução Brinox - Vanilla</a></span><span class="prices"><span class="strike">R$ 546,35</span><span class="now">R$ 256,40</span><span class="pct">-53%</span></span></div>
+    <div class="item"><span class="rank">3</span><img class="thumb" src="https://m.media-amazon.com/images/I/41jxUopzjNL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0GP71QW2C?tag=muselew-20" target="_blank" rel="noopener">OSTER Panela de Pressão 4,5 Litros Bravada - Corpo com Revestimento Cerâmico Antiaderente e Acabamento Marmorizado na Cor Cream, Base com Fundo Triplo Compatível com Indução</a></span><span class="prices"><span class="strike">R$ 529,00</span><span class="now">R$ 253,16</span><span class="pct">-52%</span></span></div>
+    <div class="item"><span class="rank">4</span><img class="thumb" src="https://m.media-amazon.com/images/I/71H-G2gbQNL._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B076JJMP9S?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas de Alumínio com Revestimento Interno de Antiaderente 5 Peças Tramontina Mônaco Preto</a></span><span class="prices"><span class="strike">R$ 1290,00</span><span class="now">R$ 674,40</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">5</span><img class="thumb" src="https://m.media-amazon.com/images/I/51fLmb9J6FL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09Y7H32DJ?tag=muselew-20" target="_blank" rel="noopener">Caldeirão Tramontina Paris em Alumínio com Revestimento Interno e Externo em Antiaderente Starflon Max Vermelho com Tampa de Vidro 18 cm 3,1 L</a></span><span class="prices"><span class="strike">R$ 183,50</span><span class="now">R$ 96,32</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">6</span><img class="thumb" src="https://m.media-amazon.com/images/I/51Xa+NjP6CL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CYNRVP14?tag=muselew-20" target="_blank" rel="noopener">Brinox - Panela de Pressão Ceramic Life Super com Fundo de Indução 4,2L - Cinza</a></span><span class="prices"><span class="strike">R$ 335,53</span><span class="now">R$ 175,65</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">7</span><img class="thumb" src="https://m.media-amazon.com/images/I/61IV1DoqXwL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0C4G4RZK9?tag=muselew-20" target="_blank" rel="noopener">Frigideira Philco PPH240AFR Revestimento Redstone 1,7L</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 107,35</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">8</span><img class="thumb" src="https://m.media-amazon.com/images/I/61VlMqIgTyL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0C2Z9LSH9?tag=muselew-20" target="_blank" rel="noopener">Panela Philco PPH160APR Redstone com Tampa de Vidro 1,4L -</a></span><span class="prices"><span class="strike">R$ 239,00</span><span class="now">R$ 129,90</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">9</span><img class="thumb" src="https://m.media-amazon.com/images/I/51hE8rcPV9L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0GSN7V9V2?tag=muselew-20" target="_blank" rel="noopener">Frigideira Antiaderente 24,5 cm, Alumínio de Alta Espessura, Preta, Cabo Ergonômico, Redonda, para Ovos, Carnes e Panquecas</a></span><span class="prices"><span class="strike">R$ 54,90</span><span class="now">R$ 29,90</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">10</span><img class="thumb" src="https://m.media-amazon.com/images/I/519gcWvUlNL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0DDZJ18T2?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas Antiaderente Ceramic Life 5 Peças com Fundo de Indução Smart Plus - Granito</a></span><span class="prices"><span class="strike">R$ 604,62</span><span class="now">R$ 330,99</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">11</span><img class="thumb" src="https://m.media-amazon.com/images/I/41vLN82-hsL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CYHHY6NB?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas 5 Peças Ceramic Life Easy - Cinza</a></span><span class="prices"><span class="strike">R$ 587,69</span><span class="now">R$ 322,90</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">12</span><img class="thumb" src="https://m.media-amazon.com/images/I/61c-3IM0cvL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0DGMDJPPK?tag=muselew-20" target="_blank" rel="noopener">Panela de Pressão Clock Original com Fechamento Interno 4,5 Litros</a></span><span class="prices"><span class="strike">R$ 177,99</span><span class="now">R$ 97,49</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">13</span><img class="thumb" src="https://m.media-amazon.com/images/I/81iejDNyklL._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07L8SH6NK?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Panela de Pressão Digital, Master Cooker - 5L, 220V, Preto, 900W - PE-38</a></span><span class="prices"><span class="strike">R$ 669,90</span><span class="now">R$ 369,00</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">14</span><img class="thumb" src="https://m.media-amazon.com/images/I/41RhzQnsjgL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09TCD67Q3?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas Tramontina Allegra em Aço Inox com Fundo Triplo 5 Peças</a></span><span class="prices"><span class="strike">R$ 640,90</span><span class="now">R$ 360,05</span><span class="pct">-44%</span></span></div>
+    <div class="item"><span class="rank">15</span><img class="thumb" src="https://m.media-amazon.com/images/I/51iJYGpWU5L._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07BMZS1BN?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas Antiaderente Ceramic Life 6 Peças Smart Plus - Vanilla</a></span><span class="prices"><span class="strike">R$ 699,90</span><span class="now">R$ 396,99</span><span class="pct">-43%</span></span></div>
+    <div class="item"><span class="rank">16</span><img class="thumb" src="https://m.media-amazon.com/images/I/91Jv1+TElZL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0BBSDS4BT?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas Tramontina Antiaderente Paris 10 Pç Vermelho</a></span><span class="prices"><span class="strike">R$ 705,31</span><span class="now">R$ 404,60</span><span class="pct">-43%</span></span></div>
+    <div class="item"><span class="rank">17</span><img class="thumb" src="https://m.media-amazon.com/images/I/41zm7mIMFuL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0BZM49B68?tag=muselew-20" target="_blank" rel="noopener">Brinox - Panela de Pressão Pressure 2 Alças 5,4L Ceramic Life Antiaderente com Fundo de Indução - Preto</a></span><span class="prices"><span class="strike">R$ 421,62</span><span class="now">R$ 239,00</span><span class="pct">-43%</span></span></div>
+    <div class="item"><span class="rank">18</span><img class="thumb" src="https://m.media-amazon.com/images/I/61gHu7UKd+L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CZMK9X9B?tag=muselew-20" target="_blank" rel="noopener">Jogo de Panelas 10 Peças Bianco Antiaderente com Tampa de Vidro</a></span><span class="prices"><span class="strike">R$ 299,99</span><span class="now">R$ 172,99</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">19</span><img class="thumb" src="https://m.media-amazon.com/images/I/51nkLnnOEsL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07C4RWG85?tag=muselew-20" target="_blank" rel="noopener">Brinox - Jogo de Panelas 8 Peças Ceramic Life Smart Plus - Preto</a></span><span class="prices"><span class="strike">R$ 799,90</span><span class="now">R$ 474,90</span><span class="pct">-41%</span></span></div>
+    <div class="item"><span class="rank">20</span><img class="thumb" src="https://m.media-amazon.com/images/I/515ty+4I4BL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B08YFLVSBP?tag=muselew-20" target="_blank" rel="noopener">Brinox - Panela de Pressão 4,2L Antiaderente Ceramic Life com Fundo de Indução Pressure - Vanilla</a></span><span class="prices"><span class="strike">R$ 312,47</span><span class="now">R$ 185,00</span><span class="pct">-41%</span></span></div>
     </div>
   </div>
 
@@ -246,26 +323,26 @@
     <div class="section-head"><h2>Talheres, Potes &amp; Suportes</h2><span class="count">20 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-        <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0FPGH979Q?tag=muselew-20" target="_blank" rel="noopener">Escorredor de Louça com Alças de Madeira Porta Talheres e Bandeja</a></span><span class="prices"><span class="strike">R$ 199,90</span><span class="now">R$ 76,40</span><span class="pct">-62%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B0842Z6N8D?tag=muselew-20" target="_blank" rel="noopener">LYOR Faqueiro de Aço Inox Positano Preto 24 Peças - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 176,70</span><span class="now">R$ 72,10</span><span class="pct">-59%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B07JQ34V7F?tag=muselew-20" target="_blank" rel="noopener">Jogo Churrasco Inox 12PC Dynamic</a></span><span class="prices"><span class="strike">R$ 215,82</span><span class="now">R$ 99,99</span><span class="pct">-54%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CH8WYTX4?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Viena 54 Peças Com Caixa Litografada - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 567,50</span><span class="now">R$ 262,20</span><span class="pct">-54%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B07FLD2NJ1?tag=muselew-20" target="_blank" rel="noopener">Euro Home - Conjunto Pote Hermético, 5 Peças - PLA3604-AZ</a></span><span class="prices"><span class="strike">R$ 121,88</span><span class="now">R$ 57,63</span><span class="pct">-53%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B076PL2ZSP?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Berna 30 Peças - Mesa Posta - Itens Para Casa - Utensílios de Cozinha - Enxoval - Casamento - Decoração</a></span><span class="prices"><span class="strike">R$ 559,46</span><span class="now">R$ 269,90</span><span class="pct">-52%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CL9NFQPT?tag=muselew-20" target="_blank" rel="noopener">Kit 15 Potes Tampa Hermético Porta Alimentos Mantimentos Armário Cozinha (Kit 15)</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 94,76</span><span class="unit">R$ 6,32/un</span><span class="pct">-52%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B094S8TXCT?tag=muselew-20" target="_blank" rel="noopener">Electrolux Kit 4 Potes de Vidro Herméticos Porta-Mantimentos com Tampa de Bambu, Tampa Vedação de Silicone, Organizadores de Cozinha e Despensa, Transparente, Porta Alimentos, Grãos e Cereais</a></span><span class="prices"><span class="strike">R$ 159,00</span><span class="now">R$ 75,90</span><span class="unit">R$ 18,98/un</span><span class="pct">-52%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CLVN376X?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Viena Dourado 30 Peças Com Caixa Litografada - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 433,10</span><span class="now">R$ 219,00</span><span class="pct">-49%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CXW8RK2T?tag=muselew-20" target="_blank" rel="noopener">WOLFF - Faqueiro de Aço Inox Cannes 30 Peças - Jogos de Talheres - Mesa Posta</a></span><span class="prices"><span class="strike">R$ 242,40</span><span class="now">R$ 124,20</span><span class="pct">-49%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B077HZ5BZS?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Pisa 30 Peças - Mesa Posta - Itens Para Casa - Utensílios de Cozinha - Enxoval - Casamento - Decoração</a></span><span class="prices"><span class="strike">R$ 430,90</span><span class="now">R$ 219,99</span><span class="pct">-49%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B07QKM93TD?tag=muselew-20" target="_blank" rel="noopener">Ou Organizador de Talheres com Extensor Chumbo Linha Logic</a></span><span class="prices"><span class="strike">R$ 76,49</span><span class="now">R$ 39,90</span><span class="pct">-48%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BZWN3GGC?tag=muselew-20" target="_blank" rel="noopener">Ou Escorredor de Louças Compact Preto Linha Trium</a></span><span class="prices"><span class="strike">R$ 63,54</span><span class="now">R$ 32,90</span><span class="pct">-48%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B09YVLJ46V?tag=muselew-20" target="_blank" rel="noopener">Pote Hermético 2 Divisórias C/Escorredor Plasutil</a></span><span class="prices"><span class="strike">R$ 42,60</span><span class="now">R$ 22,65</span><span class="pct">-47%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B0786TZMTH?tag=muselew-20" target="_blank" rel="noopener">Escorredor Mak Inox Aço Inox 20 Pratos Porta Talheres Aço Inox</a></span><span class="prices"><span class="strike">R$ 149,90</span><span class="now">R$ 81,15</span><span class="pct">-46%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DPJ5DJPD?tag=muselew-20" target="_blank" rel="noopener">WOLFF - Faqueiro 30 Peças com Faca para Churrasco de Aço Inox Avalon - Serve 6 Pessoas - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 376,10</span><span class="now">R$ 209,95</span><span class="pct">-44%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BZWM5FM3?tag=muselew-20" target="_blank" rel="noopener">Ou Escorredor de Louças Compact Chumbo Linha Trium</a></span><span class="prices"><span class="strike">R$ 63,54</span><span class="now">R$ 35,99</span><span class="pct">-43%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B07QJBZ5FP?tag=muselew-20" target="_blank" rel="noopener">Ou Organizador de Talheres Chumbo Linha Logic</a></span><span class="prices"><span class="strike">R$ 55,59</span><span class="now">R$ 31,90</span><span class="pct">-43%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B09CV3MW5H?tag=muselew-20" target="_blank" rel="noopener">Jheppbay Pote Hermético para Armazenamento com Bico e Copo Medidor 2L - Transparente com Detalhes em Branco e Azul Escuro - 29cm Altura/15cm Largura/10cm Profundidade</a></span><span class="prices"><span class="strike">R$ 32,99</span><span class="now">R$ 19,00</span><span class="pct">-42%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B08CPQKL4X?tag=muselew-20" target="_blank" rel="noopener">KIT 4 Potes de Vidro Retangular com Tampa Hermética 370ml Cor:Azul (QH)</a></span><span class="prices"><span class="strike">R$ 63,96</span><span class="now">R$ 37,00</span><span class="unit">R$ 9,25/un</span><span class="pct">-42%</span></span></div>
+        <div class="item"><span class="rank">1</span><img class="thumb" src="https://m.media-amazon.com/images/I/61oBY5prJjL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0FPGH979Q?tag=muselew-20" target="_blank" rel="noopener">Escorredor de Louça com Alças de Madeira Porta Talheres e Bandeja</a></span><span class="prices"><span class="strike">R$ 199,90</span><span class="now">R$ 76,40</span><span class="pct">-62%</span></span></div>
+    <div class="item"><span class="rank">2</span><img class="thumb" src="https://m.media-amazon.com/images/I/51mJ-j8vQPL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0842Z6N8D?tag=muselew-20" target="_blank" rel="noopener">LYOR Faqueiro de Aço Inox Positano Preto 24 Peças - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 176,70</span><span class="now">R$ 72,10</span><span class="pct">-59%</span></span></div>
+    <div class="item"><span class="rank">3</span><img class="thumb" src="https://m.media-amazon.com/images/I/61L1E7HkAWL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07JQ34V7F?tag=muselew-20" target="_blank" rel="noopener">Jogo Churrasco Inox 12PC Dynamic</a></span><span class="prices"><span class="strike">R$ 215,82</span><span class="now">R$ 99,99</span><span class="pct">-54%</span></span></div>
+    <div class="item"><span class="rank">4</span><img class="thumb" src="https://m.media-amazon.com/images/I/51-FmoRtNoL._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CH8WYTX4?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Viena 54 Peças Com Caixa Litografada - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 567,50</span><span class="now">R$ 262,20</span><span class="pct">-54%</span></span></div>
+    <div class="item"><span class="rank">5</span><img class="thumb" src="https://m.media-amazon.com/images/I/71kmHV2T1gL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07FLD2NJ1?tag=muselew-20" target="_blank" rel="noopener">Euro Home - Conjunto Pote Hermético, 5 Peças - PLA3604-AZ</a></span><span class="prices"><span class="strike">R$ 121,88</span><span class="now">R$ 57,63</span><span class="pct">-53%</span></span></div>
+    <div class="item"><span class="rank">6</span><img class="thumb" src="https://m.media-amazon.com/images/I/51FhuE-37zL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B076PL2ZSP?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Berna 30 Peças - Mesa Posta - Itens Para Casa - Utensílios de Cozinha - Enxoval - Casamento - Decoração</a></span><span class="prices"><span class="strike">R$ 559,46</span><span class="now">R$ 269,90</span><span class="pct">-52%</span></span></div>
+    <div class="item"><span class="rank">7</span><img class="thumb" src="https://m.media-amazon.com/images/I/71GkZaavtPL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CL9NFQPT?tag=muselew-20" target="_blank" rel="noopener">Kit 15 Potes Tampa Hermético Porta Alimentos Mantimentos Armário Cozinha (Kit 15)</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 94,76</span><span class="unit">R$ 6,32/un</span><span class="pct">-52%</span></span></div>
+    <div class="item"><span class="rank">8</span><img class="thumb" src="https://m.media-amazon.com/images/I/61caPiaI40L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B094S8TXCT?tag=muselew-20" target="_blank" rel="noopener">Electrolux Kit 4 Potes de Vidro Herméticos Porta-Mantimentos com Tampa de Bambu, Tampa Vedação de Silicone, Organizadores de Cozinha e Despensa, Transparente, Porta Alimentos, Grãos e Cereais</a></span><span class="prices"><span class="strike">R$ 159,00</span><span class="now">R$ 75,90</span><span class="unit">R$ 18,98/un</span><span class="pct">-52%</span></span></div>
+    <div class="item"><span class="rank">9</span><img class="thumb" src="https://m.media-amazon.com/images/I/61VzGIokq6L._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CLVN376X?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Viena Dourado 30 Peças Com Caixa Litografada - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 433,10</span><span class="now">R$ 219,00</span><span class="pct">-49%</span></span></div>
+    <div class="item"><span class="rank">10</span><img class="thumb" src="https://m.media-amazon.com/images/I/615F8PXPLxL._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CXW8RK2T?tag=muselew-20" target="_blank" rel="noopener">WOLFF - Faqueiro de Aço Inox Cannes 30 Peças - Jogos de Talheres - Mesa Posta</a></span><span class="prices"><span class="strike">R$ 242,40</span><span class="now">R$ 124,20</span><span class="pct">-49%</span></span></div>
+    <div class="item"><span class="rank">11</span><img class="thumb" src="https://m.media-amazon.com/images/I/51EUyU3NH8L._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B077HZ5BZS?tag=muselew-20" target="_blank" rel="noopener">WOLFF Faqueiro de Aço Inox Pisa 30 Peças - Mesa Posta - Itens Para Casa - Utensílios de Cozinha - Enxoval - Casamento - Decoração</a></span><span class="prices"><span class="strike">R$ 430,90</span><span class="now">R$ 219,99</span><span class="pct">-49%</span></span></div>
+    <div class="item"><span class="rank">12</span><img class="thumb" src="https://m.media-amazon.com/images/I/41Lx6LSsUYL._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07QKM93TD?tag=muselew-20" target="_blank" rel="noopener">Ou Organizador de Talheres com Extensor Chumbo Linha Logic</a></span><span class="prices"><span class="strike">R$ 76,49</span><span class="now">R$ 39,90</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">13</span><img class="thumb" src="https://m.media-amazon.com/images/I/51w8cX+f6mL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0BZWN3GGC?tag=muselew-20" target="_blank" rel="noopener">Ou Escorredor de Louças Compact Preto Linha Trium</a></span><span class="prices"><span class="strike">R$ 63,54</span><span class="now">R$ 32,90</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">14</span><img class="thumb" src="https://m.media-amazon.com/images/I/514RyVWXuQL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09YVLJ46V?tag=muselew-20" target="_blank" rel="noopener">Pote Hermético 2 Divisórias C/Escorredor Plasutil</a></span><span class="prices"><span class="strike">R$ 42,60</span><span class="now">R$ 22,65</span><span class="pct">-47%</span></span></div>
+    <div class="item"><span class="rank">15</span><img class="thumb" src="https://m.media-amazon.com/images/I/81aNH0STUcL._AC_SX355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0786TZMTH?tag=muselew-20" target="_blank" rel="noopener">Escorredor Mak Inox Aço Inox 20 Pratos Porta Talheres Aço Inox</a></span><span class="prices"><span class="strike">R$ 149,90</span><span class="now">R$ 81,15</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">16</span><img class="thumb" src="https://m.media-amazon.com/images/I/519NdgDpnaL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0DPJ5DJPD?tag=muselew-20" target="_blank" rel="noopener">WOLFF - Faqueiro 30 Peças com Faca para Churrasco de Aço Inox Avalon - Serve 6 Pessoas - Jogos de Talheres - Mesa Posta - Utensílios de Cozinha, Enxoval, Casamento, Decoração</a></span><span class="prices"><span class="strike">R$ 376,10</span><span class="now">R$ 209,95</span><span class="pct">-44%</span></span></div>
+    <div class="item"><span class="rank">17</span><img class="thumb" src="https://m.media-amazon.com/images/I/41QU3QiD7vL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0BZWM5FM3?tag=muselew-20" target="_blank" rel="noopener">Ou Escorredor de Louças Compact Chumbo Linha Trium</a></span><span class="prices"><span class="strike">R$ 63,54</span><span class="now">R$ 35,99</span><span class="pct">-43%</span></span></div>
+    <div class="item"><span class="rank">18</span><img class="thumb" src="https://m.media-amazon.com/images/I/51vuF-KukUL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07QJBZ5FP?tag=muselew-20" target="_blank" rel="noopener">Ou Organizador de Talheres Chumbo Linha Logic</a></span><span class="prices"><span class="strike">R$ 55,59</span><span class="now">R$ 31,90</span><span class="pct">-43%</span></span></div>
+    <div class="item"><span class="rank">19</span><img class="thumb" src="https://m.media-amazon.com/images/I/51jvj2Jfo+L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09CV3MW5H?tag=muselew-20" target="_blank" rel="noopener">Jheppbay Pote Hermético para Armazenamento com Bico e Copo Medidor 2L - Transparente com Detalhes em Branco e Azul Escuro - 29cm Altura/15cm Largura/10cm Profundidade</a></span><span class="prices"><span class="strike">R$ 32,99</span><span class="now">R$ 19,00</span><span class="pct">-42%</span></span></div>
+    <div class="item"><span class="rank">20</span><img class="thumb" src="https://m.media-amazon.com/images/I/61N5MBh-3QL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B08CPQKL4X?tag=muselew-20" target="_blank" rel="noopener">KIT 4 Potes de Vidro Retangular com Tampa Hermética 370ml Cor:Azul (QH)</a></span><span class="prices"><span class="strike">R$ 63,96</span><span class="now">R$ 37,00</span><span class="unit">R$ 9,25/un</span><span class="pct">-42%</span></span></div>
     </div>
   </div>
 
@@ -273,26 +350,26 @@
     <div class="section-head"><h2>Eletrodomésticos</h2><span class="count">20 itens</span><span class="chevron">▾</span></div>
 
     <div class="items">
-        <div class="item"><span class="rank">1</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CH5PRZH9?tag=muselew-20" target="_blank" rel="noopener">WAP Fritadeira Elétrica Air Fryer OVEN DIGITAL 12 Litros, Revestimento Antiaderente, 10 Funções, 1800W 127V</a></span><span class="prices"><span class="strike">R$ 1199,90</span><span class="now">R$ 436,98</span><span class="pct">-64%</span></span></div>
-    <div class="item"><span class="rank">2</span><span class="name"><a href="https://www.amazon.com.br/dp/B08R93TVRG?tag=muselew-20" target="_blank" rel="noopener">Fritadeira Philco Air Fryer Oven 12L PFR2200P - 127V</a></span><span class="prices"><span class="strike">R$ 1199,90</span><span class="now">R$ 470,00</span><span class="pct">-61%</span></span></div>
-    <div class="item"><span class="rank">3</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CH5PR9G9?tag=muselew-20" target="_blank" rel="noopener">WAP Fritadeira Elétrica Air Fryer OVEN DIGITAL 12 Litros, com 10 Funções, sem Óleo, Antiaderente, 2000W 220V</a></span><span class="prices"><span class="strike">R$ 1199,90</span><span class="now">R$ 484,03</span><span class="pct">-60%</span></span></div>
-    <div class="item"><span class="rank">4</span><span class="name"><a href="https://www.amazon.com.br/dp/B09RTPDQ2V?tag=muselew-20" target="_blank" rel="noopener">Cafeteira Cápsulas Delta Q Quick Vermelha 127V</a></span><span class="prices"><span class="strike">R$ 299,00</span><span class="now">R$ 119,90</span><span class="pct">-60%</span></span></div>
-    <div class="item"><span class="rank">5</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CH5MMSH5?tag=muselew-20" target="_blank" rel="noopener">WAP Fritadeira Elétrica Air Fryer GRAND FAMILY 5,2 Litros, Temperatura Ajustável, Revestimento Antiaderente, 1500W 127V</a></span><span class="prices"><span class="strike">R$ 659,90</span><span class="now">R$ 270,00</span><span class="pct">-59%</span></span></div>
-    <div class="item"><span class="rank">6</span><span class="name"><a href="https://www.amazon.com.br/dp/B0CMV7HVXP?tag=muselew-20" target="_blank" rel="noopener">Suggar Fritadeira Light Fry Touch Control 4 Litros Preta 110V Ft0041pt</a></span><span class="prices"><span class="strike">R$ 359,00</span><span class="now">R$ 149,62</span><span class="pct">-58%</span></span></div>
-    <div class="item"><span class="rank">7</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BSP3D9ZS?tag=muselew-20" target="_blank" rel="noopener">Mini Grill Oster 2 em 1, 1000W, 220V, Ogrl230</a></span><span class="prices"><span class="strike">R$ 259,00</span><span class="now">R$ 110,68</span><span class="pct">-57%</span></span></div>
-    <div class="item"><span class="rank">8</span><span class="name"><a href="https://www.amazon.com.br/dp/B076BB8J7Z?tag=muselew-20" target="_blank" rel="noopener">Liquidificador, Ph900, 3L, Preto, 220V, Philco</a></span><span class="prices"><span class="strike">R$ 229,00</span><span class="now">R$ 99,90</span><span class="pct">-56%</span></span></div>
-    <div class="item"><span class="rank">9</span><span class="name"><a href="https://www.amazon.com.br/dp/B0DTW24HGR?tag=muselew-20" target="_blank" rel="noopener">Fritadeira Elétrica Air Fryer Facilita Fry Elgin - 3.5 Litros, 220V</a></span><span class="prices"><span class="strike">R$ 412,20</span><span class="now">R$ 186,00</span><span class="pct">-55%</span></span></div>
-    <div class="item"><span class="rank">10</span><span class="name"><a href="https://www.amazon.com.br/dp/B0GT4MXLKS?tag=muselew-20" target="_blank" rel="noopener">Batedeira elétrica, 7 velocidades, com batedor e gancho de metal, tomada redonda de 110 V, batedeira manual com 4 batedores</a></span><span class="prices"><span class="strike">R$ 109,00</span><span class="now">R$ 49,99</span><span class="pct">-54%</span></span></div>
-    <div class="item"><span class="rank">11</span><span class="name"><a href="https://www.amazon.com.br/dp/B08TRM2YNX?tag=muselew-20" target="_blank" rel="noopener">Grill Asteria Compact Mallory Grill multifunção, Luzes indicadoras de funcionamento, Alça com toque-frio e Trava de segurança 127V</a></span><span class="prices"><span class="strike">R$ 188,99</span><span class="now">R$ 89,00</span><span class="pct">-53%</span></span></div>
-    <div class="item"><span class="rank">12</span><span class="name"><a href="https://www.amazon.com.br/dp/B0BRL93TYM?tag=muselew-20" target="_blank" rel="noopener">Philips Walita Preta Fritadeira Airfryer Essential XL Digital, 6.2L de capacidade, Garantia internacional de dois anos, 110V, 2000W (RI9270/90)</a></span><span class="prices"><span class="strike">R$ 899,90</span><span class="now">R$ 429,99</span><span class="pct">-52%</span></span></div>
-    <div class="item"><span class="rank">13</span><span class="name"><a href="https://www.amazon.com.br/dp/B095Z126P2?tag=muselew-20" target="_blank" rel="noopener">Oster Cafeteira 2Day Inox 2 em 1 com Copo Térmico, 220V, Preto/Inox, 600W, OCAF200</a></span><span class="prices"><span class="strike">R$ 269,90</span><span class="now">R$ 130,05</span><span class="pct">-52%</span></span></div>
-    <div class="item"><span class="rank">14</span><span class="name"><a href="https://www.amazon.com.br/dp/B095YZPJTR?tag=muselew-20" target="_blank" rel="noopener">Cafeteira Oster 2Day Inox 2 em 1 com Copo Térmico, 110V, Preto/Inox, 600W, OCAF200</a></span><span class="prices"><span class="strike">R$ 269,90</span><span class="now">R$ 131,57</span><span class="pct">-51%</span></span></div>
-    <div class="item"><span class="rank">15</span><span class="name"><a href="https://www.amazon.com.br/dp/B07QK91PTZ?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Liquidificador Turbo Power, Preto, 550W, 220V - L-99 FB</a></span><span class="prices"><span class="strike">R$ 159,90</span><span class="now">R$ 80,31</span><span class="pct">-50%</span></span></div>
-    <div class="item"><span class="rank">16</span><span class="name"><a href="https://www.amazon.com.br/dp/B09SVR1XR5?tag=muselew-20" target="_blank" rel="noopener">Electrolux Liquidificador inox jarra de vidro resistente capacidade 1,5L 5 velocidades função pulsar 700W EBS30 127v</a></span><span class="prices"><span class="strike">R$ 449,00</span><span class="now">R$ 224,91</span><span class="pct">-50%</span></span></div>
-    <div class="item"><span class="rank">17</span><span class="name"><a href="https://www.amazon.com.br/dp/B09N5G6DGX?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Cafeteira Elétrica Dolce Arome, 220V, 550W, Preto/Inox - C-43-20X-SI</a></span><span class="prices"><span class="strike">R$ 229,90</span><span class="now">R$ 114,99</span><span class="pct">-50%</span></span></div>
-    <div class="item"><span class="rank">18</span><span class="name"><a href="https://www.amazon.com.br/dp/B076FDKSV6?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Sanduicheira Fast Grill &amp; Sandwich, Preto, 750W, 110V - S-12</a></span><span class="prices"><span class="strike">R$ 144,90</span><span class="now">R$ 74,00</span><span class="pct">-49%</span></span></div>
-    <div class="item"><span class="rank">19</span><span class="name"><a href="https://www.amazon.com.br/dp/B0F4G5L639?tag=muselew-20" target="_blank" rel="noopener">Liquidificador Arno Power Mix 700W LQ19, Preto, Jarra de 2,4L, 4 Lâminas AFIAMAX 18% Mais Afiadas, 3 Velocidades, Alta Durabilidade e Desempenho Superior, 220V</a></span><span class="prices"><span class="strike">R$ 199,99</span><span class="now">R$ 104,21</span><span class="pct">-48%</span></span></div>
-    <div class="item"><span class="rank">20</span><span class="name"><a href="https://www.amazon.com.br/dp/B09XBPCKRH?tag=muselew-20" target="_blank" rel="noopener">Batedeira Philco PBT450P Crome Case 550W 220V</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 104,40</span><span class="pct">-48%</span></span></div>
+        <div class="item"><span class="rank">1</span><img class="thumb" src="https://m.media-amazon.com/images/I/51njAxXlxfL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CH5PRZH9?tag=muselew-20" target="_blank" rel="noopener">WAP Fritadeira Elétrica Air Fryer OVEN DIGITAL 12 Litros, Revestimento Antiaderente, 10 Funções, 1800W 127V</a></span><span class="prices"><span class="strike">R$ 1199,90</span><span class="now">R$ 436,98</span><span class="pct">-64%</span></span></div>
+    <div class="item"><span class="rank">2</span><img class="thumb" src="https://m.media-amazon.com/images/I/51CUZh0m8bL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B08R93TVRG?tag=muselew-20" target="_blank" rel="noopener">Fritadeira Philco Air Fryer Oven 12L PFR2200P - 127V</a></span><span class="prices"><span class="strike">R$ 1199,90</span><span class="now">R$ 470,00</span><span class="pct">-61%</span></span></div>
+    <div class="item"><span class="rank">3</span><img class="thumb" src="https://m.media-amazon.com/images/I/51njAxXlxfL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CH5PR9G9?tag=muselew-20" target="_blank" rel="noopener">WAP Fritadeira Elétrica Air Fryer OVEN DIGITAL 12 Litros, com 10 Funções, sem Óleo, Antiaderente, 2000W 220V</a></span><span class="prices"><span class="strike">R$ 1199,90</span><span class="now">R$ 484,03</span><span class="pct">-60%</span></span></div>
+    <div class="item"><span class="rank">4</span><img class="thumb" src="https://m.media-amazon.com/images/I/51IAD1oC0qL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09RTPDQ2V?tag=muselew-20" target="_blank" rel="noopener">Cafeteira Cápsulas Delta Q Quick Vermelha 127V</a></span><span class="prices"><span class="strike">R$ 299,00</span><span class="now">R$ 119,90</span><span class="pct">-60%</span></span></div>
+    <div class="item"><span class="rank">5</span><img class="thumb" src="https://m.media-amazon.com/images/I/61xmLmOISgL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CH5MMSH5?tag=muselew-20" target="_blank" rel="noopener">WAP Fritadeira Elétrica Air Fryer GRAND FAMILY 5,2 Litros, Temperatura Ajustável, Revestimento Antiaderente, 1500W 127V</a></span><span class="prices"><span class="strike">R$ 659,90</span><span class="now">R$ 270,00</span><span class="pct">-59%</span></span></div>
+    <div class="item"><span class="rank">6</span><img class="thumb" src="https://m.media-amazon.com/images/I/517ByUA-tyL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0CMV7HVXP?tag=muselew-20" target="_blank" rel="noopener">Suggar Fritadeira Light Fry Touch Control 4 Litros Preta 110V Ft0041pt</a></span><span class="prices"><span class="strike">R$ 359,00</span><span class="now">R$ 149,62</span><span class="pct">-58%</span></span></div>
+    <div class="item"><span class="rank">7</span><img class="thumb" src="https://m.media-amazon.com/images/I/413F1Icml2L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0BSP3D9ZS?tag=muselew-20" target="_blank" rel="noopener">Mini Grill Oster 2 em 1, 1000W, 220V, Ogrl230</a></span><span class="prices"><span class="strike">R$ 259,00</span><span class="now">R$ 110,68</span><span class="pct">-57%</span></span></div>
+    <div class="item"><span class="rank">8</span><img class="thumb" src="https://m.media-amazon.com/images/I/51UcFkAcKDL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B076BB8J7Z?tag=muselew-20" target="_blank" rel="noopener">Liquidificador, Ph900, 3L, Preto, 220V, Philco</a></span><span class="prices"><span class="strike">R$ 229,00</span><span class="now">R$ 99,90</span><span class="pct">-56%</span></span></div>
+    <div class="item"><span class="rank">9</span><img class="thumb" src="https://m.media-amazon.com/images/I/41vdvIk7YvL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0DTW24HGR?tag=muselew-20" target="_blank" rel="noopener">Fritadeira Elétrica Air Fryer Facilita Fry Elgin - 3.5 Litros, 220V</a></span><span class="prices"><span class="strike">R$ 412,20</span><span class="now">R$ 186,00</span><span class="pct">-55%</span></span></div>
+    <div class="item"><span class="rank">10</span><img class="thumb" src="https://m.media-amazon.com/images/I/61fnj2BRU8L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0GT4MXLKS?tag=muselew-20" target="_blank" rel="noopener">Batedeira elétrica, 7 velocidades, com batedor e gancho de metal, tomada redonda de 110 V, batedeira manual com 4 batedores</a></span><span class="prices"><span class="strike">R$ 109,00</span><span class="now">R$ 49,99</span><span class="pct">-54%</span></span></div>
+    <div class="item"><span class="rank">11</span><img class="thumb" src="https://m.media-amazon.com/images/I/41ODcJDTUhL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B08TRM2YNX?tag=muselew-20" target="_blank" rel="noopener">Grill Asteria Compact Mallory Grill multifunção, Luzes indicadoras de funcionamento, Alça com toque-frio e Trava de segurança 127V</a></span><span class="prices"><span class="strike">R$ 188,99</span><span class="now">R$ 89,00</span><span class="pct">-53%</span></span></div>
+    <div class="item"><span class="rank">12</span><img class="thumb" src="https://m.media-amazon.com/images/I/51i3nkPbZ-L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0BRL93TYM?tag=muselew-20" target="_blank" rel="noopener">Philips Walita Preta Fritadeira Airfryer Essential XL Digital, 6.2L de capacidade, Garantia internacional de dois anos, 110V, 2000W (RI9270/90)</a></span><span class="prices"><span class="strike">R$ 899,90</span><span class="now">R$ 429,99</span><span class="pct">-52%</span></span></div>
+    <div class="item"><span class="rank">13</span><img class="thumb" src="https://m.media-amazon.com/images/I/41jDPcPoc+L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B095Z126P2?tag=muselew-20" target="_blank" rel="noopener">Oster Cafeteira 2Day Inox 2 em 1 com Copo Térmico, 220V, Preto/Inox, 600W, OCAF200</a></span><span class="prices"><span class="strike">R$ 269,90</span><span class="now">R$ 130,05</span><span class="pct">-52%</span></span></div>
+    <div class="item"><span class="rank">14</span><img class="thumb" src="https://m.media-amazon.com/images/I/41jDPcPoc+L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B095YZPJTR?tag=muselew-20" target="_blank" rel="noopener">Cafeteira Oster 2Day Inox 2 em 1 com Copo Térmico, 110V, Preto/Inox, 600W, OCAF200</a></span><span class="prices"><span class="strike">R$ 269,90</span><span class="now">R$ 131,57</span><span class="pct">-51%</span></span></div>
+    <div class="item"><span class="rank">15</span><img class="thumb" src="https://m.media-amazon.com/images/I/71KFAoTV+hL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B07QK91PTZ?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Liquidificador Turbo Power, Preto, 550W, 220V - L-99 FB</a></span><span class="prices"><span class="strike">R$ 159,90</span><span class="now">R$ 80,31</span><span class="pct">-50%</span></span></div>
+    <div class="item"><span class="rank">16</span><img class="thumb" src="https://m.media-amazon.com/images/I/51XI9I69g0L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09SVR1XR5?tag=muselew-20" target="_blank" rel="noopener">Electrolux Liquidificador inox jarra de vidro resistente capacidade 1,5L 5 velocidades função pulsar 700W EBS30 127v</a></span><span class="prices"><span class="strike">R$ 449,00</span><span class="now">R$ 224,91</span><span class="pct">-50%</span></span></div>
+    <div class="item"><span class="rank">17</span><img class="thumb" src="https://m.media-amazon.com/images/I/715Fs-3Vm5L._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09N5G6DGX?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Cafeteira Elétrica Dolce Arome, 220V, 550W, Preto/Inox - C-43-20X-SI</a></span><span class="prices"><span class="strike">R$ 229,90</span><span class="now">R$ 114,99</span><span class="pct">-50%</span></span></div>
+    <div class="item"><span class="rank">18</span><img class="thumb" src="https://m.media-amazon.com/images/I/716iLMhJVuL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B076FDKSV6?tag=muselew-20" target="_blank" rel="noopener">MONDIAL Sanduicheira Fast Grill &amp; Sandwich, Preto, 750W, 110V - S-12</a></span><span class="prices"><span class="strike">R$ 144,90</span><span class="now">R$ 74,00</span><span class="pct">-49%</span></span></div>
+    <div class="item"><span class="rank">19</span><img class="thumb" src="https://m.media-amazon.com/images/I/61iQo0VNuSL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B0F4G5L639?tag=muselew-20" target="_blank" rel="noopener">Liquidificador Arno Power Mix 700W LQ19, Preto, Jarra de 2,4L, 4 Lâminas AFIAMAX 18% Mais Afiadas, 3 Velocidades, Alta Durabilidade e Desempenho Superior, 220V</a></span><span class="prices"><span class="strike">R$ 199,99</span><span class="now">R$ 104,21</span><span class="pct">-48%</span></span></div>
+    <div class="item"><span class="rank">20</span><img class="thumb" src="https://m.media-amazon.com/images/I/51IpRTe4ILL._AC_SY355_.jpg" alt="" loading="lazy"><span class="name"><a href="https://www.amazon.com.br/dp/B09XBPCKRH?tag=muselew-20" target="_blank" rel="noopener">Batedeira Philco PBT450P Crome Case 550W 220V</a></span><span class="prices"><span class="strike">R$ 199,00</span><span class="now">R$ 104,40</span><span class="pct">-48%</span></span></div>
     </div>
   </div>
 
@@ -316,6 +393,34 @@
   var input = document.querySelector('.search-wrap input');
   var sections = document.querySelectorAll('.section');
   var noResults = document.querySelector('.no-results');
+  var page = document.querySelector('.page');
+  var imgToggle = document.getElementById('toggle-images');
+
+  var COOKIE_NAME = 'ofertasShowImages';
+
+  function getCookie(name){
+    var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[1]) : null;
+  }
+
+  function setCookie(name, value){
+    var maxAge = 60 * 60 * 24 * 365;
+    document.cookie = name + '=' + encodeURIComponent(value) + '; max-age=' + maxAge + '; path=/; SameSite=Lax';
+  }
+
+  (function initImageToggle(){
+    var saved = getCookie(COOKIE_NAME);
+    var showImages = saved === null ? true : saved === '1';
+    page.classList.toggle('show-images', showImages);
+    if(imgToggle) imgToggle.checked = showImages;
+  })();
+
+  if(imgToggle){
+    imgToggle.addEventListener('change', function(){
+      page.classList.toggle('show-images', imgToggle.checked);
+      setCookie(COOKIE_NAME, imgToggle.checked ? '1' : '0');
+    });
+  }
 
   sections.forEach(function(section){
     var head = section.querySelector('.section-head');
