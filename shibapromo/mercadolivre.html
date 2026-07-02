@@ -1,0 +1,700 @@
+<title>Ofertas Mercado Livre 🐒</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+  :root{
+    --paper:#FDF7EC;
+    --ink:#3E2C22;
+    --ink-soft:#6B5344;
+    --monkey:#8B5E3C;
+    --monkey-light:#E8C9A0;
+    --peach:#F4C9A8;
+    --sage:#7C9473;
+    --terracotta:#C65D42;
+    --sky:#7FA6B0;
+    --line:#E8D9C3;
+  }
+  *{box-sizing:border-box;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:-apple-system,"Segoe UI",Roboto,sans-serif;
+    margin:0;
+    padding:2rem 1.1rem 3rem;
+    display:flex;
+    justify-content:center;
+    -webkit-text-size-adjust:100%;
+  }
+  .page{ width:100%; max-width:800px; }
+  .hero{
+    display:flex;
+    align-items:center;
+    gap:1.5rem;
+    padding-bottom:1.75rem;
+    border-bottom:2px dashed var(--line);
+    margin-bottom:2rem;
+  }
+  .hero svg{ flex:none; width:132px; height:132px; }
+  .mascot-link{ display:flex; flex:none; }
+  h1{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:1.9rem;
+    line-height:1.08;
+    margin:0 0 .4rem;
+    color:var(--terracotta);
+    text-wrap:balance;
+  }
+  .hero p{ margin:0; color:var(--ink-soft); font-size:.92rem; max-width:40ch; }
+  .tag{
+    display:inline-block;
+    background:var(--sage);
+    color:#fff;
+    font-size:.68rem;
+    font-weight:700;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    padding:.15rem .55rem;
+    border-radius:999px;
+    margin-bottom:.5rem;
+  }
+  .section{ margin-top:2.4rem; }
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    gap:.6rem;
+    margin-bottom:.6rem;
+    cursor:pointer;
+    user-select:none;
+  }
+  .section-head h2{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-size:1.25rem;
+    font-weight:800;
+    margin:0;
+    color:var(--ink);
+  }
+  .section-head .count{
+    font-size:.78rem;
+    color:var(--ink-soft);
+    font-variant-numeric:tabular-nums;
+  }
+  .section-head .chevron{
+    margin-left:auto;
+    font-size:.75rem;
+    color:var(--ink-soft);
+    transition:transform .2s ease;
+  }
+  .section.collapsed .chevron{ transform:rotate(-90deg); }
+  .section.collapsed .items{ display:none; }
+  .section.fraldas .section-head h2{ color:var(--monkey); }
+  .section.cabelo .section-head h2{ color:var(--terracotta); }
+  .section.energeticos .section-head h2{ color:var(--sky); }
+  .item{
+    display:grid;
+    grid-template-columns:2rem 1fr auto;
+    align-items:center;
+    gap:.85rem;
+    padding:.75rem 0;
+    border-bottom:1px solid var(--line);
+  }
+  .item:first-child{ padding-top:0; }
+  .rank{
+    font-family:ui-rounded,"SF Pro Rounded","Segoe UI Rounded",-apple-system,sans-serif;
+    font-weight:800;
+    font-size:.95rem;
+    color:var(--peach);
+    -webkit-text-stroke:1px var(--monkey);
+    text-align:center;
+  }
+  .name{ font-size:.86rem; line-height:1.3; color:var(--ink); overflow-wrap:anywhere; }
+  .name a{ color:inherit; text-decoration:none; }
+  .name a:hover, .name a:focus-visible{ text-decoration:underline; text-decoration-color:var(--monkey); }
+  .prices{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+  .strike{ display:block; font-size:.7rem; color:var(--ink-soft); text-decoration:line-through; }
+  .now{ display:block; font-weight:700; font-size:.92rem; }
+  .unit{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .perkg{ display:block; font-size:.68rem; color:var(--ink-soft); font-weight:400; }
+  .updated-date{ display:block; margin-top:.35rem; font-weight:600; color:var(--ink); }
+  .pct{
+    display:inline-block;
+    margin-top:.15rem;
+    font-size:.7rem;
+    font-weight:700;
+    padding:.05rem .45rem;
+    border-radius:999px;
+    color:#fff;
+    background:var(--monkey);
+  }
+  .section.cabelo .pct{ background:var(--terracotta); }
+  .section.energeticos .pct{ background:var(--sky); }
+  .item:nth-child(-n+3) .pct{ filter:brightness(0.88); }
+  footer{
+    margin-top:2.25rem;
+    padding-top:1.25rem;
+    border-top:2px dashed var(--line);
+    font-size:.78rem;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+  }
+  footer svg{ width:28px; height:28px; flex:none; }
+  a:focus-visible{ outline:2px solid var(--monkey); outline-offset:2px; }
+
+  .search-wrap{ margin-bottom:1.75rem; display:flex; align-items:center; gap:.75rem; }
+  .search-wrap input{
+    flex:1;
+    width:100%;
+    padding:.65rem 1rem;
+    border:2px solid var(--line);
+    border-radius:999px;
+    background:#fff;
+    color:var(--ink);
+    font-size:.9rem;
+    font-family:inherit;
+  }
+  .search-wrap input::placeholder{ color:var(--ink-soft); opacity:.8; }
+  .search-wrap input:focus-visible{ outline:2px solid var(--monkey); border-color:transparent; }
+  .no-results{ display:none; text-align:center; color:var(--ink-soft); font-size:.9rem; padding:2rem 0; }
+
+  @media (max-width:600px){
+    body{ padding:1.5rem .8rem 2.5rem; }
+    .hero{ gap:1rem; padding-bottom:1.4rem; margin-bottom:1.5rem; }
+    .hero svg{ width:96px; height:96px; }
+    h1{ font-size:1.5rem; }
+    .hero p{ font-size:.85rem; }
+    .section{ margin-top:1.9rem; }
+    .section-head h2{ font-size:1.1rem; }
+  }
+  @media (max-width:420px){
+    .hero{ flex-direction:column; text-align:center; gap:.75rem; }
+    .hero p{ max-width:none; }
+    .item{
+      grid-template-columns:1fr auto;
+      grid-template-areas:"name name" "rank prices";
+      row-gap:.2rem;
+    }
+    .item .name{ grid-area:name; }
+    .item .rank{ grid-area:rank; text-align:left; font-size:.8rem; }
+    .item .prices{ grid-area:prices; }
+    .name{ font-size:.84rem; }
+  }
+</style>
+
+<svg width="0" height="0" style="position:absolute">
+  <filter id="watercolor" x="-30%" y="-30%" width="160%" height="160%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.012 0.09" numOctaves="3" seed="7" result="noise"/>
+    <feDisplacementMap in="SourceGraphic" in2="noise" scale="14" xChannelSelector="R" yChannelSelector="G" result="disp"/>
+    <feGaussianBlur in="disp" stdDeviation="1.1" result="blur"/>
+    <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 0.92 0"/>
+  </filter>
+</svg>
+
+<div class="page">
+
+  <div class="hero">
+    <a href="index.html" class="mascot-link" aria-label="Voltar para a página inicial"><svg viewBox="0 0 200 200" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <circle cx="45" cy="72" r="24" fill="#8B5E3C" opacity="0.85"/>
+        <circle cx="155" cy="72" r="24" fill="#8B5E3C" opacity="0.85"/>
+        <circle cx="45" cy="72" r="13" fill="#E8C9A0" opacity="0.9"/>
+        <circle cx="155" cy="72" r="13" fill="#E8C9A0" opacity="0.9"/>
+        <circle cx="100" cy="115" r="60" fill="#8B5E3C" opacity="0.95"/>
+        <ellipse cx="100" cy="128" rx="38" ry="34" fill="#E8C9A0" opacity="0.95"/>
+        <circle cx="83" cy="118" r="6.5" fill="#3E2C22"/>
+        <circle cx="117" cy="118" r="6.5" fill="#3E2C22"/>
+        <ellipse cx="100" cy="138" rx="9" ry="6" fill="#6B4A2E" opacity="0.6"/>
+        <path d="M92 144 Q100 150 108 144" stroke="#3E2C22" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      </g>
+    </svg></a>
+    <div>
+      <span class="tag">Mercado Livre · Curadoria manual</span>
+      <h1>Ofertas Mercado Livre</h1>
+      <p>Fraldas, produtos Kérastase e energéticos monitorados manualmente, rankeados por % de desconto.</p>
+    </div>
+  </div>
+
+  <div class="search-wrap">
+    <input type="search" placeholder="Buscar por marca, produto..." aria-label="Buscar produto">
+  </div>
+
+  <div class="section fraldas">
+    <div class="section-head"><h2>Fraldas</h2><span class="count">94 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span>
+      <span class="name"><a href="https://meli.la/2QTj8tG" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada XXG - 24 Un</a></span><span class="prices"><span class="strike">R$ 79,90</span><span class="now">R$ 43,94</span><span class="unit">R$ 1,83/un</span><span class="pct">-45%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <span class="name"><a href="https://meli.la/13aQWRk" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada XG - 64 Un</a></span><span class="prices"><span class="strike">R$ 114,33</span><span class="now">R$ 69,66</span><span class="unit">R$ 1,09/un</span><span class="pct">-39%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <span class="name"><a href="https://meli.la/2mj32f7" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção P - 48 Un</a></span><span class="prices"><span class="strike">R$ 63,03</span><span class="now">R$ 39,99</span><span class="unit">R$ 0,83/un</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <span class="name"><a href="https://meli.la/29TFpfV" target="_blank" rel="noopener">Huggies Natural Care Grande (G) Fralda Premium Roupinha Natural</a></span><span class="prices"><span class="strike">R$ 109,09</span><span class="now">R$ 70,97</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <span class="name"><a href="https://meli.la/1JHXhe3" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção XXXG - 42 Unidades</a></span><span class="prices"><span class="strike">R$ 106,90</span><span class="now">R$ 69,99</span><span class="unit">R$ 1,67/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <span class="name"><a href="https://meli.la/2SR6kEK" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada XXG - 58 Un</a></span><span class="prices"><span class="strike">R$ 114,33</span><span class="now">R$ 76,80</span><span class="unit">R$ 1,32/un</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <span class="name"><a href="https://meli.la/2k5DecK" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants Tamanho M 124 Unidades</a></span><span class="prices"><span class="strike">R$ 311,80</span><span class="now">R$ 212,85</span><span class="unit">R$ 1,72/un</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <span class="name"><a href="https://meli.la/2WMEqyT" target="_blank" rel="noopener">Fraldas recém-nascido Premium Care tamanho RN+ com 20 unidades Pampers</a></span><span class="prices"><span class="strike">R$ 39,90</span><span class="now">R$ 27,56</span><span class="unit">R$ 1,38/un</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <span class="name"><a href="https://meli.la/2ftEoQt" target="_blank" rel="noopener">Fralda Huggies Máxima Proteção Supreme Tamanho G 136 Un</a></span><span class="prices"><span class="strike">R$ 241,90</span><span class="now">R$ 169,33</span><span class="unit">R$ 1,25/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <span class="name"><a href="https://meli.la/1cypUpA" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho G 68 Unidades</a></span><span class="prices"><span class="strike">R$ 164,90</span><span class="now">R$ 115,99</span><span class="unit">R$ 1,71/un</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <span class="name"><a href="https://meli.la/2XEXZZg" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho XXG 112 Unidades</a></span><span class="prices"><span class="strike">R$ 237,90</span><span class="now">R$ 167,97</span><span class="unit">R$ 1,50/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <span class="name"><a href="https://meli.la/1D7XQQR" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção XG - 112 Un</a></span><span class="prices"><span class="strike">R$ 197,75</span><span class="now">R$ 139,99</span><span class="unit">R$ 1,25/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <span class="name"><a href="https://meli.la/1P6yPrw" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção M - 172 Un</a></span><span class="prices"><span class="strike">R$ 197,75</span><span class="now">R$ 139,99</span><span class="unit">R$ 0,81/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <span class="name"><a href="https://meli.la/1D4VMKH" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção G - 136 Un</a></span><span class="prices"><span class="strike">R$ 197,75</span><span class="now">R$ 139,99</span><span class="unit">R$ 1,03/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <span class="name"><a href="https://meli.la/1VQeDAp" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho XXXG, 70 Un</a></span><span class="prices"><span class="strike">R$ 145,90</span><span class="now">R$ 104,90</span><span class="unit">R$ 1,50/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <span class="name"><a href="https://meli.la/2FSz1vs" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho M, 108 Un</a></span><span class="prices"><span class="strike">R$ 145,90</span><span class="now">R$ 104,90</span><span class="unit">R$ 0,97/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <span class="name"><a href="https://meli.la/2769GT4" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho G, 92 Un</a></span><span class="prices"><span class="strike">R$ 145,90</span><span class="now">R$ 104,90</span><span class="unit">R$ 1,14/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <span class="name"><a href="https://meli.la/21eVy3Q" target="_blank" rel="noopener">Fralda Confort Sec Tamanho Xxg 82 Unidades Pampers</a></span><span class="prices"><span class="strike">R$ 145,90</span><span class="now">R$ 104,90</span><span class="unit">R$ 1,28/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <span class="name"><a href="https://meli.la/1mPr5By" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada G - 60 Un</a></span><span class="prices"><span class="strike">R$ 99,07</span><span class="now">R$ 71,23</span><span class="unit">R$ 1,19/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <span class="name"><a href="https://meli.la/2qNZorr" target="_blank" rel="noopener">Fralda Pants Ajuste Total Xxxg 66 Unidades Pampers</a></span><span class="prices"><span class="strike">R$ 149,90</span><span class="now">R$ 107,90</span><span class="unit">R$ 1,63/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <span class="name"><a href="https://meli.la/1Y4FC9T" target="_blank" rel="noopener">Fralda Pants Ajuste Total Tamanho XXG 74 Unidades Pampers</a></span><span class="prices"><span class="strike">R$ 149,90</span><span class="now">R$ 107,90</span><span class="unit">R$ 1,46/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <span class="name"><a href="https://meli.la/1yngCrW" target="_blank" rel="noopener">Fralda Pants Ajuste Total Tamanho G 90 Unidades Pampers</a></span><span class="prices"><span class="strike">R$ 149,90</span><span class="now">R$ 107,90</span><span class="unit">R$ 1,20/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <span class="name"><a href="https://meli.la/2QDBNXe" target="_blank" rel="noopener">Fralda Pampers Pants Ajuste Total Tamanho XG, 82 Un</a></span><span class="prices"><span class="strike">R$ 149,90</span><span class="now">R$ 107,90</span><span class="unit">R$ 1,32/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <span class="name"><a href="https://meli.la/1zoenGs" target="_blank" rel="noopener">Fralda Pampers Pants Ajuste Total Tamanho M, 108 Un</a></span><span class="prices"><span class="strike">R$ 149,90</span><span class="now">R$ 107,90</span><span class="unit">R$ 1,00/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">25</span>
+      <span class="name"><a href="https://meli.la/1VzuK7W" target="_blank" rel="noopener">Fralda Descartável Pampers Supersequinha Tamanho XXG 66 Unidades</a></span><span class="prices"><span class="strike">R$ 123,69</span><span class="now">R$ 89,06</span><span class="unit">R$ 1,35/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">26</span>
+      <span class="name"><a href="https://meli.la/1S1fsBm" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho XG 116 Unidades</a></span><span class="prices"><span class="strike">R$ 317,59</span><span class="now">R$ 231,21</span><span class="unit">R$ 1,99/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">27</span>
+      <span class="name"><a href="https://meli.la/1G93vq1" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants XG, 64 Unidades</a></span><span class="prices"><span class="strike">R$ 161,90</span><span class="now">R$ 118,99</span><span class="unit">R$ 1,86/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">28</span>
+      <span class="name"><a href="https://meli.la/2seyFMW" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho P 40 Unidades</a></span><span class="prices"><span class="strike">R$ 76,90</span><span class="now">R$ 56,90</span><span class="unit">R$ 1,42/un</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">29</span>
+      <span class="name"><a href="https://meli.la/27rQiBf" target="_blank" rel="noopener">Fralda Pampers Pants Premium Care XXG 60 unidades</a></span><span class="prices"><span class="strike">R$ 161,90</span><span class="now">R$ 119,90</span><span class="unit">R$ 2,00/un</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">30</span>
+      <span class="name"><a href="https://meli.la/1P1jmJN" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho XXG 148 Unidades</a></span><span class="prices"><span class="strike">R$ 260,90</span><span class="now">R$ 193,24</span><span class="unit">R$ 1,31/un</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">31</span>
+      <span class="name"><a href="https://meli.la/2XoSPpW" target="_blank" rel="noopener">Fralda Pampers Confort Sec P 50 unidades</a></span><span class="prices"><span class="strike">R$ 82,90</span><span class="now">R$ 61,99</span><span class="unit">R$ 1,24/un</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">32</span>
+      <span class="name"><a href="https://meli.la/1S3TGMY" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho M 160 Unidades</a></span><span class="prices"><span class="strike">R$ 295,90</span><span class="now">R$ 222,99</span><span class="unit">R$ 1,39/un</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">33</span>
+      <span class="name"><a href="https://meli.la/1tFjjxM" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho G - 136 Unidades</a></span><span class="prices"><span class="strike">R$ 295,90</span><span class="now">R$ 223,13</span><span class="unit">R$ 1,64/un</span><span class="pct">-25%</span></span></div>
+    <div class="item"><span class="rank">34</span>
+      <span class="name"><a href="https://meli.la/2UdPBG3" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho XXXG 52 unidades</a></span><span class="prices"><span class="strike">R$ 164,90</span><span class="now">R$ 124,90</span><span class="unit">R$ 2,40/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">35</span>
+      <span class="name"><a href="https://meli.la/22sDJGN" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho XXG 56 Unidades</a></span><span class="prices"><span class="strike">R$ 164,90</span><span class="now">R$ 124,90</span><span class="unit">R$ 2,23/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">36</span>
+      <span class="name"><a href="https://meli.la/2xQXHrn" target="_blank" rel="noopener">Huggies Fralda Descartável Premium Natural Care RN 34 Unidades</a></span><span class="prices"><span class="strike">R$ 39,24</span><span class="now">R$ 29,90</span><span class="unit">R$ 0,88/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">37</span>
+      <span class="name"><a href="https://meli.la/1J3AdtJ" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho XXG 84 Unidades</a></span><span class="prices"><span class="strike">R$ 215,90</span><span class="now">R$ 164,80</span><span class="unit">R$ 1,96/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">38</span>
+      <span class="name"><a href="https://meli.la/2tDiK9b" target="_blank" rel="noopener">Fralda Huggies Supreme Care M C/ 66 Unidades Gênero Sem Gênero Tamanho Médio (m)</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 68,90</span><span class="unit">R$ 1,04/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">39</span>
+      <span class="name"><a href="https://meli.la/1vzaBcc" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants Tamanho M 78 unidades</a></span><span class="prices"><span class="strike">R$ 161,90</span><span class="now">R$ 124,90</span><span class="unit">R$ 1,60/un</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">40</span>
+      <span class="name"><a href="https://meli.la/1zGXdbx" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção G - 58 Un</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 69,90</span><span class="unit">R$ 1,21/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">41</span>
+      <span class="name"><a href="https://meli.la/19hCxEE" target="_blank" rel="noopener">Fralda Infantil Huggies Supreme Care Xxxg Grandinhos Proteção Noturna com 46 Unidades</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 69,90</span><span class="unit">R$ 1,52/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">42</span>
+      <span class="name"><a href="https://meli.la/1idyFcD" target="_blank" rel="noopener">Fralda Huggies Max Prot Hiper Xxg C/54</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 69,90</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">43</span>
+      <span class="name"><a href="https://meli.la/1JnaLY5" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants Tamanho XXXG, 54 Unidades</a></span><span class="prices"><span class="strike">R$ 161,90</span><span class="now">R$ 125,89</span><span class="unit">R$ 2,33/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">44</span>
+      <span class="name"><a href="https://meli.la/32bFSi7" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants Tamanho G 68 Unidades</a></span><span class="prices"><span class="strike">R$ 161,90</span><span class="now">R$ 125,99</span><span class="unit">R$ 1,85/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">45</span>
+      <span class="name"><a href="https://meli.la/2KdEfJv" target="_blank" rel="noopener">Fralda Pampers Pants Ajuste Total Tamanho G 144 Unidades</a></span><span class="prices"><span class="strike">R$ 280,90</span><span class="now">R$ 219,90</span><span class="unit">R$ 1,53/un</span><span class="pct">-22%</span></span></div>
+    <div class="item"><span class="rank">46</span>
+      <span class="name"><a href="https://meli.la/1khJGFC" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho XXXG 72 Unidades</a></span><span class="prices"><span class="strike">R$ 215,90</span><span class="now">R$ 169,90</span><span class="unit">R$ 2,36/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">47</span>
+      <span class="name"><a href="https://meli.la/1V5uEyh" target="_blank" rel="noopener">Fralda Pampers Premium Care Tamanho G 94 Unidades</a></span><span class="prices"><span class="strike">R$ 215,90</span><span class="now">R$ 169,90</span><span class="unit">R$ 1,81/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">48</span>
+      <span class="name"><a href="https://meli.la/2wrhLqE" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção XXG - 112 Un</a></span><span class="prices"><span class="strike">R$ 197,75</span><span class="now">R$ 156,90</span><span class="unit">R$ 1,40/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">49</span>
+      <span class="name"><a href="https://meli.la/1yGM5Dw" target="_blank" rel="noopener">Fralda descartável Pampers Supersequinha, Tamanho G 80 Unidades</a></span><span class="prices"><span class="strike">R$ 116,90</span><span class="now">R$ 92,90</span><span class="unit">R$ 1,16/un</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">50</span>
+      <span class="name"><a href="https://meli.la/1SJMaBN" target="_blank" rel="noopener">Fralda Descartável Pampers Supersequinha Tamanho XG 70 Unidades</a></span><span class="prices"><span class="strike">R$ 116,90</span><span class="now">R$ 92,99</span><span class="unit">R$ 1,33/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">51</span>
+      <span class="name"><a href="https://meli.la/189uwAa" target="_blank" rel="noopener">Huggies Fralda Descartável Premium Natural Care RN 18 Unidades</a></span><span class="prices"><span class="strike">R$ 34,25</span><span class="now">R$ 27,40</span><span class="unit">R$ 1,52/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">52</span>
+      <span class="name"><a href="https://meli.la/1VvZQjT" target="_blank" rel="noopener">Fraldas Descartáveis Premium Care Recém-Nascido Com 36 Unidades Tamanho RN Pampers</a></span><span class="prices"><span class="strike">R$ 69,90</span><span class="now">R$ 55,92</span><span class="unit">R$ 1,55/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">53</span>
+      <span class="name"><a href="https://meli.la/1APUhxC" target="_blank" rel="noopener">Fralda Pampers Pants Ajuste Total Tamanho XG, 132 Unidades</a></span><span class="prices"><span class="strike">R$ 280,90</span><span class="now">R$ 224,90</span><span class="unit">R$ 1,70/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">54</span>
+      <span class="name"><a href="https://meli.la/1MQo1mM" target="_blank" rel="noopener">Fralda Descartável Pampers Supersequinha, Tamanho M 90 Unidades</a></span><span class="prices"><span class="strike">R$ 116,90</span><span class="now">R$ 93,99</span><span class="unit">R$ 1,04/un</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">55</span>
+      <span class="name"><a href="https://meli.la/1AkLyYv" target="_blank" rel="noopener">Fralda Pampers Supersec Tamanho M 30 Unidades</a></span><span class="prices"><span class="strike">R$ 39,00</span><span class="now">R$ 31,68</span><span class="unit">R$ 1,06/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">56</span>
+      <span class="name"><a href="https://meli.la/2VgPj2r" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção G - 66 Un</a></span><span class="prices"><span class="strike">R$ 106,91</span><span class="now">R$ 87,01</span><span class="unit">R$ 1,32/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">57</span>
+      <span class="name"><a href="https://meli.la/1FWJrBH" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Premium Natural Care XXG - 52 Unidades</a></span><span class="prices"><span class="strike">R$ 109,09</span><span class="now">R$ 88,90</span><span class="unit">R$ 1,71/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">58</span>
+      <span class="name"><a href="https://meli.la/1W31Y7s" target="_blank" rel="noopener">Fralda Pants Roupinha Premium Natural Care XG 56 Unidades Huggies</a></span><span class="prices"><span class="strike">R$ 109,09</span><span class="now">R$ 88,90</span><span class="unit">R$ 1,59/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">59</span>
+      <span class="name"><a href="https://meli.la/1aWikr3" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção G - 32 Un</a></span><span class="prices"><span class="strike">R$ 63,03</span><span class="now">R$ 51,66</span><span class="unit">R$ 1,61/un</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">60</span>
+      <span class="name"><a href="https://meli.la/1uXHBhJ" target="_blank" rel="noopener">Fralda Confort Sec Tamanho XG 86 Unidades Pampers</a></span><span class="prices"><span class="strike">R$ 145,90</span><span class="now">R$ 119,90</span><span class="unit">R$ 1,39/un</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">61</span>
+      <span class="name"><a href="https://meli.la/2jhaF19" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada XG - 24 Un</a></span><span class="prices"><span class="strike">R$ 56,57</span><span class="now">R$ 46,62</span><span class="unit">R$ 1,94/un</span><span class="pct">-18%</span></span></div>
+    <div class="item"><span class="rank">62</span>
+      <span class="name"><a href="https://meli.la/2pj9bCF" target="_blank" rel="noopener">Fralda Descartável Huggies Proteção Acolchoada Xxxg 50 Unidades</a></span><span class="prices"><span class="strike">R$ 131,77</span><span class="now">R$ 108,90</span><span class="unit">R$ 2,18/un</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">63</span>
+      <span class="name"><a href="https://meli.la/1v2RKtE" target="_blank" rel="noopener">Pacote De Fraldas Tripla Proteção P Com 46 Unidades Huggies</a></span><span class="prices"><span class="strike">R$ 52,43</span><span class="now">R$ 43,41</span><span class="unit">R$ 0,94/un</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">64</span>
+      <span class="name"><a href="https://meli.la/2sZjYAJ" target="_blank" rel="noopener">Fraldas descartáveis infantis com 42 unidades tripla proteção tamanho M Huggies</a></span><span class="prices"><span class="strike">R$ 52,43</span><span class="now">R$ 43,41</span><span class="unit">R$ 1,03/un</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">65</span>
+      <span class="name"><a href="https://meli.la/1ELovxV" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada G - 30 Un</a></span><span class="prices"><span class="strike">R$ 56,57</span><span class="now">R$ 47,14</span><span class="unit">R$ 1,57/un</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">66</span>
+      <span class="name"><a href="https://meli.la/2PtwR2H" target="_blank" rel="noopener">Fralda Huggies Tripla Proteção G 78 Un</a></span><span class="prices"><span class="strike">R$ 101,56</span><span class="now">R$ 84,64</span><span class="unit">R$ 1,09/un</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">67</span>
+      <span class="name"><a href="https://meli.la/1L6Lkio" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho G 128 Unidades</a></span><span class="prices"><span class="strike">R$ 208,90</span><span class="now">R$ 174,90</span><span class="unit">R$ 1,37/un</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">68</span>
+      <span class="name"><a href="https://meli.la/1xAfLmq" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada M - 36 Un</a></span><span class="prices"><span class="strike">R$ 56,57</span><span class="now">R$ 47,38</span><span class="unit">R$ 1,32/un</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">69</span>
+      <span class="name"><a href="https://meli.la/2Qmg6NX" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants Tamanho XXXG 80 Unidades</a></span><span class="prices"><span class="strike">R$ 216,90</span><span class="now">R$ 182,45</span><span class="unit">R$ 2,28/un</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">70</span>
+      <span class="name"><a href="https://meli.la/18zkCtr" target="_blank" rel="noopener">Fralda Premium Huggies Natural Care tamanho M 78 Unidades</a></span><span class="prices"><span class="strike">R$ 114,34</span><span class="now">R$ 96,90</span><span class="unit">R$ 1,24/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">71</span>
+      <span class="name"><a href="https://meli.la/2Pyw8VR" target="_blank" rel="noopener">Fralda Premium Huggies Natural Care tamanho G 66 Unidades</a></span><span class="prices"><span class="strike">R$ 114,34</span><span class="now">R$ 96,90</span><span class="unit">R$ 1,47/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">72</span>
+      <span class="name"><a href="https://meli.la/2H3HSfD" target="_blank" rel="noopener">Kit 3 Fraldas Pampers Premium Care Tamanho P 40 Unidades</a></span><span class="prices"><span class="strike">R$ 309,97</span><span class="now">R$ 263,00</span><span class="unit">R$ 6,58/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">73</span>
+      <span class="name"><a href="https://meli.la/1rSV9vW" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants Tamanho G 112 Unidades</a></span><span class="prices"><span class="strike">R$ 217,90</span><span class="now">R$ 184,90</span><span class="unit">R$ 1,65/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">74</span>
+      <span class="name"><a href="https://meli.la/1n2pYS9" target="_blank" rel="noopener">Fralda Pampers Premium Care Pants Tamanho XXG 90 Unidades</a></span><span class="prices"><span class="strike">R$ 216,90</span><span class="now">R$ 184,35</span><span class="unit">R$ 2,05/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">75</span>
+      <span class="name"><a href="https://meli.la/1cTMxhu" target="_blank" rel="noopener">Fraldas Pampers Confort Sec M x 70 unidades</a></span><span class="prices"><span class="strike">R$ 122,90</span><span class="now">R$ 104,99</span><span class="unit">R$ 1,50/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">76</span>
+      <span class="name"><a href="https://meli.la/1TYkaWp" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada XXG - 48 Un</a></span><span class="prices"><span class="strike">R$ 99,07</span><span class="now">R$ 84,90</span><span class="unit">R$ 1,77/un</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">77</span>
+      <span class="name"><a href="https://meli.la/2QXYh8r" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada XG - 48 Un</a></span><span class="prices"><span class="strike">R$ 99,07</span><span class="now">R$ 84,90</span><span class="unit">R$ 1,77/un</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">78</span>
+      <span class="name"><a href="https://meli.la/2EAN56N" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada M - 72 Un</a></span><span class="prices"><span class="strike">R$ 99,07</span><span class="now">R$ 84,90</span><span class="unit">R$ 1,18/un</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">79</span>
+      <span class="name"><a href="https://meli.la/1N5mXa6" target="_blank" rel="noopener">Huggies Fralda Descartável Máxima Proteção M - 40 Un</a></span><span class="prices"><span class="strike">R$ 63,03</span><span class="now">R$ 54,28</span><span class="unit">R$ 1,36/un</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">80</span>
+      <span class="name"><a href="https://meli.la/1QaQEc3" target="_blank" rel="noopener">Huggies Fralda Pants Roupinha Proteção Acolchoada G - 70 Un</a></span><span class="prices"><span class="strike">R$ 114,33</span><span class="now">R$ 98,60</span><span class="unit">R$ 1,41/un</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">81</span>
+      <span class="name"><a href="https://meli.la/2dE7JTT" target="_blank" rel="noopener">Fraldas Huggies Supreme Care XG 58 unidades</a></span><span class="prices"><span class="strike">R$ 106,91</span><span class="now">R$ 92,90</span><span class="unit">R$ 1,60/un</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">82</span>
+      <span class="name"><a href="https://meli.la/2kC4THU" target="_blank" rel="noopener">Huggies Fralda Descartável Premium Natural Care P 36 Unidades</a></span><span class="prices"><span class="strike">R$ 46,86</span><span class="now">R$ 40,99</span><span class="unit">R$ 1,14/un</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">83</span>
+      <span class="name"><a href="https://meli.la/1BoYpda" target="_blank" rel="noopener">Fraldas Huggies de Piscina Little Swimmers G/XG 10 fraldas</a></span><span class="prices"><span class="strike">R$ 44,28</span><span class="now">R$ 38,99</span><span class="pct">-12%</span></span></div>
+    <div class="item"><span class="rank">84</span>
+      <span class="name"><a href="https://meli.la/1ivVr2r" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho G 168 Unidades</a></span><span class="prices"><span class="strike">R$ 260,90</span><span class="now">R$ 229,90</span><span class="unit">R$ 1,37/un</span><span class="pct">-12%</span></span></div>
+    <div class="item"><span class="rank">85</span>
+      <span class="name"><a href="https://meli.la/2Hshxeg" target="_blank" rel="noopener">Fralda Descartável Pampers Pants Ajuste Total</a></span><span class="prices"><span class="strike">R$ 54,04</span><span class="now">R$ 48,12</span><span class="pct">-11%</span></span></div>
+    <div class="item"><span class="rank">86</span>
+      <span class="name"><a href="https://meli.la/2H3HSfD" target="_blank" rel="noopener">Huggies Fralda Tripla Proteção Xg 132 Unidades 2 Pacotes Gênero Sem gênero Tamanho Extra grande (XG)</a></span><span class="prices"><span class="strike">R$ 219,90</span><span class="now">R$ 197,91</span><span class="unit">R$ 1,50/un</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">87</span>
+      <span class="name"><a href="https://meli.la/1e51TuY" target="_blank" rel="noopener">Fraldas Pampers Confort Sec XG x 148 unidades</a></span><span class="prices"><span class="strike">R$ 358,13</span><span class="now">R$ 323,21</span><span class="unit">R$ 2,18/un</span><span class="pct">-10%</span></span></div>
+    <div class="item"><span class="rank">88</span>
+      <span class="name"><a href="https://meli.la/1nw6f5Q" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho G, 60 Unidades</a></span><span class="prices"><span class="strike">R$ 99,90</span><span class="now">R$ 90,90</span><span class="unit">R$ 1,52/un</span><span class="pct">-9%</span></span></div>
+    <div class="item"><span class="rank">89</span>
+      <span class="name"><a href="https://meli.la/1cryVam" target="_blank" rel="noopener">Huggies Tripla Proteção Fralda g 78 Unidades</a></span><span class="prices"><span class="strike">R$ 74,90</span><span class="now">R$ 69,90</span><span class="unit">R$ 0,90/un</span><span class="pct">-7%</span></span></div>
+    <div class="item"><span class="rank">90</span>
+      <span class="name"><a href="https://meli.la/2xkaKXq" target="_blank" rel="noopener">Huggies Fralda Descartável Rápida Absorção M - 92 Un</a></span><span class="prices"><span class="strike">R$ 74,90</span><span class="now">R$ 69,90</span><span class="unit">R$ 0,76/un</span><span class="pct">-7%</span></span></div>
+    <div class="item"><span class="rank">91</span>
+      <span class="name"><a href="https://meli.la/17F1eU8" target="_blank" rel="noopener">Fralda Huggies Rápida Absorção XXG 66 Unidades</a></span><span class="prices"><span class="strike">R$ 74,90</span><span class="now">R$ 69,90</span><span class="unit">R$ 1,06/un</span><span class="pct">-7%</span></span></div>
+    <div class="item"><span class="rank">92</span>
+      <span class="name"><a href="https://meli.la/1qcTsnE" target="_blank" rel="noopener">Fralda Descartável Pampers Pants Ajuste Total G 28 Unidades</a></span><span class="prices"><span class="strike">R$ 70,07</span><span class="now">R$ 65,87</span><span class="unit">R$ 2,35/un</span><span class="pct">-6%</span></span></div>
+    <div class="item"><span class="rank">93</span>
+      <span class="name"><a href="https://meli.la/2nHJbCu" target="_blank" rel="noopener">Fralda Pampers Confort Sec Tamanho XXG, 84 Unidades</a></span><span class="prices"><span class="strike">R$ 129,99</span><span class="now">R$ 122,78</span><span class="unit">R$ 1,46/un</span><span class="pct">-6%</span></span></div>
+    <div class="item"><span class="rank">94</span>
+      <span class="name"><a href="https://meli.la/1MMMiin" target="_blank" rel="noopener">Fralda Huggies Max Prot Hiper Xg C/56</a></span><span class="prices"><span class="strike">R$ 89,90</span><span class="now">R$ 85,90</span><span class="pct">-4%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section cabelo">
+    <div class="section-head"><h2>Cabelo (Kérastase)</h2><span class="count">47 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span>
+      <span class="name"><a href="https://meli.la/2FhjBQ5" target="_blank" rel="noopener">Sérum Capilar Reparador para Cabelos Danificados e Pontas Duplas com Proteção Térmica até 230°C e Sève de Résurrection Kérastase Résistance Thérapiste 30ml</a></span><span class="prices"><span class="strike">R$ 407,90</span><span class="now">R$ 199,90</span><span class="pct">-51%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <span class="name"><a href="https://meli.la/22EnQNx" target="_blank" rel="noopener">Kit Kérastase Densifique Densité Trio (3 Produtos) Blz</a></span><span class="prices"><span class="strike">R$ 1.193,00</span><span class="now">R$ 597,08</span><span class="pct">-50%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <span class="name"><a href="https://meli.la/2uMHm7M" target="_blank" rel="noopener">Máscara de Reconstrução Profunda para Cabelos Danificados, Força e Elasticidade Résistance Thérapiste Kérastase 200ml</a></span><span class="prices"><span class="strike">R$ 399,90</span><span class="now">R$ 212,59</span><span class="pct">-47%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <span class="name"><a href="https://meli.la/24rGGZ4" target="_blank" rel="noopener">Óleo Capilar Elixir Ultime L'Huile Originale 75ml Kérastase</a></span><span class="prices"><span class="strike">R$ 524,90</span><span class="now">R$ 293,99</span><span class="pct">-44%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <span class="name"><a href="https://meli.la/1ECeDVn" target="_blank" rel="noopener">Kérastase Génesis Fondant Renforçateur Acondicionador Anticaída | 200ml |</a></span><span class="prices"><span class="strike">R$ 330,90</span><span class="now">R$ 193,99</span><span class="pct">-41%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <span class="name"><a href="https://meli.la/11iThCg" target="_blank" rel="noopener">Máscara Capilar de Hidratação Intensa Anti-Frizz com Proteção Térmica até 230ºC para Cabelos Secos e Indisciplinados, Discipline Oléo-Relax, Kérastase 200ml</a></span><span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 259,00</span><span class="pct">-40%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <span class="name"><a href="https://meli.la/1X3uEYg" target="_blank" rel="noopener">Kérastase Première Serum Filler Fundamental | 90ml |</a></span><span class="prices"><span class="strike">R$ 569,90</span><span class="now">R$ 351,90</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <span class="name"><a href="https://meli.la/2hQEAv9" target="_blank" rel="noopener">Sérum de Noite Mágica Nutritivo Kérastase Nutritive 8H - Sérum de Nutrição para Cabelo Seco | 90ml |</a></span><span class="prices"><span class="strike">R$ 484,90</span><span class="now">R$ 299,90</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <span class="name"><a href="https://meli.la/2N29ye6" target="_blank" rel="noopener">Leave-In Protetor Térmico Anti Ressecamento com Proteínas Vegetais e Niacinamida para Cabelos Médios a Grossos Kérastase Nutritive Nectar Thermique 150ml</a></span><span class="prices"><span class="strike">R$ 346,90</span><span class="now">R$ 219,00</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <span class="name"><a href="https://meli.la/197daTS" target="_blank" rel="noopener">Condicionador Kérastase Resistance Extentioniste 200ml</a></span><span class="prices"><span class="strike">R$ 330,90</span><span class="now">R$ 209,02</span><span class="pct">-37%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <span class="name"><a href="https://meli.la/23vbC4H" target="_blank" rel="noopener">Condicionador Hidratante 200ml Kérastase Nutritive Lait Vital</a></span><span class="prices"><span class="strike">R$ 304,90</span><span class="now">R$ 195,99</span><span class="pct">-36%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <span class="name"><a href="https://meli.la/1qJqqyz" target="_blank" rel="noopener">Máscara de Nutrição Para Cabelos Secos Kérastase Nutritive Masquintense | 200ml |</a></span><span class="prices"><span class="strike">R$ 399,90</span><span class="now">R$ 259,90</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <span class="name"><a href="https://meli.la/1ZHFK87" target="_blank" rel="noopener">Shampoo Kérastase Chronologiste Bain Régénérant</a></span><span class="prices"><span class="strike">R$ 299,90</span><span class="now">R$ 194,99</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <span class="name"><a href="https://meli.la/2V2sjKT" target="_blank" rel="noopener">Shampoo Kérastase Nutritive Bain Satin Riche Cabelos Secos 250ml</a></span><span class="prices"><span class="strike">R$ 239,90</span><span class="now">R$ 155,99</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <span class="name"><a href="https://meli.la/2J8oRTP" target="_blank" rel="noopener">Condicionador Densificante para Cabelos Finos e Ralos com Ácido Hialurônico, Volume Brilho e Fortalecimento Capilar, Densifique Fondant Densité Kérastase, 200ml</a></span><span class="prices"><span class="strike">R$ 330,90</span><span class="now">R$ 218,40</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <span class="name"><a href="https://meli.la/1DxscvC" target="_blank" rel="noopener">Shampoo de Nutrição com Óleo de Argan, Limpeza Profunda e Brilho Radiante e Maciez para Todos os Tipos de Cabelo, Elixir Ultime Le Bain, Kérastase 250ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 174,90</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <span class="name"><a href="https://meli.la/1ZpvruF" target="_blank" rel="noopener">Shampoo Antiqueda Fortificante com Células Nativas de Edelweiss e Raiz de Gengibre para Cabelos Oleosos, Finos ou Normais, Genesis Bain Hydra-Fortifiant Kérastase, 250ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 174,90</span><span class="pct">-33%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <span class="name"><a href="https://meli.la/2Hfh2Z5" target="_blank" rel="noopener">Máscara Kérastase Nutritive Masquintense Riche 200ml</a></span><span class="prices"><span class="strike">R$ 399,90</span><span class="now">R$ 270,38</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <span class="name"><a href="https://meli.la/21kAfAA" target="_blank" rel="noopener">Densifique Masque Densité Máscara 200ml | Kérastase</a></span><span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 294,60</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <span class="name"><a href="https://meli.la/2K2qV33" target="_blank" rel="noopener">Shampoo Kérastase Chroma Absolu Chroma Respect Riche 250ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 178,60</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <span class="name"><a href="https://meli.la/1qaNHhL" target="_blank" rel="noopener">Shampoo de Queratina Kérastase Discipline 250ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 179,90</span><span class="pct">-31%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <span class="name"><a href="https://meli.la/1oRq3QK" target="_blank" rel="noopener">Shampoo Hidratante para Cabelos Secos, Nutrição Intensa, Brilho, Maciez, Fortalecimento e Revitalização da Fibra Capilar, Nutritive Bain Satin Kérastase, 250ml</a></span><span class="prices"><span class="strike">R$ 239,90</span><span class="now">R$ 166,90</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <span class="name"><a href="https://meli.la/2KguDX3" target="_blank" rel="noopener">Shampoo Kérastase Bain Resistance Extentioniste 250 ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 181,90</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <span class="name"><a href="https://meli.la/2C6sPCM" target="_blank" rel="noopener">Gel Kérastase Curl Manifesto Gelée Curl Contour 150ml</a></span><span class="prices"><span class="strike">R$ 382,90</span><span class="now">R$ 268,10</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">25</span>
+      <span class="name"><a href="https://meli.la/1d3i2o3" target="_blank" rel="noopener">Kérastase Resistance Thérapiste Shampoo Reparação Intensa | 250ml |</a></span><span class="prices"><span class="strike">R$ 239,90</span><span class="now">R$ 168,87</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">26</span>
+      <span class="name"><a href="https://meli.la/1zZKEVA" target="_blank" rel="noopener">Shampoo Kérastase Specifique Bain Prevention 250ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 188,01</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">27</span>
+      <span class="name"><a href="https://meli.la/2spMnnb" target="_blank" rel="noopener">Kérastase Curl Manifesto Creme do Dia Fundamental Leave-in | 150ml |</a></span><span class="prices"><span class="strike">R$ 382,90</span><span class="now">R$ 278,09</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">28</span>
+      <span class="name"><a href="https://meli.la/1YUxBxL" target="_blank" rel="noopener">Kérastase Chroma Absolu Fondant Cica Chroma Condicionador Cuidado de Color, 200ml</a></span><span class="prices"><span class="strike">R$ 330,90</span><span class="now">R$ 241,21</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">29</span>
+      <span class="name"><a href="https://meli.la/1pfMKou" target="_blank" rel="noopener">Shampoo Kérastase Blond Absolu Bain Lumière | 250 Ml |</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 191,81</span><span class="pct">-26%</span></span></div>
+    <div class="item"><span class="rank">30</span>
+      <span class="name"><a href="https://meli.la/2mzgNNe" target="_blank" rel="noopener">Kérastase, Bain Shampoo, Gloss Absolu, Hydra Glaze, Ação Anti-frizz com Ácido Hialurônico, Ácido Glicólico e Óleo De Rosa Silvestre, Potencializa o Brilho 250ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 199,00</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">31</span>
+      <span class="name"><a href="https://meli.la/1UidbpE" target="_blank" rel="noopener">Spray Fortificante Protetor Térmico Genesis Défense Thermique Kérastase 150ml</a></span><span class="prices"><span class="strike">R$ 388,90</span><span class="now">R$ 299,00</span><span class="pct">-23%</span></span></div>
+    <div class="item"><span class="rank">32</span>
+      <span class="name"><a href="https://meli.la/2ACHRBs" target="_blank" rel="noopener">Blond Absolu Cicaextreme Máscara 200ml Kérastase</a></span><span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 338,83</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">33</span>
+      <span class="name"><a href="https://meli.la/2eQQimS" target="_blank" rel="noopener">Kérastase Blond Absolu Máscara Ultra Violeta Mascarilla Matizante Rubios | 200ml |</a></span><span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 341,35</span><span class="pct">-21%</span></span></div>
+    <div class="item"><span class="rank">34</span>
+      <span class="name"><a href="https://meli.la/1vKmdAk" target="_blank" rel="noopener">Kérastase Blond Absolu Cicaflash Condicionador com Ácido Hialurónico | 250ml</a></span><span class="prices"><span class="strike">R$ 314,90</span><span class="now">R$ 250,71</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">35</span>
+      <span class="name"><a href="https://meli.la/1xuUCxV" target="_blank" rel="noopener">Kérastase Densifique Bain Densité Shampoo Densificador para Cabelos Finos com Perda de Densidade, Fortalece e Dá Volume, Com Stemoxydine e Ácido Hialurônico, 250 ml</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 207,01</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">36</span>
+      <span class="name"><a href="https://meli.la/1roFEWs" target="_blank" rel="noopener">Protetor térmico Kérastase Gloss Absolu hidratação de 190mL 190g</a></span><span class="prices"><span class="strike">R$ 349,90</span><span class="now">R$ 289,90</span><span class="perkg">R$ 1525,79/kg</span><span class="pct">-17%</span></span></div>
+    <div class="item"><span class="rank">37</span>
+      <span class="name"><a href="https://meli.la/237KhmB" target="_blank" rel="noopener">Specifique Bain Divalent Shampoo 250ml Kérastase</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 219,90</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">38</span>
+      <span class="name"><a href="https://meli.la/1Q4u6Bx" target="_blank" rel="noopener">Kérastase Blond Absolu Cicaplasme Sérum Termoprotector para Cabelo Loiro, Tingido ou Descolorido, Sem Enxágue, com Filtro UV, Protege, Nutre e Controla o Frizz, 150 ml</a></span><span class="prices"><span class="strike">R$ 357,90</span><span class="now">R$ 302,90</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">39</span>
+      <span class="name"><a href="https://meli.la/1p83zHn" target="_blank" rel="noopener">Kérastase Gloss Absolu Glaze Drops Óleo Capilar | 45ml |</a></span><span class="prices"><span class="strike">R$ 399,90</span><span class="now">R$ 339,00</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">40</span>
+      <span class="name"><a href="https://meli.la/1oR2wHw" target="_blank" rel="noopener">Kérastase, Condicionador, Gloss Absolu, Insta Glaze, para todos os tipos de cabelos, ação anti-frizz com Ácido Hialurônico, Ácido Glicólico e Óleo de Rosa Silvestre, potencializa o brilho, 250ml</a></span><span class="prices"><span class="strike">R$ 314,90</span><span class="now">R$ 269,90</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">41</span>
+      <span class="name"><a href="https://meli.la/1RiWaBe" target="_blank" rel="noopener">Óleo Capilar Chroma Éclat Recarregável 75Ml Kérastase</a></span><span class="prices"><span class="strike">R$ 487,90</span><span class="now">R$ 418,31</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">42</span>
+      <span class="name"><a href="https://meli.la/2WgtD5w" target="_blank" rel="noopener">Máscara de Tratamento Antiqueda para Cabelos Grossos Genesis Kérastase 200ml</a></span><span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 370,90</span><span class="pct">-14%</span></span></div>
+    <div class="item"><span class="rank">43</span>
+      <span class="name"><a href="https://meli.la/2rgscT7" target="_blank" rel="noopener">Loção Térmica Kérastase Nutritive Lotion Thermique Sublimance | 150ml |</a></span><span class="prices"><span class="strike">R$ 356,90</span><span class="now">R$ 309,00</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">44</span>
+      <span class="name"><a href="https://meli.la/22EnQNx" target="_blank" rel="noopener">Máscara Capilar Chroma Absolu Filler 200ml Kérastase</a></span><span class="prices"><span class="strike">R$ 429,90</span><span class="now">R$ 377,90</span><span class="pct">-12%</span></span></div>
+    <div class="item"><span class="rank">45</span>
+      <span class="name"><a href="https://meli.la/1afjUwD" target="_blank" rel="noopener">Máscara Capilar Regeneradora com Abyssine para Hidratação Profunda, Brilho Intenso e Controle do Frizz Chronologiste Intense Régénérant Kérastase 200ml</a></span><span class="prices"><span class="strike">R$ 549,90</span><span class="now">R$ 502,07</span><span class="pct">-9%</span></span></div>
+    <div class="item"><span class="rank">46</span>
+      <span class="name"><a href="https://meli.la/2Wzvyy9" target="_blank" rel="noopener">Leave-in Kérastase Frizz Glaze Hydra-Glaze Brilho E Anti-frizz 240ml</a></span><span class="prices"><span class="strike">R$ 399,90</span><span class="now">R$ 369,90</span><span class="pct">-8%</span></span></div>
+    <div class="item"><span class="rank">47</span>
+      <span class="name"><a href="https://meli.la/2zNcCpN" target="_blank" rel="noopener">Óleo Capilar Kérastase, Huile Cicagloss Blond Absolu 75 ml</a></span><span class="prices"><span class="strike">R$ 486,90</span><span class="now">R$ 475,67</span><span class="pct">-2%</span></span></div>
+    </div>
+  </div>
+
+  <div class="section energeticos">
+    <div class="section-head"><h2>Energéticos</h2><span class="count">61 itens</span><span class="chevron">▾</span></div>
+
+    <div class="items">
+    <div class="item"><span class="rank">1</span>
+      <span class="name"><a href="https://meli.la/2oZysgu" target="_blank" rel="noopener">Red Bull Energy Drink Summer Watermelon Com 4 Unid 250ml</a></span><span class="prices"><span class="strike">R$ 79,47</span><span class="now">R$ 42,95</span><span class="unit">R$ 10,74/un</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">2</span>
+      <span class="name"><a href="https://meli.la/25uPUdc" target="_blank" rel="noopener">Red Bull Energético, Tropical 473ml</a></span><span class="prices"><span class="strike">R$ 24,90</span><span class="now">R$ 13,49</span><span class="pct">-46%</span></span></div>
+    <div class="item"><span class="rank">3</span>
+      <span class="name"><a href="https://meli.la/2PJx71q" target="_blank" rel="noopener">Red Bull Energético, Sugar Free, Sem Açúcar, 355ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 94,69</span><span class="now">R$ 53,58</span><span class="unit">R$ 13,39/un</span><span class="pct">-43%</span></span></div>
+    <div class="item"><span class="rank">4</span>
+      <span class="name"><a href="https://meli.la/32sZ5vo" target="_blank" rel="noopener">Red Bull Energético, Energy Drink, 473ml</a></span><span class="prices"><span class="strike">R$ 22,90</span><span class="now">R$ 13,49</span><span class="pct">-41%</span></span></div>
+    <div class="item"><span class="rank">5</span>
+      <span class="name"><a href="https://meli.la/27kmCLP" target="_blank" rel="noopener">Red Bull Energético, Energy Drink, 355ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 69,90</span><span class="now">R$ 41,96</span><span class="unit">R$ 10,49/un</span><span class="pct">-40%</span></span></div>
+    <div class="item"><span class="rank">6</span>
+      <span class="name"><a href="https://meli.la/2qFeCnf" target="_blank" rel="noopener">Pack C/ 6 Unidades Energético Monster Mango Loco Lata 269ml</a></span><span class="prices"><span class="strike">R$ 79,90</span><span class="now">R$ 49,90</span><span class="unit">R$ 8,32/un</span><span class="pct">-38%</span></span></div>
+    <div class="item"><span class="rank">7</span>
+      <span class="name"><a href="https://meli.la/1KmV69b" target="_blank" rel="noopener">Red Bull Energético, Nectarina, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 49,90</span><span class="now">R$ 32,36</span><span class="unit">R$ 8,09/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">8</span>
+      <span class="name"><a href="https://meli.la/1FMnm26" target="_blank" rel="noopener">Red Bull Energético, Maçã, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 49,90</span><span class="now">R$ 32,36</span><span class="unit">R$ 8,09/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">9</span>
+      <span class="name"><a href="https://meli.la/1gcznzY" target="_blank" rel="noopener">Pack De 4 Latas Red Bull Energético, Maracujá E Melão, 250ml</a></span><span class="prices"><span class="strike">R$ 49,90</span><span class="now">R$ 32,36</span><span class="unit">R$ 8,09/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">10</span>
+      <span class="name"><a href="https://meli.la/2GwJsvD" target="_blank" rel="noopener">Pack 4 Latas Red Bull Energético Sugar Free Sem Açúcar 250ml</a></span><span class="prices"><span class="strike">R$ 49,90</span><span class="now">R$ 32,36</span><span class="unit">R$ 8,09/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">11</span>
+      <span class="name"><a href="https://meli.la/2Zgvhxo" target="_blank" rel="noopener">Pack 4 Latas Redbull Amora Sem Açúcar 250ml Frutas Vermelhas</a></span><span class="prices"><span class="strike">R$ 49,90</span><span class="now">R$ 32,36</span><span class="unit">R$ 8,09/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">12</span>
+      <span class="name"><a href="https://meli.la/13Jd7NC" target="_blank" rel="noopener">Kit 3 Energético Monster The Doctor Valentino Rossi 473ml</a></span><span class="prices"><span class="strike">R$ 68,00</span><span class="now">R$ 44,20</span><span class="unit">R$ 14,73/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">13</span>
+      <span class="name"><a href="https://meli.la/1oP4u9M" target="_blank" rel="noopener">Red Bull Energy Drink Sugarfree Pack Com 4 Unidades 250ml</a></span><span class="prices"><span class="strike">R$ 58,99</span><span class="now">R$ 38,49</span><span class="unit">R$ 9,62/un</span><span class="pct">-35%</span></span></div>
+    <div class="item"><span class="rank">14</span>
+      <span class="name"><a href="https://meli.la/2uXFrj2" target="_blank" rel="noopener">Energético Monster Mango Loco 473ml Fardo Atacado 6 Uni</a></span><span class="prices"><span class="strike">R$ 99,60</span><span class="now">R$ 65,53</span><span class="unit">R$ 10,92/un</span><span class="pct">-34%</span></span></div>
+    <div class="item"><span class="rank">15</span>
+      <span class="name"><a href="https://meli.la/1YWmeBw" target="_blank" rel="noopener">Red Bull Energético, Sugar Free, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 28,56</span><span class="unit">R$ 7,14/un</span><span class="pct">-32%</span></span></div>
+    <div class="item"><span class="rank">16</span>
+      <span class="name"><a href="https://meli.la/1CAi1vm" target="_blank" rel="noopener">Bebida energética Monster Juice Rio rio punch em lata 473ml pacote x6</a></span><span class="prices"><span class="strike">R$ 99,59</span><span class="now">R$ 69,71</span><span class="pct">-30%</span></span></div>
+    <div class="item"><span class="rank">17</span>
+      <span class="name"><a href="https://meli.la/18amDTd" target="_blank" rel="noopener">Red Bull Energético, Zero, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">18</span>
+      <span class="name"><a href="https://meli.la/15cVPbd" target="_blank" rel="noopener">Red Bull Energético, Tropical, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">19</span>
+      <span class="name"><a href="https://meli.la/27ftHNf" target="_blank" rel="noopener">Red Bull Energético, Pomelo, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">20</span>
+      <span class="name"><a href="https://meli.la/1xqtFhj" target="_blank" rel="noopener">Red Bull Energético, Morango e Pêssego, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">21</span>
+      <span class="name"><a href="https://meli.la/2EfxhHD" target="_blank" rel="noopener">Red Bull Energético, Melancia, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">22</span>
+      <span class="name"><a href="https://meli.la/2NBD1Zi" target="_blank" rel="noopener">Red Bull Energético, Maracujá e Melão, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">23</span>
+      <span class="name"><a href="https://meli.la/1Q2hpNb" target="_blank" rel="noopener">Red Bull Energético, Energy Drink, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">24</span>
+      <span class="name"><a href="https://meli.la/1snCPCV" target="_blank" rel="noopener">Red Bull Energético, Cereja e Frutas Silvestres, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">25</span>
+      <span class="name"><a href="https://meli.la/1qpVFXT" target="_blank" rel="noopener">Red Bull Energético, Amora, Frutas Vermelhas, Sem Açúcar, 250ml, 4 latas</a></span><span class="prices"><span class="strike">R$ 41,96</span><span class="now">R$ 29,90</span><span class="unit">R$ 7,47/un</span><span class="pct">-29%</span></span></div>
+    <div class="item"><span class="rank">26</span>
+      <span class="name"><a href="https://meli.la/1VQCjUe" target="_blank" rel="noopener">Red Bull Energético, Zero, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 251,76</span><span class="now">R$ 182,10</span><span class="unit">R$ 7,59/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">27</span>
+      <span class="name"><a href="https://meli.la/1DjywX8" target="_blank" rel="noopener">Red Bull Energético, Maracujá e Melão, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 251,76</span><span class="now">R$ 182,10</span><span class="unit">R$ 7,59/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">28</span>
+      <span class="name"><a href="https://meli.la/2CkQMPS" target="_blank" rel="noopener">Red Bull Energético, Energy Drink, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 251,76</span><span class="now">R$ 182,10</span><span class="unit">R$ 7,59/un</span><span class="pct">-28%</span></span></div>
+    <div class="item"><span class="rank">29</span>
+      <span class="name"><a href="https://meli.la/22zDkmv" target="_blank" rel="noopener">Red Bull Energético, Maçã, Sem Açúcar, 250ml</a></span><span class="prices"><span class="strike">R$ 10,49</span><span class="now">R$ 7,69</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">30</span>
+      <span class="name"><a href="https://meli.la/1on7qcq" target="_blank" rel="noopener">Kit com 6 latas de Energético Clássico De 473ml Monster</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">31</span>
+      <span class="name"><a href="https://meli.la/1G4bAdu" target="_blank" rel="noopener">Kit 06 Monster Energy Absolutely Zero Açúcar 473ml</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">32</span>
+      <span class="name"><a href="https://meli.la/1Q9jJLa" target="_blank" rel="noopener">Energético Monster Ultra Watermelon 473ml | 6 Latas</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">33</span>
+      <span class="name"><a href="https://meli.la/2CQ6NLU" target="_blank" rel="noopener">Energético Monster Ultra 473ml - 6 Unidades</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">34</span>
+      <span class="name"><a href="https://meli.la/1SLSmVx" target="_blank" rel="noopener">Energético Monster Pipeline Punch 473ml - 6 Unidades</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">35</span>
+      <span class="name"><a href="https://meli.la/26KLFVy" target="_blank" rel="noopener">Energético Monster Pacific Punch Frutas Lata 473ml Pack 6 Un</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">36</span>
+      <span class="name"><a href="https://meli.la/2cThMCN" target="_blank" rel="noopener">Energético Monster Khaotic 473ml - Kit 6 Unidades</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">37</span>
+      <span class="name"><a href="https://meli.la/1KUycj4" target="_blank" rel="noopener">Energético Monster Energy Zero Açucar 473ml - 6 Unidades</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">38</span>
+      <span class="name"><a href="https://meli.la/2MGtqaz" target="_blank" rel="noopener">Energetico Monster Energy Fardo Com 6 Latas De 473ml Sabores Monster Energy Drink Juicy Mango Loco</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">39</span>
+      <span class="name"><a href="https://meli.la/1cbkUgK" target="_blank" rel="noopener">Energetico Monster Energy Fardo Com 6 Latas De 473ml Sabores</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">40</span>
+      <span class="name"><a href="https://meli.la/1NffsBo" target="_blank" rel="noopener">Energético Monster Dragon Tea Limão 473ml - 6 Unidades</a></span><span class="prices"><span class="strike">R$ 72,90</span><span class="now">R$ 53,50</span><span class="unit">R$ 8,92/un</span><span class="pct">-27%</span></span></div>
+    <div class="item"><span class="rank">41</span>
+      <span class="name"><a href="https://meli.la/2Zq5yBc" target="_blank" rel="noopener">Red Bull Energético, Pomelo, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 249,90</span><span class="now">R$ 189,36</span><span class="unit">R$ 7,89/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">42</span>
+      <span class="name"><a href="https://meli.la/1XXPeoy" target="_blank" rel="noopener">Red Bull Energético, Maçã, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 249,90</span><span class="now">R$ 189,36</span><span class="unit">R$ 7,89/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">43</span>
+      <span class="name"><a href="https://meli.la/2KU8Q3u" target="_blank" rel="noopener">Pack De 24 Latas Red Bull Energético, Summer Edition, Nectarina, Sem Açúcar, 250ml</a></span><span class="prices"><span class="strike">R$ 249,90</span><span class="now">R$ 189,36</span><span class="unit">R$ 7,89/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">44</span>
+      <span class="name"><a href="https://meli.la/1JUywP5" target="_blank" rel="noopener">Energético Red Bull Spring Frutas Vermelhas 24 Unidades</a></span><span class="prices"><span class="strike">R$ 249,90</span><span class="now">R$ 189,36</span><span class="unit">R$ 7,89/un</span><span class="pct">-24%</span></span></div>
+    <div class="item"><span class="rank">45</span>
+      <span class="name"><a href="https://meli.la/2kYM4yZ" target="_blank" rel="noopener">Monster Pipeline Punch 473ml</a></span><span class="prices"><span class="strike">R$ 11,99</span><span class="now">R$ 9,59</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">46</span>
+      <span class="name"><a href="https://meli.la/1euA4Dx" target="_blank" rel="noopener">Energético Lemon Monster Dragon Ice Tea Lata 473ml</a></span><span class="prices"><span class="strike">R$ 24,90</span><span class="now">R$ 20,00</span><span class="pct">-20%</span></span></div>
+    <div class="item"><span class="rank">47</span>
+      <span class="name"><a href="https://meli.la/2Zt3KQn" target="_blank" rel="noopener">Red Bull Energético, Energy Drink, 250ml, 8 latas</a></span><span class="prices"><span class="strike">R$ 79,90</span><span class="now">R$ 64,72</span><span class="unit">R$ 8,09/un</span><span class="pct">-19%</span></span></div>
+    <div class="item"><span class="rank">48</span>
+      <span class="name"><a href="https://meli.la/1ao82P9" target="_blank" rel="noopener">Energético Pacific Punch Monster 473ml</a></span><span class="prices"><span class="strike">R$ 10,90</span><span class="now">R$ 9,16</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">49</span>
+      <span class="name"><a href="https://meli.la/1wpVNji" target="_blank" rel="noopener">Red Bull Energético, Tropical, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 269,89</span><span class="now">R$ 227,76</span><span class="unit">R$ 9,49/un</span><span class="pct">-16%</span></span></div>
+    <div class="item"><span class="rank">50</span>
+      <span class="name"><a href="https://meli.la/2buDymR" target="_blank" rel="noopener">Kit Com 6und Energético Monster Ultra Peachy Keen Zero 473ml</a></span><span class="prices"><span class="strike">R$ 91,00</span><span class="now">R$ 77,35</span><span class="unit">R$ 12,89/un</span><span class="pct">-15%</span></span></div>
+    <div class="item"><span class="rank">51</span>
+      <span class="name"><a href="https://meli.la/1WsFU1X" target="_blank" rel="noopener">Energetico Monster Drink Ultra Golden Pinneapple 500ml Abacaxi Energy</a></span><span class="prices"><span class="strike">R$ 89,00</span><span class="now">R$ 77,00</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">52</span>
+      <span class="name"><a href="https://meli.la/2knHB5F" target="_blank" rel="noopener">Red Bull Energético, Summer Edition, Nectarina, 250ml</a></span><span class="prices"><span class="strike">R$ 24,90</span><span class="now">R$ 21,62</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">53</span>
+      <span class="name"><a href="https://meli.la/23Dnevg" target="_blank" rel="noopener">Energético Monster Zero Açúcar Ultra Peachy Keen 473ml</a></span><span class="prices"><span class="strike">R$ 11,99</span><span class="now">R$ 10,44</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">54</span>
+      <span class="name"><a href="https://meli.la/1pLNBGd" target="_blank" rel="noopener">Pack C/6un Energético Monster Energy Zero Açúcar 473ml</a></span><span class="prices"><span class="strike">R$ 91,00</span><span class="now">R$ 79,44</span><span class="unit">R$ 13,24/un</span><span class="pct">-13%</span></span></div>
+    <div class="item"><span class="rank">55</span>
+      <span class="name"><a href="https://meli.la/27EC4qB" target="_blank" rel="noopener">Red Bull Energético, Energy Drink, 473ml, 12 latas</a></span><span class="prices"><span class="strike">R$ 203,88</span><span class="now">R$ 189,94</span><span class="unit">R$ 15,83/un</span><span class="pct">-7%</span></span></div>
+    <div class="item"><span class="rank">56</span>
+      <span class="name"><a href="https://meli.la/1YGTVkd" target="_blank" rel="noopener">Red Bull Energético, Winter Edition, Sabor Blueberry e Baunilha, Sem Açúcar, 250ml</a></span><span class="prices"><span class="strike">R$ 19,98</span><span class="now">R$ 18,98</span><span class="pct">-5%</span></span></div>
+    <div class="item"><span class="rank">57</span>
+      <span class="name"><a href="https://meli.la/1xU8nQ5" target="_blank" rel="noopener">Energético Monster Ultra Fiesta Mango Zero Açúcar 473ml Kit Com 6 Latas</a></span><span class="prices"><span class="strike">R$ 119,97</span><span class="now">R$ 113,97</span><span class="unit">R$ 19,00/un</span><span class="pct">-5%</span></span></div>
+    <div class="item"><span class="rank">58</span>
+      <span class="name"><a href="https://meli.la/12jMvJK" target="_blank" rel="noopener">Kit 12 Latas De Energético Monster Clássico 473ml The Best</a></span><span class="prices"><span class="strike">R$ 249,97</span><span class="now">R$ 237,47</span><span class="unit">R$ 19,79/un</span><span class="pct">-5%</span></span></div>
+    <div class="item"><span class="rank">59</span>
+      <span class="name"><a href="https://meli.la/25jhyXS" target="_blank" rel="noopener">Energético Redbull 250ml Caixa C/ 24un</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 249,90</span><span class="unit">R$ 10,41/un</span><span class="pct">-4%</span></span></div>
+    <div class="item"><span class="rank">60</span>
+      <span class="name"><a href="https://meli.la/1kyJQbd" target="_blank" rel="noopener">Red Bull Energético, Sugar Free, Sem Açúcar, 250ml, 24 latas</a></span><span class="prices"><span class="strike">R$ 259,90</span><span class="now">R$ 252,10</span><span class="unit">R$ 10,50/un</span><span class="pct">-3%</span></span></div>
+    <div class="item"><span class="rank">61</span>
+      <span class="name"><a href="https://meli.la/2axpZ1M" target="_blank" rel="noopener">Bebida Monster Ultra Strawberry Dreams - 3 Latas</a></span><span class="prices"><span class="strike">R$ 49,00</span><span class="now">R$ 47,53</span><span class="unit">R$ 15,84/un</span><span class="pct">-3%</span></span></div>
+    </div>
+  </div>
+
+  <p class="no-results">Nenhum produto encontrado para essa busca.</p>
+
+  <footer>
+    <svg viewBox="0 0 60 60" aria-hidden="true">
+      <g filter="url(#watercolor)">
+        <circle cx="14" cy="20" r="7" fill="#8B5E3C" opacity="0.8"/>
+        <circle cx="46" cy="20" r="7" fill="#8B5E3C" opacity="0.8"/>
+        <circle cx="30" cy="34" r="17" fill="#8B5E3C" opacity="0.9"/>
+        <ellipse cx="30" cy="38" rx="11" ry="10" fill="#E8C9A0" opacity="0.95"/>
+      </g>
+    </svg>
+    <span>Curadoria manual via planilha de monitoramento — preços e ofertas mudam a qualquer momento, confira antes de comprar. Links com afiliado. <span class="updated-date" data-updated="2026-07-02">Última atualização: 02/07/2026</span></span>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var input = document.querySelector('.search-wrap input');
+  var sections = document.querySelectorAll('.section');
+  var noResults = document.querySelector('.no-results');
+
+  sections.forEach(function(section){
+    var head = section.querySelector('.section-head');
+    if(head){
+      head.addEventListener('click', function(){
+        section.classList.toggle('collapsed');
+      });
+    }
+  });
+
+  function filter(){
+    var term = input.value.trim().toLowerCase();
+    var anyVisible = false;
+    sections.forEach(function(section){
+      var items = section.querySelectorAll('.item');
+      var visible = 0;
+      items.forEach(function(item){
+        var name = item.querySelector('.name').textContent.toLowerCase();
+        var match = term === '' || name.indexOf(term) !== -1;
+        item.style.display = match ? '' : 'none';
+        if(match) visible++;
+      });
+      var countEl = section.querySelector('.count');
+      if(countEl) countEl.textContent = visible + (visible === 1 ? ' item' : ' itens');
+      if(term !== '' && visible > 0) section.classList.remove('collapsed');
+      section.style.display = visible === 0 ? 'none' : '';
+      if(visible > 0) anyVisible = true;
+    });
+    noResults.style.display = anyVisible ? 'none' : 'block';
+  }
+
+  if(input) input.addEventListener('input', filter);
+})();
+</script>
